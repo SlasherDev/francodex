@@ -519,11 +519,11 @@ export default function Details() {
                 <View style={{ flex: 1, alignItems: 'flex-end', margin: 5 }}>
                     {storage.includes(id) ?
                         <Pressable onPress={deleteItem}>
-                            <MaterialCommunityIcons name="pokeball" size={32} color={'#050689'} />
+                            <MaterialIcons name="catching-pokemon" size={32} color={'#890605'} />
                         </Pressable>
                         :
                         <Pressable onPress={addItem}>
-                            <MaterialIcons name="catching-pokemon" size={32} color={'#890605'} />
+                            <MaterialCommunityIcons name="pokeball" size={32} color={'#050689'} />
                         </Pressable>
                     }
                 </View>

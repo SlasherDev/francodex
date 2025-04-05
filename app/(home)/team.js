@@ -1,6 +1,6 @@
 import { Dimensions, FlatList, Image, Modal, StyleSheet, Text, View, Pressable, Alert } from "react-native";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import context from "../../context";
 
 export default function Equipe() {
@@ -14,7 +14,7 @@ export default function Equipe() {
 
     const fetchAPI = async (data) => {
         const promises = data.map(
-            id => fetch('https://tyradex.tech/api/v1/pokemon/' + id)
+            id => fetch('https://tyradex.vercel.app/api/v1/pokemon/' + id)
                 .then(res => res.json())
                 .catch(console.error)
         )
@@ -49,7 +49,7 @@ export default function Equipe() {
                 <Image style={styles.picture} source={{ uri: item.sprites?.regular }} />
                 </View>
                 <Pressable onPress={() => handleSelect(item)}>
-                    <MaterialCommunityIcons name="pokeball" size={40} color={'#050689'} />
+                    <MaterialIcons name="catching-pokemon" size={40} color={'#890605'} />
                 </Pressable>
             </View>
         )
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 10,
         alignItems: 'center',
-        backgroundColor: 'green',
+        borderColor: '#cdcdcd',
+        borderWidth: 2
     },
     lastItem: {
         marginRight:15
@@ -76,7 +77,6 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: "bold",
         margin:10,
-        color: "#FFF"
     },
     picture: {
         width: 150,
