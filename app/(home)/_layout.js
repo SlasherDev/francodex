@@ -2,13 +2,16 @@ import { Tabs } from "expo-router";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { View } from "react-native-web";
 import { Drawer } from 'expo-router/drawer';
+import { Text } from "react-native";
+import CustomDrawer from "../componants/CustomDrawer";
 
 export default function Layout() {
     return (
-        <Drawer screenOptions={{headerStyle: { backgroundColor: '#CC0000' },
+        <Drawer drawerContent={props => <CustomDrawer {...props} />} screenOptions={{headerStyle: { backgroundColor: '#CC0000' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold', textTransform: 'capitalize' },
         tabBarShowLabel: false, tabBarActiveBackgroundColor: '#05068955' }}>
+           
             <Drawer.Screen
                 name="index"
                 options={{ title: 'Pokédex',headerShown: true, drawerIcon: () => <Ionicons name="list" size={32} color={'#050689'} /> }}
