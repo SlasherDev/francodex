@@ -21,6 +21,11 @@ export default function Layout() {
                 name="filter"
                 options={{ title: 'Filtre avancé', drawerIcon: () => <Ionicons name="filter" size={32} color={'#050689'} /> }}
             />
+            <Drawer.Screen
+                name="Trainer"
+                options={{ title: 'Fiche Dresseur', drawerIcon: () => <Ionicons name="person-circle" size={32} color={'#050689'} /> }}
+            />
+           
         </Drawer>
     )
 }
