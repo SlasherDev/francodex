@@ -85,7 +85,7 @@ export default function filter() {
             speedSign: 'max', speedNbr: ''
         };
         setpokeForm(defaultFilter);
-
+        setFiltredPokemon(pokemons);
         router.push('/');
     }
     const handlesubmit = (e) => {
