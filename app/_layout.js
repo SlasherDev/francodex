@@ -8,9 +8,16 @@ export default function Layout() {
 
     const [filtredPokemon, setFiltredPokemon] = useState([])
     const { storage, setStorage } = useStorage('team', [])
+    const { storage: trainer, setStorage: setTrainer } = useStorage('trainer', {
+        firstName: '',
+        age: '',
+        region: '',
+        genre: '',
+        city: ''
+      });
 
     return (
-        <Context.Provider value={{ filtredPokemon, setFiltredPokemon, storage, setStorage }}>
+        <Context.Provider value={{ filtredPokemon, setFiltredPokemon, storage, setStorage, trainer, setTrainer  }}>
             <View style={{ flex: 1 }}>
             <Stack screenOptions={{headerStyle: { backgroundColor: '#CC0000' },
         headerTintColor: '#fff',

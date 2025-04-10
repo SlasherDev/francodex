@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useContext } from 'react';
+import context from '../../context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const { regions_with_cities } = require('../regions_pokemon.json');
 
 export default function TrainerEditForm({ onCancel }) {
-    const [trainerForm, setTrainerForm] = useState({
-        firstName: '',
-        age: '',
-        region: '',
-        genre: '',
-        city: ''
-    });
-
-    const [selectedRegion, setSelectedRegion] = useState('');
-    const [selectedCity, setSelectedCity] = useState('');
+    const { trainer, setTrainer } = useContext(context);
+    const [trainerForm, setTrainerForm] = useState(trainer);
 
     // Récupérer les villes de la région sélectionnée
-    const cities = regions_with_cities[selectedRegion] || [];
+    const cities = regions_with_cities[trainerForm.region] || [];
 
     // Fonction pour gérer le changement des champs
     const handleChange = (name, value) => {
@@ -25,7 +21,6 @@ export default function TrainerEditForm({ onCancel }) {
 
     // Lorsque la région change, réinitialiser la ville sélectionnée
     const handleRegionChange = (region) => {
-        setSelectedRegion(region);
         setTrainerForm((prev) => ({
             ...prev,
             region: region,
@@ -33,9 +28,21 @@ export default function TrainerEditForm({ onCancel }) {
         }));
     };
 
+    const handleReset = () => {
+        const defaultTrainer = {
+            firstName: '',
+            age: '',
+            region: '',
+            genre: '',
+            city: ''
+        };
+        setTrainer(defaultTrainer);
+        onCancel()
+    }
+
     const handleSave = () => {
-        console.log(trainerForm);
-        //onCancel(); // Décommente si tu veux appeler la fonction d'annulation après la sauvegarde
+        setTrainer(trainerForm); // Sauvegarder le dresseur dans le contexte
+        onCancel(); // Appeler la fonction d'annulation
     };
 
     return (
@@ -65,8 +72,11 @@ export default function TrainerEditForm({ onCancel }) {
                 style={styles.picker}
                 onValueChange={(value) => handleChange('genre', value)}
             >
+                <Picker.Item label={'Sélectionner le genre'} value={''} />
+                <Picker.Item label={'N/A'} value={'N/A'} />
                 <Picker.Item label={'Dresseur'} value={'Dresseur'} />
                 <Picker.Item label={'Dresseuse'} value={'Dresseuse'} />
+                <Picker.Item label={'Dresseur·euse'} value={'Dresseur·euse'} />
             </Picker>
 
             <Text>Choisir la région</Text>
@@ -75,13 +85,14 @@ export default function TrainerEditForm({ onCancel }) {
                 style={styles.picker}
                 onValueChange={handleRegionChange}
             >
+                <Picker.Item label={'Sélectionner une région'} value={''} />
                 {Object.keys(regions_with_cities).map((region) => (
                     <Picker.Item label={region} value={region} key={region} />
                 ))}
             </Picker>
 
             {/* Sélectionner la ville en fonction de la région */}
-            {selectedRegion && (
+            {trainerForm.region && (
                 <>
                     <Text>Choisir la ville</Text>
                     <Picker
@@ -89,19 +100,27 @@ export default function TrainerEditForm({ onCancel }) {
                         style={styles.picker}
                         onValueChange={(value) => handleChange('city', value)}
                     >
+                        <Picker.Item label={'Sélectionner une ville'} value={''} />
                         {cities.map((city, index) => (
                             <Picker.Item label={city} value={city} key={index} />
                         ))}
                     </Picker>
                 </>
             )}
-            <View style={styles.buttonStyle}>
-            <Button color={'green'} title="Enregistrer" onPress={handleSave} />
+            <View style={styles.buttonContainer}>
+                <View style={styles.buttonStyle}>
+                    <Button color={'green'} title="Enregistrer" onPress={handleSave} />
+                </View>
             </View>
             <View style={styles.buttonContainer}>
-            <View style={styles.buttonStyle}>
-            <Button color={"#CC0000"} title="Annuler" onPress={onCancel} />
+                <View style={styles.buttonStyle}>
+                    <Button color={"blue"} title="Reinitialiser la fiche Dresseur" onPress={handleReset} />
+                </View>
             </View>
+            <View style={styles.buttonContainer}>
+                <View style={styles.buttonStyle}>
+                    <Button color={"#CC0000"} title="Annuler" onPress={onCancel} />
+                </View>
             </View>
         </View>
     );
@@ -121,14 +140,11 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         padding: 10,
     },
-    picker: {
-        
-    },
+    picker: {},
     buttonContainer: {
-
     },
     buttonStyle: {
-        margin:16, 
-
+        margin: 16,
+        
     },
 });

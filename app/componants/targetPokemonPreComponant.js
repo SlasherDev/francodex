@@ -1,9 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { Image, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import context from "../../context";
 
 export default function TargetPokemonPreComponant({ targetpokemon }) {
  //console.log("data :", targetpokemon);
+
+ const styles = StyleSheet.create({
+         image: {
+             borderRadius: 12.5,
+             width: 25,
+             height: 25
+         },
+     });
 
   function buildPokemonUrl(id) {
     return `https://tyradex.vercel.app/api/v1/pokemon/${id}`;
@@ -43,6 +51,20 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
               source={{ uri: pokemon?.sprites?.regular }}
             />
             {targetData && <Text>{targetData.condition}</Text>}
+            <View style={{ flexDirection: "row", gap: 20, paddingBottom: 10 }} >
+                            {pokemon?.types.map((type, typeId) => {
+                                return (
+                                    <View key={`${pokemon.pokedex_id}-${typeId}`} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                                        <Image
+                                            style={styles.image}
+                                            source={{ uri: type.image }}
+                                            accessibilityLabel={type.name}
+                                        />
+                                        <Text>{type.name}</Text>
+                                    </View>
+                                );
+                            })}
+                        </View>
           </View>
         );
       })}
