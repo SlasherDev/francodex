@@ -13,7 +13,8 @@ export default function Layout() {
         age: '',
         region: '',
         genre: '',
-        city: ''
+        city: '',
+        type: ''
       });
 
     return (

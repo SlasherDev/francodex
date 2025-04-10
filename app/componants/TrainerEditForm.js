@@ -34,8 +34,9 @@ export default function TrainerEditForm({ onCancel }) {
             age: '',
             region: '',
             genre: '',
-            city: ''
-        };
+            city: '',
+            type: ''
+                };
         setTrainer(defaultTrainer);
         onCancel()
     }
@@ -44,6 +45,14 @@ export default function TrainerEditForm({ onCancel }) {
         setTrainer(trainerForm); // Sauvegarder le dresseur dans le contexte
         onCancel(); // Appeler la fonction d'annulation
     };
+
+    const [types, setTypes] = useState([]);
+    useEffect(() => {
+        fetch("https://tyradex.vercel.app/api/v1/types")
+            .then(res => res.json())
+            .then(data => setTypes(data))
+            .catch(console.error)
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -107,6 +116,17 @@ export default function TrainerEditForm({ onCancel }) {
                     </Picker>
                 </>
             )}
+
+            <Text>Choisir le type de prédilection</Text>
+            <Picker
+                selectedValue={trainerForm.type}
+                onValueChange={(value) => handleChange('type', value)}
+            >
+                <Picker.Item label={'Sélectionner un type'} value={''} />
+                {types?.map((type) => (
+  <Picker.Item label={type.name.fr} value={type.name.fr} key={type.name.fr} />
+))}
+            </Picker>
             <View style={styles.buttonContainer}>
                 <View style={styles.buttonStyle}>
                     <Button color={'green'} title="Enregistrer" onPress={handleSave} />
@@ -132,8 +152,9 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     title: {
-        fontSize: 24,
+        fontSize: 20,
         marginBottom: 20,
+        fontWeight: 'bold',
     },
     input: {
         borderWidth: 1,
@@ -145,6 +166,6 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         margin: 16,
-        
+
     },
 });
