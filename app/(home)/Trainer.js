@@ -32,8 +32,8 @@ export default function Trainer() {
             {/* Affichage des informations du dresseur */}
             <View style={{ flex: 1 }}>
                 {trainer.firstName ? (
-                    
-                    <View style={{marginBottom: 12, borderWidth: 1, borderColor: '#ccc', padding: 10, borderRadius: 5 }}>
+
+                    <View style={{ marginBottom: 12, borderWidth: 2, borderColor: 'gray', padding: 10, borderRadius: 5 }}>
                         <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 15, textAlign: 'center' }}>{trainer.firstName}</Text>
                         <View>
                             <Image
@@ -47,31 +47,82 @@ export default function Trainer() {
                                 }}
                             />
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 5 }}>
-  {/* Icônes */}
-  <View style={{ alignItems: 'center', margin: 5 }}>
-    <FontAwesome style={{ fontSize: 14, margin: 5 }} name="birthday-cake" />
-    <FontAwesome5 style={{ fontSize: 14, margin: 5 }} name="genderless" />
-    <FontAwesome6 style={{ fontSize: 14, margin: 5 }} name="location-dot" />
-    <FontAwesome6 style={{ fontSize: 14, margin: 5 }} name="house-chimney" />
-  </View>
+                        <View style={{ margin: 5 }}>
+                            {/* Ligne 1 - Icône Âge */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
+                                {/* Icône */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <FontAwesome style={{ fontSize: 14, marginRight: 10 }} name="birthday-cake" />
+                                </View>
 
-  {/* Titres */}
-  <View style={{ alignItems: 'center', justifyContent: 'center', margin: 5 }}>
-    <Text style={{ fontSize: 14, margin: 5 }}>Âge</Text>
-    <Text style={{ fontSize: 14, margin: 5 }}>Genre</Text>
-    <Text style={{ fontSize: 14, margin: 5 }}>Région</Text>
-    <Text style={{ fontSize: 14, margin: 5 }}>Ville</Text>
-  </View>
+                                {/* Titre */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>Âge</Text>
+                                </View>
 
-  {/* Valeurs */}
-  <View style={{ alignItems: 'center', justifyContent: 'center', margin: 5 }}>
-    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.age}</Text>
-    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.genre}</Text>
-    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.region}</Text>
-    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.city}</Text>
-  </View>
-</View>
+                                {/* Donnée */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>{trainer.age}</Text>
+                                </View>
+                            </View>
+
+                            {/* Ligne 2 - Icône Genre */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
+                                {/* Icône */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <FontAwesome5 style={{ fontSize: 14, marginRight: 10 }} name="genderless" />
+                                </View>
+
+                                {/* Titre */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>Genre</Text>
+                                </View>
+
+                                {/* Donnée */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>{trainer.genre}</Text>
+                                </View>
+                            </View>
+
+                            {/* Ligne 3 - Icône Région */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
+                                {/* Icône */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <FontAwesome6 style={{ fontSize: 14, marginRight: 10 }} name="location-dot" />
+                                </View>
+
+                                {/* Titre */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>Région</Text>
+                                </View>
+
+                                {/* Donnée */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>{trainer.region}</Text>
+                                </View>
+                            </View>
+
+                            {/* Ligne 4 - Icône Ville */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
+                                {/* Icône */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <FontAwesome6 style={{ fontSize: 14, marginRight: 10 }} name="house-chimney" />
+                                </View>
+
+                                {/* Titre */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>Ville</Text>
+                                </View>
+
+                                {/* Donnée */}
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>{trainer.city}</Text>
+                                </View>
+                            </View>
+                        </View>
+
+
+
 
                         {selectedType && (
                             <View style={{
