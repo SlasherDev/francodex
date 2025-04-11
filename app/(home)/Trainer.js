@@ -26,99 +26,106 @@ export default function Trainer() {
     }
 
     return (
-        <View style={{ flex: 1, padding: 16 }}>
+        <View style={{ flex: 1, padding: 16  }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 16 }}>Fiche Dresseur</Text>
 
             {/* Affichage des informations du dresseur */}
             <View style={{ flex: 1 }}>
                 {trainer.firstName ? (
 
-                    <View style={{ marginBottom: 12, borderWidth: 2, borderColor: 'gray', padding: 10, borderRadius: 5 }}>
+                    <View style={{ justifyContent: 'space-between', height: "90%", borderWidth: 2, borderColor: 'gray', padding: 10, borderRadius: 5 }}>
                         <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 15, textAlign: 'center' }}>{trainer.firstName}</Text>
-                        <View>
+                        {trainer.profilePic && profileImages[trainer.profilePic] ? (
                             <Image
                                 source={profileImages[trainer.profilePic]}
                                 style={{
-                                    width: 100,
-                                    height: 100,
-                                    borderRadius: 50,
+                                    width: 150,
+                                    height: 150,
+                                    borderRadius: 150,
                                     marginBottom: 12,
                                     alignSelf: 'center',
                                 }}
                             />
-                        </View>
+                        ) : null}
                         <View style={{ margin: 5 }}>
-                            {/* Ligne 1 - Icône Âge */}
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
+                            {trainer.age ? (
+                                /// Ligne 1 - Icône Age
+                                <View style={styles.container}>
+                                    {/* Icône */}
+                                    <View style={ styles.element }>
+                                        <FontAwesome style={styles.icon} name="birthday-cake" />
+                                    </View>
+
+                                    {/* Titre */}
+                                    <View style={ styles.element}>
+                                        <Text style={styles.label}>Âge</Text>
+                                    </View>
+
+                                    {/* Donnée */}
+                                    <View style={ styles.element}>
+                                        <Text style={styles.value}>{trainer.age}</Text>
+                                    </View>
+                                </View>
+                            ) : null}
+
+                            {trainer.genre ? (
+                                /// Ligne 2 - Icône Genre
+                                <View  style={styles.container}>
+                                    {/* Icône */}
+                                    <View style={ styles.element}>
+                                        <FontAwesome5 style={styles.icon} name="genderless" />
+                                    </View>
+
+                                    {/* Titre */}
+                                    <View  style={ styles.element}> 
+                                        <Text style={styles.label}>Genre</Text>
+                                    </View>
+
+                                    {/* Donnée */}
+                                    <View  style={ styles.element}>
+                                        <Text style={styles.value}>{trainer.genre}</Text>
+                                    </View>
+                                </View>
+                            ) : null}
+
+                            {trainer.region ? (
+                                /// Ligne 3 - Icône Ville
+                                <View  style={styles.container}>
+                                    {/* Icône */}
+                                    <View  style={ styles.element}>
+                                        <FontAwesome6 style={styles.icon} name="location-dot" />
+                                    </View>
+
+                                    {/* Titre */}
+                                    <View  style={ styles.element}>
+                                        <Text style={styles.label}>Région</Text>
+                                    </View>
+
+                                    {/* Donnée */}
+                                    <View  style={ styles.element}>
+                                        <Text style={styles.value}>{trainer.region}</Text>
+                                    </View>
+                                </View>
+                            ) : null}
+                            {trainer.city ? (
+                            // Ligne 4 - Icône Ville
+                            <View  style={styles.container}>
                                 {/* Icône */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <FontAwesome style={{ fontSize: 14, marginRight: 10 }} name="birthday-cake" />
+                                <View style={ styles.element}>
+                                    <FontAwesome6 style={styles.icon} name="house-chimney" />
                                 </View>
 
                                 {/* Titre */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>Âge</Text>
+                                <View style={ styles.element}>
+                                    <Text style={styles.label}>Ville</Text>
                                 </View>
 
                                 {/* Donnée */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>{trainer.age}</Text>
+                                <View  style={ styles.element}>
+                                    <Text style={styles.value} >{trainer.city}</Text>
                                 </View>
                             </View>
-
-                            {/* Ligne 2 - Icône Genre */}
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
-                                {/* Icône */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <FontAwesome5 style={{ fontSize: 14, marginRight: 10 }} name="genderless" />
-                                </View>
-
-                                {/* Titre */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>Genre</Text>
-                                </View>
-
-                                {/* Donnée */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>{trainer.genre}</Text>
-                                </View>
-                            </View>
-
-                            {/* Ligne 3 - Icône Région */}
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
-                                {/* Icône */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <FontAwesome6 style={{ fontSize: 14, marginRight: 10 }} name="location-dot" />
-                                </View>
-
-                                {/* Titre */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>Région</Text>
-                                </View>
-
-                                {/* Donnée */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>{trainer.region}</Text>
-                                </View>
-                            </View>
-
-                            {/* Ligne 4 - Icône Ville */}
-                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, width: '100%' }}>
-                                {/* Icône */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <FontAwesome6 style={{ fontSize: 14, marginRight: 10 }} name="house-chimney" />
-                                </View>
-
-                                {/* Titre */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>Ville</Text>
-                                </View>
-
-                                {/* Donnée */}
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>{trainer.city}</Text>
-                                </View>
-                            </View>
+                            ) : null}
                         </View>
 
 
@@ -129,7 +136,7 @@ export default function Trainer() {
                                 alignItems: 'center', // aligne à gauche
                                 margin: 5,
                             }}>
-                                <Text style={{ fontSize: 14, margin: 5 }}>Type de prédilection</Text>
+                                <Text style={{ fontWeight: 'bold', fontSize: 14, margin: 5 }}>Type de prédilection</Text>
 
                                 <Image
                                     source={{ uri: selectedType.sprites }}
@@ -170,3 +177,28 @@ export default function Trainer() {
         </View>
     );
 }
+
+
+    const styles = {
+        container: {
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 10,
+          width: '100%',
+        },
+        element: {
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        icon: {
+          fontSize: 16,
+        },
+        label: {
+          fontSize: 16,
+          fontWeight: 'bold',
+        },
+        value: {
+          fontSize: 16,
+        },
+      }
