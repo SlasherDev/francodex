@@ -1,359 +1,204 @@
 {
-  "regions_with_cities": {
-    "Kanto": [
-      "Bourg Palette",
-      "Jadielle",
-      "Argenta",
-      "Azuria",
-      "Carmin-sur-Mer",
-      "Lavanville",
-      "Céladopole",
-      "Safrania",
-      "Parmanie",
-      "Cramois'île"
-    ],
-    "Johto": [
-      "Bourg Geon",
-      "Ville Griotte",
-      "Mauville",
-      "Écorcia",
-      "Doublonville",
-      "Rosalia",
-      "Irisia",
-      "Acajou",
-      "Ébèneville"
-    ],
-    "Hoenn": [
-      "Bourg-en-Vol",
-      "Rosyères",
-      "Clémenti-ville",
-      "Mérouville",
-      "Vergazon",
-      "Lavandia",
-      "Poivressel",
-      "Autéquia",
-      "Cimetronelle",
-      "Nénucrique",
-      "Atalanopolis",
-      "Pacifiville"
-    ],
-    "Sinnoh": [
-      "Bourg-en-Brin",
-      "Bonaugure",
-      "Féli-Cité",
-      "Charbourg",
-      "Floraville",
-      "Unionpolis",
-      "Vestigion",
-      "Voilaroc",
-      "Célestia",
-      "Frimapic",
-      "Rivamar"
-    ],
-    "Unys": [
-      "Renouet",
-      "Arabelle",
-      "Ogoesse",
-      "Maillard",
-      "Méanville",
-      "Port Yoneuve",
-      "Parsemille",
-      "Flocombe",
-      "Janusia",
-      "Pile ou Face",
-      "Kobla",
-      "Entrelasque"
-    ],
-    "Kalos": [
-      "Bourg Croquis",
-      "Neuvartault",
-      "Illumis",
-      "Fort-Vanitas",
-      "Relifac-le-Haut",
-      "Port Tempères",
-      "Mozheim",
-      "Cromlac'h",
-      "Roche-sur-Gliffe"
-    ],
-    "Alola": [
-      "Lili'i",
-      "Ekaeka",
-      "Ho'ohale",
-      "Konikoni",
-      "Ohana",
-      "Kokohio",
-      "Malié",
-      "Kantai",
-      "Kaeka",
-      "Poni",
-      "Poni Grand Canyon"
-    ],
-    "Galar": [
-      "Paddoxton",
-      "Greenbury",
-      "Motorby",
-      "Kickenham",
-      "OldChister",
-      "Corrifey",
-      "Skifford",
-      "Smashings",
-      "Hammerlocke",
-      "Kudlow",
-      "Winscor"
-    ],
-    "Paldea": [
-      "Pueblo Los Tazones",
-      "Levalendura",
-      "Mesaledo",
-      "Jarramanca",
-      "Frigao",
-      "Marinada",
-      "Porto Marinada",
-      "Ciudad Leudal",
-      "Napada",
-      "Pico Nevado"
-    ]
-  },
-  "regions_with_arenas": {
-    "Kanto": [
-      {
-        "arene": "Argenta",
-        "badge": "Roche"
-      },
-      {
-        "arene": "Azuria",
-        "badge": "Cascade"
-      },
-      {
-        "arene": "Carmin-sur-Mer",
-        "badge": "Foudre"
-      },
-      {
-        "arene": "Céladopole",
-        "badge": "Prisme"
-      },
-      {
-        "arene": "Parmanie",
-        "badge": "Âme"
-      },
-      {
-        "arene": "Safrania",
-        "badge": "Marais"
-      },
-      {
-        "arene": "Cramois'île",
-        "badge": "Volcan"
-      },
-      {
-        "arene": "Jadielle",
-        "badge": "Terre"
-      }
-    ],
-    "Johto": [
-      {
-        "arene": "Mauville",
-        "badge": "Zéphyr"
-      },
-      {
-        "arene": "Écorcia",
-        "badge": "Essaim"
-      },
-      {
-        "arene": "Doublonville",
-        "badge": "Plain"
-      },
-      {
-        "arene": "Rosalia",
-        "badge": "Brume"
-      },
-      {
-        "arene": "Irisia",
-        "badge": "Âme"
-      },
-      {
-        "arene": "Acajou",
-        "badge": "Glacier"
-      },
-      {
-        "arene": "Ébèneville",
-        "badge": "Volcan"
-      },
-      {
-        "arene": "Carmin-sur-Mer (retour)",
-        "badge": "Tempête"
-      }
-    ],
-    "Hoenn": [
-      {
-        "arene": "Mérouville",
-        "badge": "Pierre"
-      },
-      {
-        "arene": "Myokara",
-        "badge": "Poing"
-      },
-      {
-        "arene": "Lavandia",
-        "badge": "Dynamo"
-      },
-      {
-        "arene": "Poivressel",
-        "badge": "Chaleur"
-      },
-      {
-        "arene": "Autéquia",
-        "badge": "Balance"
-      },
-      {
-        "arene": "Cimetronelle",
-        "badge": "Plume"
-      },
-      {
-        "arene": "Algatia",
-        "badge": "Esprit"
-      },
-      {
-        "arene": "Atalanopolis",
-        "badge": "Pluie"
-      }
-    ],
-    "Sinnoh": [
-      {
-        "arene": "Charbourg",
-        "badge": "Charbon"
-      },
-      {
-        "arene": "Vestigion",
-        "badge": "Forêt"
-      },
-      {
-        "arene": "Voilaroc",
-        "badge": "Cobble"
-      },
-      {
-        "arene": "Unionpolis",
-        "badge": "Fantôme"
-      },
-      {
-        "arene": "Frimapic",
-        "badge": "Glacier"
-      },
-      {
-        "arene": "Rivamar",
-        "badge": "Volt"
-      },
-      {
-        "arene": "Célestia",
-        "badge": "Mine"
-      },
-      {
-        "arene": "Jubilife (Pokétch Center)",
-        "badge": "Jet"
-      }
-    ],
-    "Unys": [
-      {
-        "arene": "Ogoesse",
-        "badge": "Basique"
-      },
-      {
-        "arene": "Maillard",
-        "badge": "Toxic"
-      },
-      {
-        "arene": "Méville",
-        "badge": "Insecte"
-      },
-      {
-        "arene": "Port Yoneuve",
-        "badge": "Foudre"
-      },
-      {
-        "arene": "Parsemille",
-        "badge": "Glace"
-      },
-      {
-        "arene": "Flocombe",
-        "badge": "Draco"
-      },
-      {
-        "arene": "Janusia",
-        "badge": "Jet"
-      },
-      {
-        "arene": "Kudlak",
-        "badge": "Légende"
-      }
-    ],
-    "Kalos": [
-      {
-        "arene": "Neuvartault",
-        "badge": "Insecte"
-      },
-      {
-        "arene": "Relifac-le-Haut",
-        "badge": "Roche"
-      },
-      {
-        "arene": "Illumis",
-        "badge": "Foudre"
-      },
-      {
-        "arene": "Cromlac'h",
-        "badge": "Plante"
-      },
-      {
-        "arene": "Mozheim",
-        "badge": "Fée"
-      },
-      {
-        "arene": "Romant-sous-Bois",
-        "badge": "Psy"
-      },
-      {
-        "arene": "La Frescale",
-        "badge": "Glace"
-      },
-      {
-        "arene": "Roche-sur-Gliffe",
-        "badge": "Combat"
-      }
-    ],
-    "Alola": "Pas d'arènes traditionnelles – système de défis d'île et de doyens.",
-    "Galar": [
-      {
-        "arene": "Greenbury",
-        "badge": "Plante"
-      },
-      {
-        "arene": "Motorby",
-        "badge": "Feu"
-      },
-      {
-        "arene": "Kickenham",
-        "badge": "Eau"
-      },
-      {
-        "arene": "OldChister",
-        "badge": "Spectre"
-      },
-      {
-        "arene": "Skifford",
-        "badge": "Fée"
-      },
-      {
-        "arene": "Corrifey",
-        "badge": "Glace"
-      },
-      {
-        "arene": "Smashings",
-        "badge": "Roche"
-      },
-      {
-        "arene": "Winscor",
-        "badge": "Dragon"
-      }
-    ],
-    "Paldea": "Pas d’arènes classiques – système de ligue Pokémon avec tests + champion par type"
-  }
+    "regions_with_cities": {
+        "Kanto": [
+            "Bourg Palette",
+            "Jadielle",
+            "Argenta",
+            "Azuria",
+            "Carmin-sur-Mer",
+            "Lavanville",
+            "Céladopole",
+            "Safrania",
+            "Parmanie",
+            "Cramois'île"
+        ],
+        "Johto": [
+            "Bourg Geon",
+            "Ville Griotte",
+            "Mauville",
+            "Écorcia",
+            "Doublonville",
+            "Rosalia",
+            "Irisia",
+            "Acajou",
+            "Ébèneville"
+        ],
+        "Hoenn": [
+            "Bourg-en-Vol",
+            "Rosyères",
+            "Clémenti-ville",
+            "Mérouville",
+            "Vergazon",
+            "Lavandia",
+            "Poivressel",
+            "Autéquia",
+            "Cimetronelle",
+            "Nénucrique",
+            "Atalanopolis",
+            "Pacifiville"
+        ],
+        "Sinnoh": [
+            "Bourg-en-Brin",
+            "Bonaugure",
+            "Féli-Cité",
+            "Charbourg",
+            "Floraville",
+            "Unionpolis",
+            "Vestigion",
+            "Voilaroc",
+            "Célestia",
+            "Frimapic",
+            "Rivamar"
+        ],
+        "Unys": [
+            "Renouet",
+            "Arabelle",
+            "Ogoesse",
+            "Maillard",
+            "Méanville",
+            "Port Yoneuve",
+            "Parsemille",
+            "Flocombe",
+            "Janusia",
+            "Pile ou Face",
+            "Kobla",
+            "Entrelasque"
+        ],
+        "Kalos": [
+            "Bourg Croquis",
+            "Neuvartault",
+            "Illumis",
+            "Fort-Vanitas",
+            "Relifac-le-Haut",
+            "Port Tempères",
+            "Mozheim",
+            "Cromlac'h",
+            "Roche-sur-Gliffe"
+        ],
+        "Alola": [
+            "Lili'i",
+            "Ekaeka",
+            "Ho'ohale",
+            "Konikoni",
+            "Ohana",
+            "Kokohio",
+            "Malié",
+            "Kantai",
+            "Kaeka",
+            "Poni",
+            "Poni Grand Canyon"
+        ],
+        "Galar": [
+            "Paddoxton",
+            "Greenbury",
+            "Motorby",
+            "Kickenham",
+            "OldChister",
+            "Corrifey",
+            "Skifford",
+            "Smashings",
+            "Hammerlocke",
+            "Kudlow",
+            "Winscor"
+        ],
+        "Paldea": [
+            "Pueblo Los Tazones",
+            "Levalendura",
+            "Mesaledo",
+            "Jarramanca",
+            "Frigao",
+            "Marinada",
+            "Porto Marinada",
+            "Ciudad Leudal",
+            "Napada",
+            "Pico Nevado"
+        ]
+    },
+    "profilePic": [
+    {
+        "name": "Agent Jenny",
+        "pic": "agt_jenny.jpg"
+    },
+    {
+        "name": "Aurore",
+        "pic": "aurore.jpg"
+    },
+    {
+        "name": "Clem",
+        "pic": "clem.jpg"
+    },
+    {
+        "name": "Cynthia",
+        "pic": "cynthia.jpg"
+    },
+    {
+        "name": "Flora",
+        "pic": "flora.jpg"
+    },
+    {
+        "name": "Giovanni",
+        "pic": "giovanni.jpg"
+    },
+    {
+        "name": "Infirmière Joëlle",
+        "pic": "inf_joelle.jpg"
+    },
+    {
+        "name": "Jacky",
+        "pic": "jacky.jpg"
+    },
+    {
+        "name": "James",
+        "pic": "james.jpg"
+    },
+    {
+        "name": "Jessie",
+        "pic": "jessie.jpg"
+    },
+    {
+        "name": "Kiawe",
+        "pic": "kiawe.jpg"
+    },
+    {
+        "name": "Lillie",
+        "pic": "lillie.jpg"
+    },
+    {
+        "name": "Max",
+        "pic": "max.jpg"
+    },
+    {
+        "name": "Miaouss",
+        "pic": "miaouss.jpg"
+    },
+    {
+        "name": "Ondine",
+        "pic": "ondine.jpg"
+    },
+    {
+        "name": "Pierre",
+        "pic": "pierre.jpg"
+    },
+    {
+        "name": "Pikachu",
+        "pic": "pikachu.jpg"
+    },
+    {
+        "name": "Professeur Chen",
+        "pic": "prof_chen.jpg"
+    },
+    {
+        "name": "Régis",
+        "pic": "regis.jpg"
+    },
+    {
+        "name": "Sacha",
+        "pic": "sacha.jpg"
+    },
+    {
+        "name": "Serena",
+        "pic": "serena.jpg"
+    }
+]
+
 }

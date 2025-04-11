@@ -1,9 +1,10 @@
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { Text, View, Pressable, Image } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import TrainerEditForm from "../componants/TrainerEditForm";
 import { useStorage } from "../../utils";
 import context from "../../context";
+import profileImages from '../utils/imageMapper';
 
 export default function Trainer() {
     const [isEditing, setIsEditing] = useState(false);
@@ -31,22 +32,53 @@ export default function Trainer() {
             {/* Affichage des informations du dresseur */}
             <View style={{ flex: 1 }}>
                 {trainer.firstName ? (
-                    <View style={{ flexDirection: 'row', marginBottom: 12, borderWidth: 1, borderColor: '#ccc', padding: 10, borderRadius: 5 }}>
-                        <View style={{ flex: 1, }}>
-                            <Text style={{ fontSize: 14 }}>Prénom: {trainer.firstName}</Text>
-                            <Text style={{ fontSize: 14 }}>Âge: {trainer.age}</Text>
-                            <Text style={{ fontSize: 14 }}>Genre: {trainer.genre}</Text>
-                            <Text style={{ fontSize: 14 }}>Région: {trainer.region}</Text>
-                            <Text style={{ fontSize: 14 }}>Ville: {trainer.city}</Text>
-                            
+                    
+                    <View style={{marginBottom: 12, borderWidth: 1, borderColor: '#ccc', padding: 10, borderRadius: 5 }}>
+                        <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 15, textAlign: 'center' }}>{trainer.firstName}</Text>
+                        <View>
+                            <Image
+                                source={profileImages[trainer.profilePic]}
+                                style={{
+                                    width: 100,
+                                    height: 100,
+                                    borderRadius: 50,
+                                    marginBottom: 12,
+                                    alignSelf: 'center',
+                                }}
+                            />
                         </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 5 }}>
+  {/* Icônes */}
+  <View style={{ alignItems: 'center', margin: 5 }}>
+    <FontAwesome style={{ fontSize: 14, margin: 5 }} name="birthday-cake" />
+    <FontAwesome5 style={{ fontSize: 14, margin: 5 }} name="genderless" />
+    <FontAwesome6 style={{ fontSize: 14, margin: 5 }} name="location-dot" />
+    <FontAwesome6 style={{ fontSize: 14, margin: 5 }} name="house-chimney" />
+  </View>
+
+  {/* Titres */}
+  <View style={{ alignItems: 'center', justifyContent: 'center', margin: 5 }}>
+    <Text style={{ fontSize: 14, margin: 5 }}>Âge</Text>
+    <Text style={{ fontSize: 14, margin: 5 }}>Genre</Text>
+    <Text style={{ fontSize: 14, margin: 5 }}>Région</Text>
+    <Text style={{ fontSize: 14, margin: 5 }}>Ville</Text>
+  </View>
+
+  {/* Valeurs */}
+  <View style={{ alignItems: 'center', justifyContent: 'center', margin: 5 }}>
+    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.age}</Text>
+    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.genre}</Text>
+    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.region}</Text>
+    <Text style={{ fontSize: 14, margin: 5 }}>{trainer.city}</Text>
+  </View>
+</View>
+
                         {selectedType && (
                             <View style={{
                                 alignItems: 'center', // aligne à gauche
-                                justifyContent: 'flex-start', // positionne en haut
-                                margin:5,
+                                margin: 5,
                             }}>
-                                <Text style={{ fontSize: 16, margin:5 }}>Type de prédilection</Text>
+                                <Text style={{ fontSize: 14, margin: 5 }}>Type de prédilection</Text>
 
                                 <Image
                                     source={{ uri: selectedType.sprites }}
@@ -54,11 +86,11 @@ export default function Trainer() {
                                         borderRadius: 50,
                                         width: 50,
                                         height: 50,
-                                        margin:5,
+                                        margin: 5,
                                     }}
                                 />
 
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                                <Text style={{ margin: 5, fontSize: 14, fontWeight: 'bold' }}>
                                     {selectedType.name.fr}
                                 </Text>
                             </View>

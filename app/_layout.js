@@ -14,7 +14,9 @@ export default function Layout() {
         region: '',
         genre: '',
         city: '',
-        type: ''
+        type: '',
+        profilePic:''
+        
       });
 
     return (
