@@ -15,7 +15,8 @@ export default function Layout() {
         genre: '',
         city: '',
         type: '',
-        profilePic:''
+        profilePic:'',
+        devise: ''
         
       });
 

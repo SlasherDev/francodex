@@ -431,62 +431,64 @@ export default function Details() {
                 </ScrollView>
             )}
 
-            <View style={styles.itemContainer}>
-                <Text style={styles.sectionTitle}>Formes</Text>
-                {item.sprites.shiny && (
-                    <View style={styles.table}>
-                        <Text style={styles.subTitle}>Shiny</Text>
-                        <View style={styles.tableRow}>
-                            <View style={[styles.tableCellContainer, { gap: 10, paddingBottom: 10 }]}>
-                                <Image
-                                    style={{ width: 100, height: 100 }}
-                                    source={{ uri: item.sprites.shiny }}
-                                />
-                            </View>
-                        </View>
-                    </View>
-
-                )}
-                {item.sprites.gmax && (
-                    <View style={styles.table}>
-                        <Text style={styles.subTitle}>Gigamax</Text>
-                        <View style={styles.tableRow}>
-                            <View style={[styles.tableCellContainer, { gap: 10 }]}>
-                                <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
-                                    {item.sprites.gmax.regular && (
-                                        <View style={{ alignItems: "center", margin: 10 }}>
-                                            <Text style={{ margin: 5 }} >Normal</Text>
-                                            <Image
-                                                style={{ width: 100, height: 100 }}
-                                                source={{ uri: item.sprites.gmax.regular }}
-                                            />
-                                        </View>
-                                    )}
-                                    {item.sprites.gmax.shiny && (
-                                        <View style={{ alignItems: "center", margin: 10 }}>
-                                            <Text style={{ margin: 5 }}>Shiny</Text>
-                                            <Image
-                                                style={{ width: 100, height: 100 }}
-                                                source={{ uri: item.sprites.gmax.shiny }}
-                                            />
-                                        </View>
-                                    )}
+            {(item.sprites.shiny || item.sprites.gmax || item.formes) && (
+                <View style={styles.itemContainer}>
+                    <Text style={styles.sectionTitle}>Formes</Text>
+                    {item.sprites.shiny && (
+                        <View style={styles.table}>
+                            <Text style={styles.subTitle}>Shiny</Text>
+                            <View style={styles.tableRow}>
+                                <View style={[styles.tableCellContainer, { gap: 10, paddingBottom: 10 }]}>
+                                    <Image
+                                        style={{ width: 100, height: 100 }}
+                                        source={{ uri: item.sprites.shiny }}
+                                    />
                                 </View>
                             </View>
                         </View>
-                    </View>
-                )}
-                {item.formes && (
-                    <View style={styles.table}>
-                        <Text style={styles.subTitle}>Régionaux</Text>
-                        <View style={styles.tableRow}>
-                            <View style={[styles.tableCellContainer, { gap: 10 }]}>
-                                <TargetPokemonRegionComponant targetpokemon={{ "pokedex_id": item.pokedex_id, "region": targetPokemonRegion }} />
+
+                    )}
+                    {item.sprites.gmax && (
+                        <View style={styles.table}>
+                            <Text style={styles.subTitle}>Gigamax</Text>
+                            <View style={styles.tableRow}>
+                                <View style={[styles.tableCellContainer, { gap: 10 }]}>
+                                    <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
+                                        {item.sprites.gmax.regular && (
+                                            <View style={{ alignItems: "center", margin: 10 }}>
+                                                <Text style={{ margin: 5 }} >Normal</Text>
+                                                <Image
+                                                    style={{ width: 100, height: 100 }}
+                                                    source={{ uri: item.sprites.gmax.regular }}
+                                                />
+                                            </View>
+                                        )}
+                                        {item.sprites.gmax.shiny && (
+                                            <View style={{ alignItems: "center", margin: 10 }}>
+                                                <Text style={{ margin: 5 }}>Shiny</Text>
+                                                <Image
+                                                    style={{ width: 100, height: 100 }}
+                                                    source={{ uri: item.sprites.gmax.shiny }}
+                                                />
+                                            </View>
+                                        )}
+                                    </View>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                )}
-            </View>
+                    )}
+                    {item.formes && (
+                        <View style={styles.table}>
+                            <Text style={styles.subTitle}>Régionaux</Text>
+                            <View style={styles.tableRow}>
+                                <View style={[styles.tableCellContainer, { gap: 10 }]}>
+                                    <TargetPokemonRegionComponant targetpokemon={{ "pokedex_id": item.pokedex_id, "region": targetPokemonRegion }} />
+                                </View>
+                            </View>
+                        </View>
+                    )}
+                </View>
+            )}
         </>
     );
 

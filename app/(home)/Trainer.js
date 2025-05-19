@@ -154,13 +154,18 @@ export default function Trainer() {
                             </View>
                         )}
 
+                        {trainer.devise ? (
+                            <View style={{ margin: 5, alignItems: 'center' }}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 14, margin: 5 }}>Devise</Text>
+                                <Text style={{ margin: 5, fontSize: 14, textAlign:'center' }}>"{trainer.devise}"</Text>
+                            </View>
+                        ) : null}
+
 
 
 
                     </View>
-                ) : (
-                    <Text>Aucun dresseur enregistré pour le moment.</Text>
-                )}
+                ) : setIsEditing(true)}
             </View>
 
             {/* Bouton pour éditer */}

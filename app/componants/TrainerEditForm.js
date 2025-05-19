@@ -120,18 +120,26 @@ export default function TrainerEditForm({ onCancel }) {
 
                 <Text>Choisir le type de prédilection</Text>
                 <Picker
-  selectedValue={
-    types.some((type) => type.name.fr === trainerForm.type)
-      ? trainerForm.type
-      : ''
-  }
-  onValueChange={(value) => handleChange('type', value)}
->
-  <Picker.Item label={'Sélectionner un type'} value={''} />
-  {types.map((type) => (
-    <Picker.Item label={type.name.fr} value={type.name.fr} key={type.name.fr} />
-  ))}
-</Picker>
+                    selectedValue={
+                        types.some((type) => type.name.fr === trainerForm.type)
+                            ? trainerForm.type
+                            : ''
+                    }
+                    onValueChange={(value) => handleChange('type', value)}
+                >
+                    <Picker.Item label={'Sélectionner un type'} value={''} />
+                    {types.map((type) => (
+                        <Picker.Item label={type.name.fr} value={type.name.fr} key={type.name.fr} />
+                    ))}
+                </Picker>
+                <Text>Devise</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Rédige ta devise ici"
+                    multiline={true}
+                    value={trainerForm.devise}
+                    onChangeText={(value) => handleChange('devise', value)}
+                />
 
                 <View style={styles.preview}>
                     <Text>Image de profil sélectionnée :</Text>

@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   selectedImage: {
     borderWidth: 3,
-    borderColor: 'blue'
+    borderColor: '#cc0000'
   },
   name: {
     textAlign: 'center',
