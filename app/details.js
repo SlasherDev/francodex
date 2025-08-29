@@ -35,6 +35,8 @@ export default function Details() {
             .catch(console.error)
     }, [id])
 
+    const width = useWindowDimensions().width;
+
     useEffect(() => {
         if (pokemon && pokemon.evolution?.pre && pokemon.evolution.pre.length > 0) {
             const prePokedex = pokemon.evolution.pre.map(pre => pre);
@@ -78,9 +80,61 @@ export default function Details() {
     }
     const renderItem = ({ item, key }) => (
         <>
-            <ScrollView>
-                <View style={[styles.itemContainer, { gap: 20 }]}>
-                    <View>
+            <View style={styles.itemContainer}>
+                <ScrollView style={styles.scrollView}>
+                    <View style={{ marginBottom: 25 }}>
+                        {item.talents && (
+                            <>
+                                <View style={{ gap: 10 }}>
+                                    {item.talents
+                                        .reduce((rows, talent, index) => {
+                                            const rowIndex = Math.floor(index / 2); // 2 talents par ligne
+                                            if (!rows[rowIndex]) {
+                                                rows[rowIndex] = [];
+                                            }
+                                            rows[rowIndex].push(talent);
+                                            return rows;
+                                        }, [])
+                                        .map((row, rowIndex) => (
+                                            <View
+                                                key={rowIndex}
+                                                style={{
+                                                    flexDirection: 'row',
+                                                    justifyContent: row.length === 1 ? 'center' : 'space-around', // Centrer si 1 seul
+                                                    gap: 10,
+                                                }}
+                                            >
+                                                {row.map((talent, index) => (
+                                                    <View
+                                                        key={index}
+                                                        style={{
+                                                           // borderColor: talent.tc ? '#cc000050' : '#cdcdcd' ,
+                                                            //borderWidth: 1,
+                                                            //borderRadius: 5,
+                                                            
+                                                            flex: row.length === 1 ? 0 : 1, // pas de flex si 1 seul
+                                                            minWidth: width / 2-40, 
+                                                            justifyContent: 'center',
+                                                            flexDirection: 'column',
+                                                            
+                                                        }}
+                                                    >
+                                                        {talent.tc ? (
+                                                            <View  style={{ flexDirection: 'row', alignItems: 'center'}}>
+                                                                <Text style={{ borderTopWidth: 1, borderLeftWidth: 1, borderBottomWidth: 1, borderColor: '#cc0000', backgroundColor:'#CC0000', color: 'white', padding: 10, fontWeight: 'bold', borderTopLeftRadius: 5, borderBottomLeftRadius: 5 }}>Caché</Text>
+                                                                <Text style={{ paddingVertical: 10, borderTopWidth: 1, borderRightWidth: 1, borderBottomWidth: 1,flex : 1,  borderColor: '#cc0000',borderTopRightRadius: 5, borderBottomRightRadius: 5, textAlign: 'center'}}>{talent.name}</Text>
+                                                            </View>
+                                                        ) : <Text style={{  borderWidth: 1,borderRadius: 5,
+                                                            borderColor: '#cdcdcd', textAlign: 'center', padding: 10}}>{talent.name}</Text>}
+
+                                                    </View>
+                                                ))}
+                                            </View>
+                                        ))}
+                                </View>
+                            </>
+                        )}
+
                         <Text style={styles.sectionTitle}>Informations générales</Text>
                         <Text>génération : {item.generation}</Text>
                         <Text>{item.category}</Text>
@@ -89,18 +143,24 @@ export default function Details() {
                         <Text>Taux de capture : {item.catch_rate}</Text>
                         <Text>Exp au niveau 100 : {item.level_100}</Text>
                         {item.egg_groups && <Text>groupe d'oeuf : {item.egg_groups.join(', ')}</Text>}
-                        {item.sexe && (
+                        {item.sexe ? (
                             <View>
                                 <Text>
-                                    Sexe: <Text style={{ fontWeight: 'bold' }}>{item.sexe.female}%</Text> Femelles ; <Text style={{ fontWeight: 'bold' }}>{item.sexe.male}%</Text> Mâles
+                                    Sexe: <Text style={{ fontWeight: 'bold' }}>{item.sexe.female}%</Text> Femelle ; <Text style={{ fontWeight: 'bold' }}>{item.sexe.male}%</Text> Mâle
                                 </Text>
                                 <View style={styles.progressContainer}>
                                     <View style={[styles.progressBar, { width: `${item.sexe.female}%`, backgroundColor: 'pink' }]} />
                                     <View style={[styles.progressBar, { width: `${item.sexe.male}%`, backgroundColor: 'lightblue' }]} />
                                 </View>
                             </View>
+                        ) : (
+                            <View>
+                                <Text>Sexe: Asexué</Text>
+                                <View style={styles.progressContainer}>
+                                    <View style={styles.progressBar} />
+                                </View>
+                            </View>
                         )}
-
 
                         <View>
                             <Text style={styles.sectionTitle}>Statistiques</Text>
@@ -163,10 +223,10 @@ export default function Details() {
                             </View>
                         </View>
                     </View>
-                </View>
-            </ScrollView>
-            <ScrollView>
-                <View style={styles.itemContainer}>
+                </ScrollView>
+            </View>
+            <View style={styles.itemContainer}>
+                <ScrollView style={styles.scrollView}>
                     <Text style={styles.sectionTitle}>Sensibilités</Text>
 
                     {/* Double Faiblesse x4 */}
@@ -391,12 +451,12 @@ export default function Details() {
                             </View>
                         </View>
                     )}
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </View>
 
             {item.evolution && (
-                <ScrollView>
-                    <View style={styles.itemContainer}>
+                <View style={styles.itemContainer}>
+                    <ScrollView style={styles.scrollView}>
                         {item.evolution?.pre && (
                             <View style={styles.table}>
                                 <Text style={styles.subTitle}>Pré-évolutions</Text>
@@ -417,76 +477,94 @@ export default function Details() {
                                     {item.evolution.mega.map((mega, megaId) => (
                                         <View key={megaId} style={[styles.tableCellContainer, { gap: 10 }]}>
                                             <Text style={{ alignItems: "center", margin: 10 }}>Mega-{pokemon.name.fr}</Text>
-                                            <Image
-                                                style={{ width: 100, height: 100 }}
-                                                source={{ uri: mega.sprites.regular }}
-                                            />
+                                            <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
+                                                {mega.sprites.regular && (
+                                                    <View style={{ alignItems: "center", margin: 10 }}>
+                                                        <Text style={{ margin: 5 }} >Normal</Text>
+                                                        <Image
+                                                            style={{ width: 100, height: 100 }}
+                                                            source={{ uri: mega.sprites.regular }}
+                                                        />
+                                                    </View>
+                                                )}
+                                                {mega.sprites.shiny && (
+                                                    <View style={{ alignItems: "center", margin: 10 }}>
+                                                        <Text style={{ margin: 5 }}>Chromatique</Text>
+                                                        <Image
+                                                            style={{ width: 100, height: 100 }}
+                                                            source={{ uri: mega.sprites.shiny }}
+                                                        />
+                                                    </View>
+                                                )}
+                                            </View>
                                             <Text>{mega.orbe}</Text>
                                         </View>
                                     ))}
                                 </View>
                             </View>
                         )}
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                </View>
             )}
 
             {(item.sprites.shiny || item.sprites.gmax || item.formes) && (
                 <View style={styles.itemContainer}>
-                    <Text style={styles.sectionTitle}>Formes</Text>
-                    {item.sprites.shiny && (
-                        <View style={styles.table}>
-                            <Text style={styles.subTitle}>Shiny</Text>
-                            <View style={styles.tableRow}>
-                                <View style={[styles.tableCellContainer, { gap: 10, paddingBottom: 10 }]}>
-                                    <Image
-                                        style={{ width: 100, height: 100 }}
-                                        source={{ uri: item.sprites.shiny }}
-                                    />
-                                </View>
-                            </View>
-                        </View>
-
-                    )}
-                    {item.sprites.gmax && (
-                        <View style={styles.table}>
-                            <Text style={styles.subTitle}>Gigamax</Text>
-                            <View style={styles.tableRow}>
-                                <View style={[styles.tableCellContainer, { gap: 10 }]}>
-                                    <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
-                                        {item.sprites.gmax.regular && (
-                                            <View style={{ alignItems: "center", margin: 10 }}>
-                                                <Text style={{ margin: 5 }} >Normal</Text>
-                                                <Image
-                                                    style={{ width: 100, height: 100 }}
-                                                    source={{ uri: item.sprites.gmax.regular }}
-                                                />
-                                            </View>
-                                        )}
-                                        {item.sprites.gmax.shiny && (
-                                            <View style={{ alignItems: "center", margin: 10 }}>
-                                                <Text style={{ margin: 5 }}>Shiny</Text>
-                                                <Image
-                                                    style={{ width: 100, height: 100 }}
-                                                    source={{ uri: item.sprites.gmax.shiny }}
-                                                />
-                                            </View>
-                                        )}
+                    <ScrollView style={styles.scrollView}>
+                        <Text style={styles.sectionTitle}>Formes</Text>
+                        {item.sprites.shiny && (
+                            <View style={styles.table}>
+                                <Text style={styles.subTitle}>Chromatique</Text>
+                                <View style={styles.tableRow}>
+                                    <View style={[styles.tableCellContainer, { gap: 10, paddingBottom: 10 }]}>
+                                        <Image
+                                            style={{ width: 100, height: 100 }}
+                                            source={{ uri: item.sprites.shiny }}
+                                        />
                                     </View>
                                 </View>
                             </View>
-                        </View>
-                    )}
-                    {item.formes && (
-                        <View style={styles.table}>
-                            <Text style={styles.subTitle}>Régionaux</Text>
-                            <View style={styles.tableRow}>
-                                <View style={[styles.tableCellContainer, { gap: 10 }]}>
-                                    <TargetPokemonRegionComponant targetpokemon={{ "pokedex_id": item.pokedex_id, "region": targetPokemonRegion }} />
+
+                        )}
+                        {item.sprites.gmax && (
+                            <View style={styles.table}>
+                                <Text style={styles.subTitle}>Gigamax</Text>
+                                <View style={styles.tableRow}>
+                                    <View style={[styles.tableCellContainer, { gap: 10 }]}>
+                                        <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
+                                            {item.sprites.gmax.regular && (
+                                                <View style={{ alignItems: "center", margin: 10 }}>
+                                                    <Text style={{ margin: 5 }} >Normal</Text>
+                                                    <Image
+                                                        style={{ width: 100, height: 100 }}
+                                                        source={{ uri: item.sprites.gmax.regular }}
+                                                    />
+                                                </View>
+                                            )}
+                                            {item.sprites.gmax.shiny && (
+                                                <View style={{ alignItems: "center", margin: 10 }}>
+                                                    <Text style={{ margin: 5 }}>Chromatique</Text>
+                                                    <Image
+                                                        style={{ width: 100, height: 100 }}
+                                                        source={{ uri: item.sprites.gmax.shiny }}
+                                                    />
+                                                </View>
+                                            )}
+                                        </View>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    )}
+                        )}
+                        {item.formes && (
+                            <View style={styles.table}>
+                                <Text style={styles.subTitle}>Régionaux</Text>
+                                <View style={styles.tableRow}>
+                                    <View style={[styles.tableCellContainer, { gap: 10 }]}>
+                                        <TargetPokemonRegionComponant targetpokemon={{ "pokedex_id": item.pokedex_id, "region": targetPokemonRegion }} />
+                                    </View>
+                                </View>
+                            </View>
+                        )}
+                    </ScrollView>
                 </View>
             )}
         </>
@@ -496,7 +574,7 @@ export default function Details() {
         <View style={{ flex: 1 }}>
             <Stack.Screen options={{
                 title: pokemon?.name.fr, headerRight: () => (
-                    <Text style={{ margin: 5, color: 'white', fontWeight: 'bold', fontSize: 18 }}>#{String(pokemon?.pokedex_id).padStart(3, '0')}</Text>
+                    <Text style={{ margin: 5, color: 'white', fontWeight: 'bold', fontSize: 18 }}>#{String(pokemon?.pokedex_id).padStart(4, '0')}</Text>
                 ),
             }} />
             <View style={{ flexDirection: "row" }}>
@@ -550,16 +628,17 @@ const styles = StyleSheet.create({
     itemContainer: {
         width: Dimensions.get('window').width - 10, // Assurez-vous que l'élément prend toute la largeur
         //height: Dimensions.get('window').height,// Hauteur ajustée
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
         borderRadius: 10,
         borderColor: 'gray',
         borderWidth: 2,
-        padding: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 5,
         //justifyContent: 'space-around',
     },
-
+    scrollView: {
+        padding: 10,
+    },
     sectionTitle: {
         fontWeight: 'bold',
         fontSize: 18,
@@ -604,12 +683,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#cdcdcd',
         borderRadius: 5,
-        margin: 5,
+        marginRight: 5,
+        marginLeft: 5,
+        marginBottom: 25,
+        marginTop: 5,
+
     },
     tableRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: 10,
+
     },
     tableCellContainer: {
         flex: 1,

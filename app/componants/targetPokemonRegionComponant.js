@@ -46,7 +46,7 @@ export default function TargetPokemonRegionComponant({ targetpokemon }) {
                             )}
                             {pokemon?.sprites?.regular && (
                                 <View style={{ alignItems: "center", margin: 10 }}>
-                                    <Text>Shiny</Text>
+                                    <Text>Chromatique</Text>
                                     <Image source={{ uri: pokemon.sprites.shiny }} style={{ width: 100, height: 100 }} />
                                 </View>
                             )}

@@ -51,7 +51,7 @@ export default function TargetPokemonNextComponant({ targetpokemon }) {
               source={{ uri: pokemon?.sprites?.regular }}
             />
             {targetData && <Text>{targetData.condition}</Text>}
-            <View style={{ flexDirection: "row", gap: 20, paddingBottom: 10 }} >
+            <View style={{ flexDirection: "row", gap: 20, paddingBottom: 10, marginTop: 10 }} >
             {pokemon?.types.map((type, typeId) => {
                                 return (
                                     <View key={`${pokemon.pokedex_id}-${typeId}`} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>

@@ -21,6 +21,10 @@ export default function Layout() {
                 options={{ title: 'Équipe', drawerIcon: () => <MaterialCommunityIcons name="pokeball" size={32} color={'#050689'} /> }}
             />
             <Drawer.Screen
+                name="talents"
+                options={{ title: 'Talents', drawerIcon: () => <MaterialCommunityIcons name="lightbulb-on-outline" size={32} color={'#050689'} /> }}
+            />
+            <Drawer.Screen
                 name="filter"
                 options={{ title: 'Filtre avancé', drawerIcon: () => <Ionicons name="filter" size={32} color={'#050689'} /> }}
             />
