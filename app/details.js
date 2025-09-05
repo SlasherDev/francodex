@@ -108,10 +108,6 @@ export default function Details() {
                                                     <View
                                                         key={index}
                                                         style={{
-                                                           // borderColor: talent.tc ? '#cc000050' : '#cdcdcd' ,
-                                                            //borderWidth: 1,
-                                                            //borderRadius: 5,
-                                                            
                                                             flex: row.length === 1 ? 0 : 1, // pas de flex si 1 seul
                                                             minWidth: width / 2-40, 
                                                             justifyContent: 'center',

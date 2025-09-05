@@ -188,11 +188,12 @@ export default function filter() {
                     ))}
                 </Picker>
 
+                    {pokeForm.type1 !== 'all' && (
+                        <>
                 <Text style={{ fontWeight: 'bold' }}>Type 2</Text>
                 <Picker
                     style={{ width: 300, marginBottom: 16 }}
                     selectedValue={pokeForm.type2}
-                    disabled={pokeForm.type1 === "all"}
                     onValueChange={(value) => handleChange('type2', value)}>
                     <Picker.Item label="Tout les types" value="all" />
                     <Picker.Item label="pas de second type" value="none" />
@@ -204,6 +205,8 @@ export default function filter() {
                         />
                     ))}
                 </Picker>
+                </>
+                )}
                 <Text style={{ fontWeight: 'bold' }}>HP</Text>
                 <View style={{ alignItems: "center", flexDirection: 'row', gap: 5 }}>
                     <Picker
