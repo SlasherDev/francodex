@@ -17,6 +17,10 @@ export default function Layout() {
                 name="index"
                 options={{ title: 'Pokédex',headerShown: true, drawerIcon: () => <Ionicons name="list" size={iconSize} color={'#050689'} /> }}
             />
+                <Drawer.Screen
+                    name="Trainer"
+                    options={{ title: 'Fiche Dresseur', drawerIcon: () => <Ionicons name="person-circle" size={iconSize} color={'#050689'} /> }}
+                />
             <Drawer.Screen
                 name="team"
                 options={{ title: 'Équipe', drawerIcon: () => <MaterialCommunityIcons name="pokeball" size={iconSize} color={'#050689'} /> }}
@@ -38,8 +42,8 @@ export default function Layout() {
                 options={{ title: 'Filtre avancé', drawerIcon: () => <Ionicons name="filter" size={iconSize} color={'#050689'} /> }}
             />
             <Drawer.Screen
-                name="Trainer"
-                options={{ title: 'Fiche Dresseur', drawerIcon: () => <Ionicons name="person-circle" size={iconSize} color={'#050689'} /> }}
+                name="settings"
+                options={{ title: 'Paramètres', drawerIcon: () => <Ionicons name="settings" size={iconSize} color={'#050689'} /> }}
             />
            
         </Drawer>

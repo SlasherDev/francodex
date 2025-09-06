@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import context from "../../context";
 
 export default function TargetPokemonPreComponant({ targetpokemon }) {
- //console.log("data :", targetpokemon);
+ const { params } = useContext(context);
 
  const styles = StyleSheet.create({
          image: {
@@ -22,7 +22,6 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
   useEffect(() => {
     if (targetpokemon.length > 0) {
       const urls = targetpokemon.map((target) => buildPokemonUrl(target.pokedex_id));
-      //console.log("URLs", urls);
 
       Promise.all(
         urls.map((url) =>
@@ -31,13 +30,11 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
             .catch((err) => console.error("Erreur fetch :", err))
         )
       ).then((results) => {
-        //console.log("Données des Pokémon récupérées :", results);
         setTargetedPokemons(results);
       });
     }
   }, [targetpokemon]);
 
-  //console.log("TargetedPokemons state :", TargetedPokemons);
 
   return (
     <View>
@@ -45,7 +42,7 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
         const targetData = targetpokemon.find((t) => t.pokedex_id === pokemon.pokedex_id);
         return (
           <View key={key} style={{ alignItems: "center", margin: 10 }}>
-            <Text>{pokemon?.name?.fr}</Text>
+            <Text>{pokemon?.name?.[params.lang]}</Text>
             <Image
               style={{ width: 100, height: 100 }}
               source={{ uri: pokemon?.sprites?.regular }}

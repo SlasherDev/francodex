@@ -13,13 +13,13 @@ export default function Details() {
 
     const { id } = useLocalSearchParams();
     const { storage, setStorage } = useContext(context);
-
+    const { params } = useContext(context);
 
     /*const [poke, setPoke] = useState()
     const spePoke = (id) => {
         fetch('https://tyradex.vercel.app/api/v1/pokemon/' + id)
         .then(res => res.json())
-        .then(data => setPoke(data))
+        .then(data => setPoke(data))r
         .catch(console.error)
         }*/
 
@@ -109,19 +109,21 @@ export default function Details() {
                                                         key={index}
                                                         style={{
                                                             flex: row.length === 1 ? 0 : 1, // pas de flex si 1 seul
-                                                            minWidth: width / 2-40, 
+                                                            minWidth: width / 2 - 40,
                                                             justifyContent: 'center',
                                                             flexDirection: 'column',
-                                                            
+
                                                         }}
                                                     >
                                                         {talent.tc ? (
-                                                            <View  style={{ flexDirection: 'row', alignItems: 'center'}}>
-                                                                <Text style={{ borderTopWidth: 1, borderLeftWidth: 1, borderBottomWidth: 1, borderColor: '#cc0000', backgroundColor:'#CC0000', color: 'white', padding: 10, fontWeight: 'bold', borderTopLeftRadius: 5, borderBottomLeftRadius: 5 }}>Caché</Text>
-                                                                <Text style={{ paddingVertical: 10, borderTopWidth: 1, borderRightWidth: 1, borderBottomWidth: 1,flex : 1,  borderColor: '#cc0000',borderTopRightRadius: 5, borderBottomRightRadius: 5, textAlign: 'center'}}>{talent.name}</Text>
+                                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                                <Text style={{ borderTopWidth: 1, borderLeftWidth: 1, borderBottomWidth: 1, borderColor: '#cc0000', backgroundColor: '#CC0000', color: 'white', padding: 10, fontWeight: 'bold', borderTopLeftRadius: 5, borderBottomLeftRadius: 5 }}>Caché</Text>
+                                                                <Text style={{ paddingVertical: 10, borderTopWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, flex: 1, borderColor: '#cc0000', borderTopRightRadius: 5, borderBottomRightRadius: 5, textAlign: 'center' }}>{talent.name}</Text>
                                                             </View>
-                                                        ) : <Text style={{  borderWidth: 1,borderRadius: 5,
-                                                            borderColor: '#cdcdcd', textAlign: 'center', padding: 10}}>{talent.name}</Text>}
+                                                        ) : <Text style={{
+                                                            borderWidth: 1, borderRadius: 5,
+                                                            borderColor: '#cdcdcd', textAlign: 'center', padding: 10
+                                                        }}>{talent.name}</Text>}
 
                                                     </View>
                                                 ))}
@@ -132,13 +134,48 @@ export default function Details() {
                         )}
 
                         <Text style={styles.sectionTitle}>Informations générales</Text>
-                        <Text>génération : {item.generation}</Text>
-                        <Text>{item.category}</Text>
-                        <Text>Taille : {item.height}</Text>
-                        <Text>Poids : {item.weight}</Text>
-                        <Text>Taux de capture : {item.catch_rate}</Text>
-                        <Text>Exp au niveau 100 : {item.level_100}</Text>
-                        {item.egg_groups && <Text>groupe d'oeuf : {item.egg_groups.join(', ')}</Text>}
+                        <View style={{ marginBottom: 10 }}>
+                            <View style={styles.infoContainer}>
+                                <View style={[styles.table, styles.infoElement]}>
+                                    <Text style={styles.subTitle}>Génération</Text>
+                                    <Text style={styles.infoText}>{item.generation}</Text>
+                                </View>
+                                <View style={[styles.table, styles.infoElement]}>
+                                    <Text style={styles.subTitle}>Catégorie</Text>
+                                    <Text style={styles.infoText}>{item.category}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.infoContainer}>
+                                <View style={[styles.table, styles.infoElement]}>
+                                    <Text style={styles.subTitle}>Taille</Text>
+                                    <Text style={styles.infoText}>{item.height}</Text>
+                                </View>
+                                <View style={[styles.table, styles.infoElement]}>
+                                    <Text style={styles.subTitle}>Poids</Text>
+                                    <Text style={styles.infoText}>{item.weight}</Text>
+                                </View>
+                                <View style={[styles.table, styles.infoElement]}>
+                                    <Text style={styles.subTitle}>Taux de capture</Text>
+                                    <Text style={styles.infoText}>{item.catch_rate}</Text>
+                                </View>
+                            </View>
+                           <View style={styles.infoContainer}>
+                                <View style={[styles.table, styles.infoElement]}>
+                                    <Text style={styles.subTitle}>Niveau 100</Text>
+                                    <Text style={styles.infoText}>{item.level_100} pts d'expériences</Text>
+                                </View>
+                                {item.egg_groups && (
+                                    <View style={[styles.table, styles.infoElement]}>
+                                        <Text style={styles.subTitle}>Groupe d'oeuf</Text>
+                                        <View>
+                                            {item.egg_groups.map((egg, index) => (
+                                                <Text style={styles.infoText} key={index}>{egg}</Text>
+                                            ))}
+                                        </View>
+                                    </View>
+                                )}
+                            </View>
+                        </View>
                         {item.sexe ? (
                             <View>
                                 <Text>
@@ -472,7 +509,7 @@ export default function Details() {
                                 <View>
                                     {item.evolution.mega.map((mega, megaId) => (
                                         <View key={megaId} style={[styles.tableCellContainer, { gap: 10 }]}>
-                                            <Text style={{ alignItems: "center", margin: 10 }}>Mega-{pokemon.name.fr}</Text>
+                                            <Text style={{ alignItems: "center", margin: 10 }}>Mega-{pokemon.name[params.lang]}</Text>
                                             <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
                                                 {mega.sprites.regular && (
                                                     <View style={{ alignItems: "center", margin: 10 }}>
@@ -569,12 +606,12 @@ export default function Details() {
     return (
         <View style={{ flex: 1 }}>
             <Stack.Screen options={{
-                title: pokemon?.name.fr, headerRight: () => (
+                title: pokemon?.name[params.lang], headerRight: () => (
                     <Text style={{ margin: 5, color: 'white', fontWeight: 'bold', fontSize: 18 }}>#{String(pokemon?.pokedex_id).padStart(4, '0')}</Text>
                 ),
             }} />
             <View style={{ flexDirection: "row" }}>
-                <Image style={{ width: 200, aspectRatio: 1 }} source={{ uri: pokemon?.sprites.regular }} alt={pokemon?.name.fr} />
+                <Image style={{ width: 200, aspectRatio: 1 }} source={{ uri: pokemon?.sprites.regular }} alt={pokemon?.name[params.lang]} />
                 <View>
 
                     <View style={{ flex: 1, justifyContent: "center", alignItems: "flex-start", gap: 5 }}>
@@ -696,4 +733,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 5,
     },
+    infoContainer:{
+         flexDirection: 'row'
+    },
+    infoElement : {
+        flex: 1,
+        marginBottom: 10
+    },
+    infoText: {
+        textAlign: 'center'
+    }
 });

@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import context from "../../context";
 
 export default function TargetPokemonRegionComponant({ targetpokemon }) {
+     const { params } = useContext(context);
     const styles = StyleSheet.create({
         image: {
             borderRadius: 12.5,
@@ -36,7 +38,7 @@ export default function TargetPokemonRegionComponant({ targetpokemon }) {
             ) : (
                 TargetedPokemons.map((pokemon, index) => (
                     <View key={index} style={{ alignItems: "center" }}>
-                        <Text style={{ fontWeight: "bold" }}>{pokemon?.name?.fr}</Text>
+                        <Text style={{ fontWeight: "bold" }}>{pokemon?.name?.[params.lang]}</Text>
                         <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }} >
                             {pokemon?.sprites?.regular && (
                                 <View style={{ alignItems: "center", margin: 10 }}>

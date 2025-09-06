@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import context from "../../context";
 
 export default function TargetPokemonNextComponant({ targetpokemon }) {
- //console.log("data :", targetpokemon);
+ const { params } = useContext(context);
 
   function buildPokemonUrl(id) {
     return `https://tyradex.vercel.app/api/v1/pokemon/${id}`;
@@ -31,13 +31,10 @@ export default function TargetPokemonNextComponant({ targetpokemon }) {
             .catch((err) => console.error("Erreur fetch :", err))
         )
       ).then((results) => {
-        //console.log("Données des Pokémon récupérées :", results);
         setTargetedPokemons(results);
       });
     }
   }, [targetpokemon]);
-
-  //console.log("TargetedPokemons state :", TargetedPokemons);
 
   return (
     <View>
@@ -45,7 +42,7 @@ export default function TargetPokemonNextComponant({ targetpokemon }) {
         const targetData = targetpokemon.find((t) => t.pokedex_id === pokemon.pokedex_id);
         return (
           <View key={key} style={{ alignItems: "center", margin: 10 }}>
-            <Text>{pokemon?.name?.fr}</Text>
+            <Text>{pokemon?.name?.[params.lang]}</Text>
             <Image
               style={{ width: 100, height: 100 }}
               source={{ uri: pokemon?.sprites?.regular }}

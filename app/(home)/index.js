@@ -9,6 +9,7 @@ import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 
 export default function Pokedex() {
     const { filtredPokemon, setFiltredPokemon } = useContext(context);
+    const { params } = useContext(context);
 
     const { width } = useWindowDimensions();
 
@@ -77,24 +78,24 @@ export default function Pokedex() {
                     underlayColor={'#CACACA'}
                 >
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                            <Image style={{ width: 125, aspectRatio: 1 }} source={{ uri: item.sprites.regular }} alt={item.name.fr} />
+                        <Image style={{ width: 125, aspectRatio: 1 }} source={{ uri: item.sprites.regular }} alt={item.name[params.lang]} />
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 25 }}>{item.name.fr}</Text>
-                            <View style={{ margin:10}}>
-                            <View style={{flex: 1,justifyContent: "center", alignItems: "flex-start",gap:5 }}>
-                                {item.types.map((type, typeId) => {
-                                    return (
-                                        <View key={`${item.pokedex_id}-${typeId}`} style={{ flexDirection: 'row', alignItems: 'center', gap :5 }}>
-                                            <Image
-                                                style={{ borderRadius: 12.5, width: 25, height: 25}}
-                                                source={{ uri: type.image }}
-                                                accessibilityLabel={type.name}
-                                            />
-                                            <Text>{type.name}</Text>
-                                        </View>
-                                    );
-                                })}
-                            </View>
+                            <Text style={{ fontWeight: 'bold', fontSize: 25 }}>{item.name[params.lang]}</Text>
+                            <View style={{ margin: 10 }}>
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "flex-start", gap: 5 }}>
+                                    {item.types.map((type, typeId) => {
+                                        return (
+                                            <View key={`${item.pokedex_id}-${typeId}`} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                                                <Image
+                                                    style={{ borderRadius: 12.5, width: 25, height: 25 }}
+                                                    source={{ uri: type.image }}
+                                                    accessibilityLabel={type.name}
+                                                />
+                                                <Text>{type.name}</Text>
+                                            </View>
+                                        );
+                                    })}
+                                </View>
                             </View>
                         </View>
                     </View>
@@ -104,7 +105,7 @@ export default function Pokedex() {
                 </Pressable>
             </Link>
         );
-    }, [width]);
+    }, [width, params.lang]);
 
     if (loading) {
         return (
@@ -130,7 +131,7 @@ export default function Pokedex() {
                 <Ionicons name="search" size={18} />
                 <TextInput value={input} onChangeText={e => setInput(e)} style={{ flex: 1, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }} />
             </View>
-            <FlatList data={filtredPokemon.filter(item => (sanitizeString(item.name.fr).includes(sanitizeString(input)) || item.pokedex_id.toString().includes(input)))}
+            <FlatList data={filtredPokemon.filter(item => (sanitizeString(item.name[params.lang]).includes(sanitizeString(input)) || item.pokedex_id.toString().includes(input)))}
                 contentContainerStyle={{ gap: 5, alignItems: "center", marginVertical: 5 }}
                 renderItem={renderItem}
                 numColumns={1}
