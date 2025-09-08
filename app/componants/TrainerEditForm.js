@@ -35,9 +35,12 @@ export default function TrainerEditForm({ onCancel }) {
             genre: '',
             city: '',
             type: '',
-            profilePic: ''
+            profilePic: '',
+            devise: ''
         };
-        setTrainer(defaultTrainer);
+
+        setTrainer(defaultTrainer);   // Reset le contexte
+        setTrainerForm(defaultTrainer); // Reset le state local aussi
         onCancel();
     };
 
@@ -57,9 +60,6 @@ export default function TrainerEditForm({ onCancel }) {
         <ScrollView >
             <View style={styles.container}>
                 <Text style={styles.title}>Modifier la fiche</Text>
-
-                <Button color={"orange"} title="Choisir une image de profil" onPress={() => setModalVisible(true)} />
-
                 <Text>Prénom</Text>
                 <TextInput
                     style={styles.input}
@@ -141,6 +141,7 @@ export default function TrainerEditForm({ onCancel }) {
                     onChangeText={(value) => handleChange('devise', value)}
                 />
 
+                <Button color={"orange"} title="Choisir une image de profil" onPress={() => setModalVisible(true)} />
                 <View style={styles.preview}>
                     <Text>Image de profil sélectionnée :</Text>
                     {trainerForm.profilePic ? (
