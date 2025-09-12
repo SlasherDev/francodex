@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, FlatList, Image, Text, TextInput, Pressable, View, useWindowDimensions } from "react-native";
 import { Link } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 import NetInfo from "@react-native-community/netinfo";
 import context from "../../context";
 import { sanitizeString } from "../../utils";
@@ -127,12 +127,15 @@ export default function Pokedex() {
     return (
         <View style={{ flex: 1 }}>
             <ExpoStatusBar backgroundColor="#931010" style="light" />
-            <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 5, gap: 5 }}>
-                <Ionicons name="search" size={18} />
-                <TextInput value={input} onChangeText={e => setInput(e)} style={{ flex: 1, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }} />
+            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
+                    <Ionicons name="search" size={18} />
+                    <TextInput value={input} selectionColor={'black'} style={{ flex: 1}} onChangeText={e => setInput(e)} />
+                {input && (
+                    <Entypo name="cross" size={25} onPress={() => { setInput('') }} />
+                )}
             </View>
             <FlatList data={filtredPokemon.filter(item => (sanitizeString(item.name[params.lang]).includes(sanitizeString(input)) || item.pokedex_id.toString().includes(input)))}
-                contentContainerStyle={{ gap: 5, alignItems: "center", marginVertical: 5 }}
+                contentContainerStyle={{ gap: 5, alignItems: "center", paddingVertical: 5 }}
                 renderItem={renderItem}
                 numColumns={1}
             />

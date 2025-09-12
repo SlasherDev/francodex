@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList, Pressable, Text, TextInput, View } from "react-native";
 import { sanitizeString } from "../../utils";
@@ -28,13 +28,6 @@ export default function Eggs() {
 
         setEggs([...new Set(allEggs)].sort())
     }, [pokemons]);
-console.log(
-  pokemons
-    .filter(pokemon => !pokemon.egg_groups || pokemon.egg_groups.length < 1)
-    .map(pokemon => pokemon.name.fr
-    )
-);
-
 
     const renderItem = useCallback(({ item, index }) => {
         
@@ -51,12 +44,15 @@ console.log(
 
     return (
        <View style={{ flex: 1 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 5, gap: 5 }}>
-                <Ionicons name="search" size={18} />
-                <TextInput value={input} onChangeText={e => setInput(e)} style={{ flex: 1, padding: 3, marginVertical: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }} />
+            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
+                    <Ionicons name="search" size={18} />
+                    <TextInput value={input} selectionColor={'black'} style={{ flex: 1}} onChangeText={e => setInput(e)} />
+                {input && (
+                    <Entypo name="cross" size={25} onPress={() => { setInput('') }} />
+                )}
             </View>
             <FlatList data={eggs.filter(item => (sanitizeString(item).includes(sanitizeString(input))))}
-                contentContainerStyle={{ gap: 10, }}
+                contentContainerStyle={{ gap: 10, paddingVertical: 5 }}
                 renderItem={renderItem}
                 numColumns={1}
             />
