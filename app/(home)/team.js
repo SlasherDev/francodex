@@ -6,6 +6,7 @@ import context from "../../context";
 export default function Equipe() {
 
     const { storage, setStorage } = useContext(context)
+    const { params } = useContext(context);
 
     const [pokemons, setPokemons] = useState([])
     const [open, setOpen] = useState(false)
@@ -44,7 +45,7 @@ export default function Equipe() {
         const isLastOddItem = (pokemons.length % 2 !== 0) && (index === pokemons.length - 1);
         return (
             <View style={[styles.container, isLastOddItem && styles.lastItem]}>
-                <Text style={styles.title}>{item.name?.fr }</Text>
+                <Text style={styles.title}>{item.name[params.lang] }</Text>
                 <View>
                 <Image style={styles.picture} source={{ uri: item.sprites?.regular }} />
                 </View>
@@ -53,7 +54,7 @@ export default function Equipe() {
                 </Pressable>
             </View>
         )
-    }, [pokemons])
+    }, [pokemons, params]);
 
     return (
         <View>

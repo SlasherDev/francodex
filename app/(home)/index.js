@@ -105,7 +105,7 @@ export default function Pokedex() {
                 </Pressable>
             </Link>
         );
-    }, [width, params.lang]);
+    }, [width, params]);
 
     if (loading) {
         return (
@@ -135,7 +135,7 @@ export default function Pokedex() {
                 )}
             </View>
             <FlatList data={filtredPokemon.filter(item => (sanitizeString(item.name[params.lang]).includes(sanitizeString(input)) || item.pokedex_id.toString().includes(input)))}
-                contentContainerStyle={{ gap: 5, alignItems: "center", paddingVertical: 5 }}
+                contentContainerStyle={{ gap: 5, alignItems: "center", paddingBottom: 5 }}
                 renderItem={renderItem}
                 numColumns={1}
             />
