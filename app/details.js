@@ -666,7 +666,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginLeft: 5,
         marginRight: 5,
-        marginBottom: 5,
+        marginBottom: 50,
+        
         //justifyContent: 'space-around',
     },
     scrollView: {

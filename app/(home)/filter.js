@@ -183,7 +183,7 @@ export default function filter() {
 
     return (
         <ScrollView>
-            <View style={{ flex: 1, alignItems: "center", marginVertical: 20, gap: 15 }}>
+            <View style={{ flex: 1, alignItems: "center", marginVertical: 20, gap: 15, paddingBottom: 20 }}>
                 <View style={styles.filter.group}>
                     <Text style={styles.filter.title}>Générations</Text>
                     <Picker

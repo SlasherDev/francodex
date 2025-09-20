@@ -5,12 +5,14 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import NetInfo from "@react-native-community/netinfo";
 import context from "../../context";
 import { sanitizeString } from "../../utils";
-import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
+import { StatusBar } from 'expo-status-bar';
+import { Appearance } from 'react-native';
 
 export default function Pokedex() {
     const { filtredPokemon, setFiltredPokemon } = useContext(context);
     const { params } = useContext(context);
-
+    
+    Appearance.setColorScheme('light');
     const { width } = useWindowDimensions();
 
     const [input, setInput] = useState('');
@@ -126,7 +128,7 @@ export default function Pokedex() {
 
     return (
         <View style={{ flex: 1 }}>
-            <ExpoStatusBar backgroundColor="#931010" style="light" />
+            <StatusBar backgroundColor="#931010" style="light" />
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
                     <Ionicons name="search" size={18} />
                     <TextInput value={input} selectionColor={'black'} style={{ flex: 1}} onChangeText={e => setInput(e)} />
@@ -135,7 +137,7 @@ export default function Pokedex() {
                 )}
             </View>
             <FlatList data={filtredPokemon.filter(item => (sanitizeString(item.name[params.lang]).includes(sanitizeString(input)) || item.pokedex_id.toString().includes(input)))}
-                contentContainerStyle={{ gap: 5, alignItems: "center", paddingBottom: 5 }}
+                contentContainerStyle={{ gap: 5, alignItems: "center", paddingBottom: 50 }}
                 renderItem={renderItem}
                 numColumns={1}
             />

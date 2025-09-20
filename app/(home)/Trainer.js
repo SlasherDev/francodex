@@ -1,5 +1,5 @@
 import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons } from "@expo/vector-icons";
-import { Text, View, Pressable, Image } from "react-native";
+import { Text, View, Pressable, Image, ScrollView } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import TrainerEditForm from "../componants/TrainerEditForm";
 import { useStorage } from "../../utils";
@@ -26,14 +26,15 @@ export default function Trainer() {
     }
 
     return (
-        <View style={{ flex: 1, padding: 16  }}>
+        <View style={{ flex: 1, padding: 16 }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 16 }}>Fiche Dresseur</Text>
 
             {/* Affichage des informations du dresseur */}
             <View style={{ flex: 1 }}>
                 {trainer.firstName ? (
 
-                    <View style={{ justifyContent: 'space-between', height: "90%", borderWidth: 2, borderColor: 'gray', padding: 10, borderRadius: 5 }}>
+                    <View style={{ justifyContent: 'space-between', borderWidth: 2, borderColor: 'gray', borderRadius: 5 }}>
+                        <ScrollView>
                         <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 15, textAlign: 'center' }}>{trainer.firstName}</Text>
                         {trainer.profilePic && profileImages[trainer.profilePic] ? (
                             <Image
@@ -52,17 +53,17 @@ export default function Trainer() {
                                 /// Ligne 1 - Icône Age
                                 <View style={styles.container}>
                                     {/* Icône */}
-                                    <View style={ styles.element }>
+                                    <View style={styles.element}>
                                         <FontAwesome style={styles.icon} name="birthday-cake" />
                                     </View>
 
                                     {/* Titre */}
-                                    <View style={ styles.element}>
+                                    <View style={styles.element}>
                                         <Text style={styles.label}>Âge</Text>
                                     </View>
 
                                     {/* Donnée */}
-                                    <View style={ styles.element}>
+                                    <View style={styles.element}>
                                         <Text style={styles.value}>{trainer.age}</Text>
                                     </View>
                                 </View>
@@ -70,19 +71,19 @@ export default function Trainer() {
 
                             {trainer.genre ? (
                                 /// Ligne 2 - Icône Genre
-                                <View  style={styles.container}>
+                                <View style={styles.container}>
                                     {/* Icône */}
-                                    <View style={ styles.element}>
+                                    <View style={styles.element}>
                                         <FontAwesome5 style={styles.icon} name="genderless" />
                                     </View>
 
                                     {/* Titre */}
-                                    <View  style={ styles.element}> 
+                                    <View style={styles.element}>
                                         <Text style={styles.label}>Genre</Text>
                                     </View>
 
                                     {/* Donnée */}
-                                    <View  style={ styles.element}>
+                                    <View style={styles.element}>
                                         <Text style={styles.value}>{trainer.genre}</Text>
                                     </View>
                                 </View>
@@ -90,41 +91,41 @@ export default function Trainer() {
 
                             {trainer.region ? (
                                 /// Ligne 3 - Icône Ville
-                                <View  style={styles.container}>
+                                <View style={styles.container}>
                                     {/* Icône */}
-                                    <View  style={ styles.element}>
+                                    <View style={styles.element}>
                                         <FontAwesome6 style={styles.icon} name="location-dot" />
                                     </View>
 
                                     {/* Titre */}
-                                    <View  style={ styles.element}>
+                                    <View style={styles.element}>
                                         <Text style={styles.label}>Région</Text>
                                     </View>
 
                                     {/* Donnée */}
-                                    <View  style={ styles.element}>
+                                    <View style={styles.element}>
                                         <Text style={styles.value}>{trainer.region}</Text>
                                     </View>
                                 </View>
                             ) : null}
                             {trainer.city ? (
-                            // Ligne 4 - Icône Ville
-                            <View  style={styles.container}>
-                                {/* Icône */}
-                                <View style={ styles.element}>
-                                    <FontAwesome6 style={styles.icon} name="house-chimney" />
-                                </View>
+                                // Ligne 4 - Icône Ville
+                                <View style={styles.container}>
+                                    {/* Icône */}
+                                    <View style={styles.element}>
+                                        <FontAwesome6 style={styles.icon} name="house-chimney" />
+                                    </View>
 
-                                {/* Titre */}
-                                <View style={ styles.element}>
-                                    <Text style={styles.label}>Ville</Text>
-                                </View>
+                                    {/* Titre */}
+                                    <View style={styles.element}>
+                                        <Text style={styles.label}>Ville</Text>
+                                    </View>
 
-                                {/* Donnée */}
-                                <View  style={ styles.element}>
-                                    <Text style={styles.value} >{trainer.city}</Text>
+                                    {/* Donnée */}
+                                    <View style={styles.element}>
+                                        <Text style={styles.value} >{trainer.city}</Text>
+                                    </View>
                                 </View>
-                            </View>
                             ) : null}
                         </View>
 
@@ -157,13 +158,13 @@ export default function Trainer() {
                         {trainer.devise ? (
                             <View style={{ margin: 5, alignItems: 'center' }}>
                                 <Text style={{ fontWeight: 'bold', fontSize: 14, margin: 5 }}>Devise</Text>
-                                <Text style={{ margin: 5, fontSize: 14, textAlign:'center' }}>"{trainer.devise}"</Text>
+                                <Text style={{ margin: 5, fontSize: 14, textAlign: 'center' }}>"{trainer.devise}"</Text>
                             </View>
                         ) : null}
 
 
 
-
+</ScrollView> 
                     </View>
                 ) : setIsEditing(true)}
             </View>
@@ -173,37 +174,43 @@ export default function Trainer() {
                 onPress={() => setIsEditing(true)}
                 style={{
                     position: 'absolute',
-                    bottom: 10,
+                    bottom: 50,
                     right: 10,
+                    width: 60,
+                    height: 60,
+                    borderRadius: 35,
+                    backgroundColor: '#CC0000',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                 }}
             >
-                <Ionicons name="person-circle" size={70} color={'#CC0000'} />
+                <Ionicons name="person" size={35} color={'white'} />
             </Pressable>
         </View>
     );
 }
 
 
-    const styles = {
-        container: {
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 10,
-          width: '100%',
-        },
-        element: {
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-        icon: {
-          fontSize: 16,
-        },
-        label: {
-          fontSize: 16,
-          fontWeight: 'bold',
-        },
-        value: {
-          fontSize: 16,
-        },
-      }
+const styles = {
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+        width: '100%',
+    },
+    element: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    icon: {
+        fontSize: 16,
+    },
+    label: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    value: {
+        fontSize: 16,
+    },
+}

@@ -180,7 +180,8 @@ export default function TrainerEditForm({ onCancel }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 20
+        margin: 20,
+        paddingBottom: 25
     },
     title: {
         fontSize: 20,

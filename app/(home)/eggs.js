@@ -52,7 +52,7 @@ export default function Eggs() {
                 )}
             </View>
             <FlatList data={eggs.filter(item => (sanitizeString(item).includes(sanitizeString(input))))}
-                contentContainerStyle={{ gap: 10, paddingBottom: 5 }}
+                contentContainerStyle={{ gap: 10, paddingBottom: 50 }}
                 renderItem={renderItem}
                 numColumns={1}
             />
