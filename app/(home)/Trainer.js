@@ -6,6 +6,7 @@ import { useStorage } from "../../utils";
 import context from "../../context";
 import profileImages from '../utils/imageMapper';
 
+
 export default function Trainer() {
     const [isEditing, setIsEditing] = useState(false);
 

@@ -7,6 +7,8 @@ import { profilePic } from '../regions_pokemon.json';
 export default function ProfilePicModal({ visible, onClose, onSelect, selectedPic }) {
   return (
     <Modal visible={visible} animationType="fade" onRequestClose={onClose}>
+       <View style={styles.backdrop}>
+    <View style={styles.modalBox}>
       <View style={styles.container}>
         <Text style={styles.title}>Choisis ton image de profil</Text>
         <FlatList
@@ -31,16 +33,29 @@ export default function ProfilePicModal({ visible, onClose, onSelect, selectedPi
           <Text style={styles.closeText}>Fermer</Text>
         </TouchableOpacity>
       </View>
+      </View>
+</View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+   backdrop: {
+    flex: 1,
+    justifyContent: "center", 
+    alignItems: "center",
+        backgroundColor: "#00000050",
+      },
+      modalBox: {
+        height: "90%",
+        
+        padding: 20,
+      },
+      container: {
+    borderRadius: 10,
     flex: 1,
     padding: 16,
     backgroundColor: 'white',
-    
   },
   title: {
     fontSize: 18,
