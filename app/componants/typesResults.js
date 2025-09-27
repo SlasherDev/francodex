@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 export default function TypesResult({ typeResult, types }) {
 
     return (
-        <View>
+        <View style={{paddingBottom: 200, gap:10}} >
             {/* Double Faiblesse x4 */}
             {typeResult.resistances.some((resiste) => resiste.multiplier === 4) && (
                 <View>
@@ -246,11 +246,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#cdcdcd',
         borderRadius: 5,
-        marginRight: 5,
-        marginLeft: 5,
-        marginBottom: 25,
-        marginTop: 5,
-
+        margin : 5
     },
     tableRow: {
         flexDirection: 'row',

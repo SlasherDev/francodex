@@ -62,6 +62,7 @@ export default function TrainerEditForm({ onCancel }) {
                 <Text style={styles.title}>Modifier la fiche</Text>
                 <Text>Prénom</Text>
                 <TextInput
+                    selectionColor={'black'}
                     style={styles.input}
                     placeholder="Prénom du dresseur"
                     value={trainerForm.firstName}
@@ -71,6 +72,7 @@ export default function TrainerEditForm({ onCancel }) {
                 <Text>Âge</Text>
                 <TextInput
                     style={styles.input}
+                    selectionColor={'black'}
                     placeholder="Âge du dresseur"
                     keyboardType="numeric"
                     value={trainerForm.age}
@@ -137,6 +139,7 @@ export default function TrainerEditForm({ onCancel }) {
                     style={styles.input}
                     placeholder="Rédige ta devise ici"
                     multiline={true}
+                    selectionColor={'black'}
                     value={trainerForm.devise}
                     onChangeText={(value) => handleChange('devise', value)}
                 />

@@ -1,6 +1,6 @@
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useState } from "react";
-import { FlatList, Pressable, Text, TextInput, View } from "react-native";
+import { FlatList, Pressable, Text, TextInput, ToastAndroid, View } from "react-native";
 import { sanitizeString } from "../../utils";
 
 
@@ -33,7 +33,7 @@ export default function Eggs() {
         
         return (            
             <View style={{ flex: 1}}>
-            <Pressable onPress={() => console.log(item)} style={{  flex: 1, padding: 5, marginHorizontal: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
+            <Pressable onPress={() => ToastAndroid.show(item, ToastAndroid.SHORT)} style={{  flex: 1, padding: 5, marginHorizontal: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
                 <Text style={{ textAlign: "center", fontSize: 20 }}>{item}</Text>
             </Pressable>
             </View>

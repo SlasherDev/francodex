@@ -60,9 +60,6 @@ export default function Types() {
                     resizeMode="contain"
                 />
             )}
-            <Text style={styles.typeName}>
-                {type.name?.fr || type.name || 'Nom non disponible'}
-            </Text>
         </View>
     );
 
@@ -77,33 +74,35 @@ export default function Types() {
 
         // Cas où typeResult est un tableau
         if (Array.isArray(typeResult.name?.fr)) {
-    return (
-        <View>
-            {/* Cartes de types */}
-            <View style={styles.resultsContainer}>
-                {typeResult.name.fr.map((name, index) => {
-                    let sprite = null;
-                    if (typeResult.sprites) {
-                        sprite = Array.isArray(typeResult.sprites)
-                            ? typeResult.sprites[index]
-                            : typeResult.sprites;
-                    }
+            return (
+                <View>
+                    {/* Cartes de types */}
+                    <View style={styles.resultsContainer}>
+                        {typeResult.name.fr.map((name, index) => {
+                            let sprite = null;
+                            if (typeResult.sprites) {
+                                sprite = Array.isArray(typeResult.sprites)
+                                    ? typeResult.sprites[index]
+                                    : typeResult.sprites;
+                            }
 
-                    const typeData = {
-                        name: { fr: name },
-                        sprites: sprite
-                    };
-                    return renderTypeCard(typeData, index);
-                })}
-            </View>
+                            const typeData = {
+                                name: { fr: name },
+                                sprites: sprite
+                            };
+                            return renderTypeCard(typeData, index);
+                        })}
+                    </View>
 
-            {/* Résistances combinées */}
-            {typeResult.resistances && (
-                <TypesResult typeResult={typeResult} types={types} />
-            )}
-        </View>
-    );
-}
+                    {/* Résistances combinées */}
+                    {typeResult.resistances && (
+                        <ScrollView>
+                            <TypesResult typeResult={typeResult} types={types} />
+                        </ScrollView>
+                    )}
+                </View>
+            );
+        }
 
         // Cas d'un objet unique (type simple ou combinaison)
         return (
@@ -114,7 +113,9 @@ export default function Types() {
 
                 {/* Résistances dans un bloc séparé */}
                 {typeResult.resistances && (
-                    <TypesResult typeResult={typeResult} types={types} />
+                    <ScrollView>
+                        <TypesResult typeResult={typeResult} types={types} />
+                    </ScrollView>
                 )}
             </View>
         );
@@ -123,41 +124,43 @@ export default function Types() {
     return (
         <View style={styles.container}>
             {/* Picker Type 1 */}
-            <View style={styles.pickerContainer}>
-                <Text style={styles.pickerLabel}>Type 1</Text>
-                <Picker
-                    style={styles.picker}
-                    selectedValue={typeForm.type1}
-                    onValueChange={value => handleChange("type1", value)}
-                >
-                    <Picker.Item label="Sélectionner le type" value="none" />
-                    {types.map((type, index) => (
-                        <Picker.Item key={index} label={type.name.fr} value={type.name.fr} />
-                    ))}
-                </Picker>
-            </View>
-
-            {/* Picker Type 2 */}
-            {typeForm.type1 !== "none" && (
+            <View style={{ flexDirection: 'row'}}>
                 <View style={styles.pickerContainer}>
-                    <Text style={styles.pickerLabel}>Type 2</Text>
+                    <Text style={styles.pickerLabel}>Type 1</Text>
                     <Picker
-                        style={styles.picker}
-                        selectedValue={typeForm.type2}
-                        onValueChange={value => handleChange("type2", value)}
+                        style={[styles.picker]}
+                        selectedValue={typeForm.type1}
+                        onValueChange={value => handleChange("type1", value)}
+                        
+  dropdownIconColor="black" 
                     >
-                        <Picker.Item label="Sélectionner le second type" value="none" />
+                        <Picker.Item label="Sélectionner le type" value="none" />
                         {types.map((type, index) => (
                             <Picker.Item key={index} label={type.name.fr} value={type.name.fr} />
                         ))}
                     </Picker>
                 </View>
-            )}
+
+                {/* Picker Type 2 */}
+                {typeForm.type1 !== "none" && (
+                    <View style={styles.pickerContainer}>
+                        <Text style={styles.pickerLabel}>Type 2</Text>
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={typeForm.type2}
+                            onValueChange={value => handleChange("type2", value)}
+                        >
+                            <Picker.Item label="Sélectionner le second type" value="none" />
+                            {types.map((type, index) => (
+                                <Picker.Item key={index} label={type.name.fr} value={type.name.fr} />
+                            ))}
+                        </Picker>
+                    </View>
+                )}
+            </View>
 
             {/* Résultats */}
-            <ScrollView>
-                {renderResults()}
-            </ScrollView>
+            {renderResults()}
         </View>
     );
 }
@@ -165,22 +168,24 @@ export default function Types() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
-        paddingBottom: 25
+        paddingHorizontal: 16,
+        paddingTop: 16,
     },
     pickerContainer: {
+        flex: 1,
         marginBottom: 16,
     },
     pickerLabel: {
         fontWeight: 'bold',
         fontSize: 16,
         marginBottom: 8,
+        textAlign: 'center',
     },
     picker: {},
     resultsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        flexWrap: 'wrap',
+        flexWrap: 'wrap'
     },
     typeCard: {
         alignItems: 'center',
@@ -188,10 +193,9 @@ const styles = StyleSheet.create({
         margin: 8,
     },
     typeImage: {
-        width: 25,
-        height: 25,
-        borderRadius: 15,
-        marginBottom: 4,
+        width: 35,
+        height: 35,
+        borderRadius: 25,
     },
     typeName: {
         fontSize: 14,

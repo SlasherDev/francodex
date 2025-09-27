@@ -6,13 +6,11 @@ import NetInfo from "@react-native-community/netinfo";
 import context from "../../context";
 import { sanitizeString } from "../../utils";
 import { StatusBar } from 'expo-status-bar';
-import { Appearance } from 'react-native';
 
 export default function Pokedex() {
     const { filtredPokemon, setFiltredPokemon } = useContext(context);
     const { params } = useContext(context);
     
-    Appearance.setColorScheme('light');
     const { width } = useWindowDimensions();
 
     const [input, setInput] = useState('');

@@ -22,7 +22,6 @@ export default function TargetPokemonNextComponant({ targetpokemon }) {
   useEffect(() => {
     if (targetpokemon.length > 0) {
       const urls = targetpokemon.map((target) => buildPokemonUrl(target.pokedex_id));
-      //console.log("URLs", urls);
 
       Promise.all(
         urls.map((url) =>
