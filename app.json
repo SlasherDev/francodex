@@ -26,7 +26,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "name": "Franc'O dex",
     "slug": "francodex",
@@ -37,6 +38,7 @@
       "eas": {
         "projectId": "d4f95834-9571-43cb-823c-867d0549040a"
       }
-    }
+    },
+    "owner": "slasherdev"
   }
 }
