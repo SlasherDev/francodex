@@ -1,43 +1,42 @@
 {
-    "expo": {
-        "icon": "./assets/images/icon.png",
-        "scheme": "acme",
-        "userInterfaceStyle": "light",
-        "newArchEnabled": true,
-        "web": {
-            "bundler": "metro",
-            "output": "static",
-            "favicon": "./assets/images/icon.png"
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/images/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
-            },
-            "package": "com.tajassam.pokedex"
-        },
-        "plugins": [
-            "expo-router",
-            [
-                "expo-splash-screen",
-                {
-                    "image": "./assets/images/splash-icon.png",
-                    "imageWidth": 200,
-                    "resizeMode": "contain",
-                    "backgroundColor": "#ffffff"
-                }
-            ],
-            "expo-font"
-        ],
-        "name": "pokedex",
-        "slug": "pokedex",
-        "version": "1.0.1",
-        "orientation": "portrait",
-        "extra": {
-            "router": {},
-            "eas": {
-                "projectId": "606dc9cb-a599-413a-9c2e-f53c3230ea86"
-            }
+  "expo": {
+    "icon": "./assets/images/icon.png",
+    "scheme": "acme",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/icon.png"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.slasherdev.pokedex"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
         }
+      ]
+    ],
+    "name": "pokedex",
+    "slug": "pokedex",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "606dc9cb-a599-413a-9c2e-f53c3230ea86"
+      }
     }
+  }
 }
