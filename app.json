@@ -14,7 +14,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.slasherdev.pokedex"
+      "package": "com.slasherdev.francodex"
     },
     "plugins": [
       "expo-router",
@@ -35,7 +35,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "606dc9cb-a599-413a-9c2e-f53c3230ea86"
+        "projectId": "d4f95834-9571-43cb-823c-867d0549040a"
       }
     }
   }
