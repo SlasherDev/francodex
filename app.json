@@ -28,8 +28,8 @@
         }
       ]
     ],
-    "name": "pokedex",
-    "slug": "pokedex",
+    "name": "Franc'O dex",
+    "slug": "francodex",
     "version": "1.0.1",
     "orientation": "portrait",
     "extra": {
