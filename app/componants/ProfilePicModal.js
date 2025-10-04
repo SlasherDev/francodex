@@ -6,52 +6,51 @@ import { profilePic } from '../regions_pokemon.json';
 
 export default function ProfilePicModal({ visible, onClose, onSelect, selectedPic }) {
   return (
-    <Modal visible={visible} animationType="fade" onRequestClose={onClose}>
-       <View style={styles.backdrop}>
-    <View style={styles.modalBox}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Choisis ton image de profil</Text>
-        <FlatList
-          data={profilePic}
-          numColumns={3}
-          keyExtractor={(item) => item.pic}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => { onSelect(item.pic); onClose(); }}>
-              <Image
-                source={profileImages[item.pic]}
-                style={[
-                  styles.image,
-                  selectedPic === item.pic && styles.selectedImage
-                ]}
-              />
-              <Text style={styles.name}>{item.name}</Text>
+    <Modal visible={visible} animationType="fade" transparent onRequestClose={onClose}>
+      <View style={styles.backdrop}>
+        <View style={styles.modalBox}>
+          <View style={styles.container}>
+            <Text style={styles.title}>Choisis ton image de profil</Text>
+            <FlatList
+              data={profilePic}
+              numColumns={3}
+              keyExtractor={(item) => item.pic}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => { onSelect(item.pic); onClose(); }}>
+                  <Image
+                    source={profileImages[item.pic]}
+                    style={[
+                      styles.image,
+                      selectedPic === item.pic && styles.selectedImage
+                    ]}
+                  />
+                  <Text style={styles.name}>{item.name}</Text>
+                </TouchableOpacity>
+              )}
+              contentContainerStyle={styles.grid}
+            />
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <Text style={styles.closeText}>Fermer</Text>
             </TouchableOpacity>
-          )}
-          contentContainerStyle={styles.grid}
-        />
-        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-          <Text style={styles.closeText}>Fermer</Text>
-        </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      </View>
-</View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-   backdrop: {
+  backdrop: {
     flex: 1,
-    justifyContent: "center", 
+    justifyContent: "center",
     alignItems: "center",
-        backgroundColor: "#00000050",
-      },
-      modalBox: {
-        height: "90%",
-        
-        padding: 20,
-      },
-      container: {
+    backgroundColor: "#000000aa",
+  },
+  modalBox: {
+    height: "90%",
+    padding: 20,
+  },
+  container: {
     borderRadius: 10,
     flex: 1,
     padding: 16,

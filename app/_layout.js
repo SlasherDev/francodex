@@ -3,6 +3,7 @@ import { Stack } from "expo-router";
 import { View } from "react-native";
 import { useState } from "react";
 import Context from "../context";
+import { ThemeProvider } from "../ThemeContext";
 
 export default function Layout() {
 
@@ -23,6 +24,7 @@ export default function Layout() {
     });
 
     return (
+        <ThemeProvider>
         <Context.Provider value={{ filtredPokemon, setFiltredPokemon, storage, setStorage, trainer, setTrainer, params, setParams }}>
             <View style={{ flex: 1 }}>
                 <Stack screenOptions={{
@@ -37,5 +39,7 @@ export default function Layout() {
                 </Stack>
             </View>
         </Context.Provider>
+        </ThemeProvider>
+
     )
 }

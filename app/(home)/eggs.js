@@ -55,6 +55,7 @@ export default function Eggs() {
                 contentContainerStyle={{ gap: 10, paddingBottom: 50 }}
                 renderItem={renderItem}
                 numColumns={1}
+                // keyExtractor={(item, index) => `${item}-${index}`}
             />
         </View>
     );

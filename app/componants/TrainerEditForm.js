@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView, Modal, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import context from '../../context';
 import ProfilePicModal from '../componants/ProfilePicModal';
 import profileImages from '../utils/imageMapper';
+import { useTheme } from '../../ThemeContext';
+import CustomPickerModal from '../componants/CustomPicker';
 const { regions_with_cities } = require('../regions_pokemon.json');
 
 export default function TrainerEditForm({ onCancel }) {
@@ -12,6 +13,14 @@ export default function TrainerEditForm({ onCancel }) {
     const [trainerForm, setTrainerForm] = useState(trainer);
     const [modalVisible, setModalVisible] = useState(false);
     const [types, setTypes] = useState([]);
+    const genderOptions = ['N/A', 'Dresseur', 'Dresseuse', 'Dresseur·euse'];
+    const [isGenderPickerVisible, setIsGenderPickerVisible] = useState(false);
+    const [isRegionPickerVisible, setIsRegionPickerVisible] = useState(false);
+    const [isCityPickerVisible, setIsCityPickerVisible] = useState(false);
+    const [isTypePickerVisible, setIsTypePickerVisible] = useState(false);
+
+
+    const { theme, currentColors } = useTheme();
 
     const cities = regions_with_cities[trainerForm.region] || [];
 
@@ -80,60 +89,65 @@ export default function TrainerEditForm({ onCancel }) {
                 />
 
                 <Text>Genre</Text>
-                <Picker
-                    selectedValue={trainerForm.genre}
-                    style={styles.picker}
-                    onValueChange={(value) => handleChange('genre', value)}
+
+                <TouchableOpacity
+                    style={[
+                        styles.customPicker,
+                        { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
+                    ]}
+                    onPress={() => setIsGenderPickerVisible(true)}
                 >
-                    <Picker.Item label={'Sélectionner le genre'} value={''} />
-                    <Picker.Item label={'N/A'} value={'N/A'} />
-                    <Picker.Item label={'Dresseur'} value={'Dresseur'} />
-                    <Picker.Item label={'Dresseuse'} value={'Dresseuse'} />
-                    <Picker.Item label={'Dresseur·euse'} value={'Dresseur·euse'} />
-                </Picker>
+                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
+                        {trainerForm.genre || 'Sélectionner le genre'}
+                    </Text>
+                </TouchableOpacity>
+
+
+
 
                 <Text>Choisir la région</Text>
-                <Picker
-                    selectedValue={trainerForm.region}
-                    style={styles.picker}
-                    onValueChange={handleRegionChange}
+                <TouchableOpacity
+                    style={[
+                        styles.customPicker,
+                        { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
+                    ]}
+                    onPress={() => setIsRegionPickerVisible(true)}
                 >
-                    <Picker.Item label={'Sélectionner une région'} value={''} />
-                    {Object.keys(regions_with_cities).map((region) => (
-                        <Picker.Item label={region} value={region} key={region} />
-                    ))}
-                </Picker>
+                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
+                        {trainerForm.region || 'Sélectionner une région'}
+                    </Text>
+                </TouchableOpacity>
 
                 {trainerForm.region && (
                     <>
                         <Text>Choisir la ville</Text>
-                        <Picker
-                            selectedValue={trainerForm.city}
-                            style={styles.picker}
-                            onValueChange={(value) => handleChange('city', value)}
+                        <TouchableOpacity
+                            style={[
+                                styles.customPicker,
+                                { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
+                            ]}
+                            onPress={() => setIsCityPickerVisible(true)}
                         >
-                            <Picker.Item label={'Sélectionner une ville'} value={''} />
-                            {cities.map((city, index) => (
-                                <Picker.Item label={city} value={city} key={index} />
-                            ))}
-                        </Picker>
+                            <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
+                                {trainerForm.city || 'Sélectionner une ville'}
+                            </Text>
+                        </TouchableOpacity>
+
                     </>
                 )}
 
                 <Text>Choisir le type de prédilection</Text>
-                <Picker
-                    selectedValue={
-                        types.some((type) => type.name.fr === trainerForm.type)
-                            ? trainerForm.type
-                            : ''
-                    }
-                    onValueChange={(value) => handleChange('type', value)}
+                <TouchableOpacity
+                    style={[
+                        styles.customPicker,
+                        { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
+                    ]}
+                    onPress={() => setIsTypePickerVisible(true)}
                 >
-                    <Picker.Item label={'Sélectionner un type'} value={''} />
-                    {types.map((type) => (
-                        <Picker.Item label={type.name.fr} value={type.name.fr} key={type.name.fr} />
-                    ))}
-                </Picker>
+                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
+                        {trainerForm.type || 'Sélectionner un type'}
+                    </Text>
+                </TouchableOpacity>
                 <Text>Devise</Text>
                 <TextInput
                     style={styles.input}
@@ -175,6 +189,40 @@ export default function TrainerEditForm({ onCancel }) {
                     onSelect={(picName) => handleChange('profilePic', picName)}
                     selectedPic={trainerForm.profilePic}
                 />
+                <CustomPickerModal
+                    visible={isGenderPickerVisible}
+                    options={genderOptions}
+                    selectedValue={trainerForm.genre}
+                    onSelect={(option) => handleChange('genre', option)}
+                    onClose={() => setIsGenderPickerVisible(false)}
+                    title="Sélectionner le genre"
+                />
+
+                <CustomPickerModal
+                    visible={isRegionPickerVisible}
+                    options={Object.keys(regions_with_cities)}
+                    selectedValue={trainerForm.region}
+                    onSelect={(region) => handleRegionChange(region)}
+                    onClose={() => setIsRegionPickerVisible(false)}
+                    title="Sélectionner la région"
+                />
+                <CustomPickerModal
+                    visible={isCityPickerVisible}
+                    options={cities}
+                    selectedValue={trainerForm.city}
+                    onSelect={(city) => handleChange('city', city)}
+                    onClose={() => setIsCityPickerVisible(false)}
+                    title="Sélectionner la ville"
+                />
+                <CustomPickerModal
+                    visible={isTypePickerVisible}
+                    options={types.map((type) => type.name.fr)}
+                    selectedValue={trainerForm.type}
+                    onSelect={(selectedType) => handleChange('type', selectedType)}
+                    onClose={() => setIsTypePickerVisible(false)}
+                    title="Sélectionner un type"
+                />
+
             </View>
         </ScrollView>
     );
@@ -196,7 +244,10 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         padding: 10,
     },
-    picker: {},
+
+    itemStyle: {
+        // backgroundColor:'blue'
+    },
     buttonContainer: {
         marginTop: 10,
     },
@@ -213,4 +264,10 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         marginTop: 8,
     },
+    customPicker: {
+        paddingVertical: 12,
+        paddingHorizontal: 11,
+        marginTop: 5
+    }
+
 });

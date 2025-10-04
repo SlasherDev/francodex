@@ -1,16 +1,38 @@
-import { useContext, useState } from "react";
-import { View, Text, TouchableOpacity, Modal, Button, StyleSheet, Image } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Modal, Button, StyleSheet, Image, Animated, Switch } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import context from "../../context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from "../../ThemeContext";
 
 export default function Settings() {
     const { params, setParams } = useContext(context);
+    const { theme, toggleTheme,currentColors } = useTheme(); 
     const [modalVisible, setModalVisible] = useState(false);
 
-    const handleSelectLang = (lang) => {
-        setParams(prev => ({ ...prev, lang })); // on garde le reste et on change juste lang
+    const handleSelectLang = async (lang) => {
+        setParams(prev => ({ ...prev, lang }));
+        try {
+            await AsyncStorage.setItem('lang', lang); 
+        } catch (e) {
+            console.error('Error saving language preference:', e);
+        }
         setModalVisible(false);
     };
+
+    useEffect(() => {
+        const loadLang = async () => {
+            try {
+                const savedLang = await AsyncStorage.getItem('lang');
+                if (savedLang) {
+                    setParams(prev => ({ ...prev, lang: savedLang }));
+                }
+            } catch (e) {
+                console.error('Error loading language preference:', e);
+            }
+        };
+        loadLang();
+    }, []);
 
     const langApi = {
         fr: {
@@ -27,13 +49,39 @@ export default function Settings() {
         }
     };
 
+
+    const togglePosition = theme === "dark" ? 35 : 0; 
+    const [toggleAnim] = useState(new Animated.Value(togglePosition));
+
+    // Animate the toggle when the theme changes
+    useEffect(() => {
+        Animated.spring(toggleAnim, {
+            toValue: togglePosition,
+            useNativeDriver: false,
+        }).start();
+    }, [theme]);
+
     return (
         <View style={styles.container}>
+            {/* Language Change Section */}
             <View style={styles.settingItem}>
                 <Button color={'#cc0000'} title="Changer la langue" onPress={() => setModalVisible(true)} />
-                <Text>Langue : {langApi[params.lang].langName}</Text>
+                <Text >Langue : {langApi[params.lang].langName}</Text>
             </View>
 
+           
+            <View style={[styles.box, { backgroundColor: currentColors.background }]}>
+                <Text style={{color:theme==='dark'?'white':'black'}}>Thème: {theme === 'dark' ? 'Sombre' : 'Clair'}</Text>
+                <Switch
+                    value={theme === 'dark'}
+                    onValueChange={toggleTheme}
+                    trackColor={theme==='dark'?'white':'black'}
+                    thumbColor={theme==='dark'?'white':'black'}
+                    style={styles.switch}
+                />
+            </View>
+
+            {/* Modal for Language Selection */}
             <Modal
                 animationType="fade"
                 visible={modalVisible}
@@ -41,51 +89,45 @@ export default function Settings() {
                 onRequestClose={() => setModalVisible(false)}
             >
                 <View style={styles.overlay}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Sélectionne une langue :</Text>
+                    <View style={[styles.modalContent,{backgroundColor: currentColors.background}]}>
+                        <Text style={[styles.modalTitle, {color: currentColors.text}]}>Sélectionne une langue :</Text>
                         <View>
-                            <TouchableOpacity onPress={() => handleSelectLang("fr")}>
+                            <TouchableOpacity
+                                onPress={() => handleSelectLang("fr")}
+                                accessibilityLabel="Select French language"
+                                accessibilityHint="Switches the app language to French"
+                            >
                                 <View
-                                    style={[
-                                        styles.optionRow,
-                                        params.lang === "fr" ? styles.selected : styles.unselected,
-                                    ]}
+                                    style={[styles.optionRow, params.lang === "fr" ? styles.selected : styles.unselected]}
                                 >
-                                    <Text>Français</Text>
-                                    <Image
-                                        source={require('../images/flags/fr_flag.png')}
-                                        style={styles.image}
-                                    />
+                                    <Text style={{color: currentColors.text}}>Français</Text>
+                                    <Image source={require('../images/flags/fr_flag.png')} style={styles.image} />
                                 </View>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => handleSelectLang("en")}>
+                            <TouchableOpacity
+                                onPress={() => handleSelectLang("en")}
+                                accessibilityLabel="Select English language"
+                                accessibilityHint="Switches the app language to English"
+                            >
                                 <View
-                                    style={[
-                                        styles.optionRow,
-                                        params.lang === "en" ? styles.selected : styles.unselected,
-                                    ]}
+                                    style={[styles.optionRow, params.lang === "en" ? styles.selected : styles.unselected]}
                                 >
-                                    <Text>English</Text>
-                                    <Image
-                                        source={require('../images/flags/en_flag.png')}
-                                        style={styles.image}
-                                    />
+                                    <Text style={{color: currentColors.text}}>English</Text>
+                                    <Image source={require('../images/flags/en_flag.png')} style={styles.image} />
                                 </View>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => handleSelectLang("jp")}>
+                            <TouchableOpacity
+                                onPress={() => handleSelectLang("jp")}
+                                accessibilityLabel="Select Japanese language"
+                                accessibilityHint="Switches the app language to Japanese"
+                            >
                                 <View
-                                    style={[
-                                        styles.optionRow,
-                                        params.lang === "jp" ? styles.selected : styles.unselected,
-                                    ]}
+                                    style={[styles.optionRow, params.lang === "jp" ? styles.selected : styles.unselected]}
                                 >
-                                    <Text>日本語 (Japonais)</Text>
-                                    <Image
-                                        source={require('../images/flags/jp_flag.png')}
-                                        style={styles.image}
-                                    />
+                                    <Text style={{color: currentColors.text}}>日本語 (Japonais)</Text>
+                                    <Image source={require('../images/flags/jp_flag.png')} style={styles.image} />
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -102,8 +144,9 @@ export default function Settings() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 20,
-        gap: 20
+        padding: 20,
+        gap: 20,
+
     },
     overlay: {
         flex: 1,
@@ -116,7 +159,6 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         width: 300,
-
     },
     optionRow: {
         gap: 10,
@@ -161,5 +203,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 12,
         textAlign: 'center'
-    }
+    },
+    box: {
+        padding: 20,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 5,
+        justifyContent:'space-between',
+        alignItems:'center',
+        flexDirection:'row'
+    },
+    switch: {
+        // marginTop: 20,
+    },
 });

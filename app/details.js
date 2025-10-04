@@ -651,7 +651,8 @@ export default function Details() {
                     showsHorizontalScrollIndicator={false}
                     decelerationRate={"normal"}
                     pagingEnabled
-                />
+                    keyExtractor={(item) => item.pokedex_id.toString()}
+                />                
             )}
 
         </View>

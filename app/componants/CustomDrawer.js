@@ -1,26 +1,28 @@
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { DrawerContentScrollView, DrawerItemList,} from "@react-navigation/drawer";
 import app from "../../app.json"
 
 export default function CustomDrawer(props) {
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#CC0000' }}>
-      <View style={{ padding: 60 }}>
-    
-      </View>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+       <Image
+        source={require('../images/banniere.png')}
+        style={{ width: '100%', height: 150, }}
+       />
+
 
       <DrawerContentScrollView
         {...props}
-        style={{ backgroundColor: '#fff' }}
         contentContainerStyle={{ paddingTop: 10 }}
       >
         <DrawerItemList {...props}/>
       </DrawerContentScrollView>
 
-      <View style={{ backgroundColor: '#fff', padding: 20, alignItems: 'center', paddingBottom: 50 }}>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{app.expo.name.charAt(0).toUpperCase() + app.expo.name.slice(1)}</Text>
-        <Text style={{ fontSize: 16 }}>Version {app.expo.version}</Text>
+      <View style={{ padding: 20, alignItems: 'center', paddingBottom: 50 }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{app.expo.name}</Text>
+        <Text style={{ fontSize: 16 }}>{app.expo.owner}</Text>
+        <Text style={{ fontSize: 14 }}>Version {app.expo.version}</Text>
       </View>
 
     </View>

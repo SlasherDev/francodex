@@ -2,7 +2,9 @@ import { Drawer } from 'expo-router/drawer';
 import { FontAwesome, FontAwesome6, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomDrawer from "../componants/CustomDrawer";
 
+
 export default function Layout() {
+    
     const iconSize = 30;
     return (
         <Drawer
