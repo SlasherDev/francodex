@@ -2,7 +2,6 @@ import { Drawer } from 'expo-router/drawer';
 import { FontAwesome, FontAwesome6, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomDrawer from "../componants/CustomDrawer";
 
-
 export default function Layout() {
     
     const iconSize = 30;
@@ -43,7 +42,7 @@ export default function Layout() {
             />
             <Drawer.Screen
                 name="eggs"
-                options={{ title: 'Eggs', drawerIcon: ({ color }) => <FontAwesome6 name="egg" size={iconSize} color={color} /> }}
+                options={{ title: 'Oeufs', drawerIcon: ({ color }) => <FontAwesome6 name="egg" size={iconSize} color={color} /> }}
             />
             <Drawer.Screen
                 name="types"

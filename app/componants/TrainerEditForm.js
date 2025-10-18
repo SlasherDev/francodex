@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView, Modal, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { useState, useEffect, useContext } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import context from '../../context';
-import ProfilePicModal from '../componants/ProfilePicModal';
 import profileImages from '../utils/imageMapper';
 import { useTheme } from '../../ThemeContext';
 import CustomPickerModal from '../componants/CustomPicker';
-const { regions_with_cities } = require('../regions_pokemon.json');
+import CustomImagePickerModale from './customImagePicker';
+import { Ionicons } from '@expo/vector-icons';
+const { regions_with_cities, profilePics } = require('../regions_pokemon.json');
 
 export default function TrainerEditForm({ onCancel }) {
     const { trainer, setTrainer } = useContext(context);
     const [trainerForm, setTrainerForm] = useState(trainer);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [isProfilePicModalVisible, setIsProfilePicModalVisible] = useState(false);
     const [types, setTypes] = useState([]);
     const genderOptions = ['N/A', 'Dresseur', 'Dresseuse', 'Dresseur·euse'];
     const [isGenderPickerVisible, setIsGenderPickerVisible] = useState(false);
@@ -158,18 +158,23 @@ export default function TrainerEditForm({ onCancel }) {
                     onChangeText={(value) => handleChange('devise', value)}
                 />
 
-                <Button color={"orange"} title="Choisir une image de profil" onPress={() => setModalVisible(true)} />
-                <View style={styles.preview}>
-                    <Text>Image de profil sélectionnée :</Text>
+                <TouchableOpacity onPress={() => setIsProfilePicModalVisible(true)} style={styles.preview}>
+                    
                     {trainerForm.profilePic ? (
+                        <>
+                    <Text style={{ fontStyle: 'italic' }}>changer l'image de profil</Text>
                         <Image
                             source={profileImages[trainerForm.profilePic]}
                             style={styles.profilePic}
                         />
+                        </>
                     ) : (
-                        <Text style={{ fontStyle: 'italic' }}>Aucune image sélectionnée</Text>
+                        <>
+                        <Text style={{ fontStyle: 'italic' }}>Choisir une image de profil</Text>
+                        <Ionicons name="person-circle" size={100} color={'#cacaca'} />
+                        </>
                     )}
-                </View>
+                </TouchableOpacity>
 
                 <View style={styles.buttonContainer}>
                     <View style={styles.buttonStyle}>
@@ -183,11 +188,17 @@ export default function TrainerEditForm({ onCancel }) {
                     </View>
                 </View>
 
-                <ProfilePicModal
-                    visible={modalVisible}
-                    onClose={() => setModalVisible(false)}
+                <CustomImagePickerModale
+                    visible={isProfilePicModalVisible}
+                    options={profilePics.map((profilePic) => ({ 
+                        name: profilePic.name, 
+                        img:  profileImages[profilePic.pic],
+                        key: profilePic.pic,
+                    }))}
+                    onClose={() => setIsProfilePicModalVisible(false)}
                     onSelect={(picName) => handleChange('profilePic', picName)}
-                    selectedPic={trainerForm.profilePic}
+                    selectedValue={trainerForm.profilePic}
+                    title="Choisis ton image de profil"
                 />
                 <CustomPickerModal
                     visible={isGenderPickerVisible}
@@ -214,9 +225,14 @@ export default function TrainerEditForm({ onCancel }) {
                     onClose={() => setIsCityPickerVisible(false)}
                     title="Sélectionner la ville"
                 />
-                <CustomPickerModal
+                <CustomImagePickerModale
                     visible={isTypePickerVisible}
-                    options={types.map((type) => type.name.fr)}
+                    options={types.map((type) => ({ 
+                        name: type.name.fr, 
+                        img: { uri: type.sprites },
+                        key: type.name.fr,
+
+                    }))}
                     selectedValue={trainerForm.type}
                     onSelect={(selectedType) => handleChange('type', selectedType)}
                     onClose={() => setIsTypePickerVisible(false)}
@@ -255,6 +271,10 @@ const styles = StyleSheet.create({
         marginVertical: 8,
     },
     preview: {
+        borderColor: '#cacaca',
+        borderWidth: 3,
+        borderRadius: 10,
+        padding: 10,
         marginVertical: 16,
         alignItems: 'center',
     },

@@ -6,9 +6,11 @@ import NetInfo from "@react-native-community/netinfo";
 import context from "../../context";
 import { sanitizeString } from "../../utils";
 import { StatusBar } from 'expo-status-bar';
-
+import { useTheme } from "../../ThemeContext";
 
 export default function Pokedex() {
+    const { theme, currentColors } = useTheme();
+  
     const { filtredPokemon, setFiltredPokemon } = useContext(context);
     const { params } = useContext(context);
 
@@ -81,7 +83,7 @@ export default function Pokedex() {
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <Image style={{ width: 125, aspectRatio: 1 }} source={{ uri: item.sprites.regular }} alt={item.name[params.lang]} />
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: 'bold', fontSize: 25 }}>{item.name[params.lang]}</Text>
+                            <Text style={{ color: currentColors.text, fontWeight: 'bold', fontSize: 25 }}>{item.name[params.lang]}</Text>
                             <View style={{ margin: 10 }}>
                                 <View style={{ flex: 1, justifyContent: "center", alignItems: "flex-start", gap: 5 }}>
                                     {item.types.map((type, typeId) => {
@@ -92,7 +94,7 @@ export default function Pokedex() {
                                                     source={{ uri: type.image }}
                                                     accessibilityLabel={type.name}
                                                 />
-                                                <Text>{type.name}</Text>
+                                                <Text style={{ color: currentColors.text }}>{type.name}</Text>
                                             </View>
                                         );
                                     })}
@@ -102,22 +104,22 @@ export default function Pokedex() {
                     </View>
 
 
-                    <Text style={{ fontSize: 15 }}>#{String(item.pokedex_id).padStart(3, '0')}</Text>
+                    <Text style={{ fontSize: 15, color: currentColors.text }}>#{String(item.pokedex_id).padStart(3, '0')}</Text>
                 </Pressable>
             </Link>
         );
-    }, [width, params]);
+    }, [width, params, currentColors]);
 
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <ActivityIndicator size="large" color='gray' />
+                <ActivityIndicator size="large" color={currentColors.text} />
             </View>
         );
     } else if (filtredPokemon.length === 0) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <Text>Aucun Pokémon à afficher selon les filtres actuels.</Text>
+                <Text style={{ color: currentColors.text }}>Aucun Pokémon à afficher selon les filtres actuels.</Text>
                 <View>
 
                 </View>
@@ -126,13 +128,13 @@ export default function Pokedex() {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: currentColors.background, }}>
             <StatusBar style="light" />
-            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
-                <Ionicons name="search" size={18} />
-                <TextInput value={input} selectionColor={'black'} style={{ flex: 1 }} onChangeText={e => setInput(e)} />
+            <View style={{flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
+                <Ionicons name="search" color={currentColors.text} size={18} />
+                <TextInput value={input} color={currentColors.text} selectionColor={currentColors.text} style={{ flex: 1 }} onChangeText={e => setInput(e)} />
                 {input && (
-                    <Entypo name="cross" size={25} onPress={() => { setInput('') }} />
+                    <Entypo name="cross" size={25} color={currentColors.text} onPress={() => { setInput('') }} />
                 )}
             </View>
 

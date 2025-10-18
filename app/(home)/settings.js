@@ -7,13 +7,13 @@ import { useTheme } from "../../ThemeContext";
 
 export default function Settings() {
     const { params, setParams } = useContext(context);
-    const { theme, toggleTheme,currentColors } = useTheme(); 
+    const { theme, toggleTheme, currentColors } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
 
     const handleSelectLang = async (lang) => {
         setParams(prev => ({ ...prev, lang }));
         try {
-            await AsyncStorage.setItem('lang', lang); 
+            await AsyncStorage.setItem('lang', lang);
         } catch (e) {
             console.error('Error saving language preference:', e);
         }
@@ -50,7 +50,7 @@ export default function Settings() {
     };
 
 
-    const togglePosition = theme === "dark" ? 35 : 0; 
+    const togglePosition = theme === "dark" ? 35 : 0;
     const [toggleAnim] = useState(new Animated.Value(togglePosition));
 
     // Animate the toggle when the theme changes
@@ -62,23 +62,25 @@ export default function Settings() {
     }, [theme]);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: currentColors.background }]}>
             {/* Language Change Section */}
             <View style={styles.settingItem}>
-                <Button color={'#cc0000'} title="Changer la langue" onPress={() => setModalVisible(true)} />
-                <Text >Langue : {langApi[params.lang].langName}</Text>
-            </View>
 
-           
-            <View style={[styles.box, { backgroundColor: currentColors.background }]}>
-                <Text style={{color:theme==='dark'?'white':'black'}}>Thème: {theme === 'dark' ? 'Sombre' : 'Clair'}</Text>
-                <Switch
-                    value={theme === 'dark'}
-                    onValueChange={toggleTheme}
-                    trackColor={theme==='dark'?'white':'black'}
-                    thumbColor={theme==='dark'?'white':'black'}
-                    style={styles.switch}
-                />
+                <TouchableOpacity style={styles.box} onPress={() => setModalVisible(true)} accessibilityLabel="Change Language" accessibilityHint="Opens a modal to change the app language">
+                    <Text style={{ color: currentColors.text, fontWeight: 'bold'}}>Langue des noms des pokémons</Text>
+                    <Text style={{ color: currentColors.text }}>{langApi[params.lang].langName}</Text>
+                </TouchableOpacity>
+
+                <View style={[styles.box, { backgroundColor: currentColors.background }]}>
+                    <Text style={{ color: theme === 'dark' ? 'white' : 'black', fontWeight: 'bold' }}>Thème: {theme === 'dark' ? 'Sombre' : 'Clair'}</Text>
+                    <Switch
+                        value={theme === 'dark'}
+                        onValueChange={toggleTheme}
+                        trackColor={{ false: '#767577', true: 'gray' }}
+                        thumbColor={theme === 'dark' ? 'white' : 'black'}
+                        style={styles.switch}
+                    />
+                </View>
             </View>
 
             {/* Modal for Language Selection */}
@@ -89,8 +91,8 @@ export default function Settings() {
                 onRequestClose={() => setModalVisible(false)}
             >
                 <View style={styles.overlay}>
-                    <View style={[styles.modalContent,{backgroundColor: currentColors.background}]}>
-                        <Text style={[styles.modalTitle, {color: currentColors.text}]}>Sélectionne une langue :</Text>
+                    <View style={[styles.modalContent, { backgroundColor: currentColors.background }]}>
+                        <Text style={[styles.modalTitle, { color: currentColors.text }]}>Sélectionne une langue :</Text>
                         <View>
                             <TouchableOpacity
                                 onPress={() => handleSelectLang("fr")}
@@ -100,7 +102,7 @@ export default function Settings() {
                                 <View
                                     style={[styles.optionRow, params.lang === "fr" ? styles.selected : styles.unselected]}
                                 >
-                                    <Text style={{color: currentColors.text}}>Français</Text>
+                                    <Text style={{ color: currentColors.text }}>Français</Text>
                                     <Image source={require('../images/flags/fr_flag.png')} style={styles.image} />
                                 </View>
                             </TouchableOpacity>
@@ -113,7 +115,7 @@ export default function Settings() {
                                 <View
                                     style={[styles.optionRow, params.lang === "en" ? styles.selected : styles.unselected]}
                                 >
-                                    <Text style={{color: currentColors.text}}>English</Text>
+                                    <Text style={{ color: currentColors.text }}>English</Text>
                                     <Image source={require('../images/flags/en_flag.png')} style={styles.image} />
                                 </View>
                             </TouchableOpacity>
@@ -126,7 +128,7 @@ export default function Settings() {
                                 <View
                                     style={[styles.optionRow, params.lang === "jp" ? styles.selected : styles.unselected]}
                                 >
-                                    <Text style={{color: currentColors.text}}>日本語 (Japonais)</Text>
+                                    <Text style={{ color: currentColors.text }}>日本語 (Japonais)</Text>
                                     <Image source={require('../images/flags/jp_flag.png')} style={styles.image} />
                                 </View>
                             </TouchableOpacity>
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
         height: 30
     },
     settingItem: {
-        gap: 5,
+        gap: 15,
     },
 
     modalTitle: {
@@ -207,14 +209,11 @@ const styles = StyleSheet.create({
     box: {
         padding: 20,
         borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.5,
-        elevation: 5,
-        justifyContent:'space-between',
-        alignItems:'center',
-        flexDirection:'row'
+        borderWidth: 2,
+        borderColor: '#CACACA',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row'
     },
     switch: {
         // marginTop: 20,
