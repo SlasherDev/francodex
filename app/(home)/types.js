@@ -6,7 +6,7 @@ import { useTheme } from "../../ThemeContext";
 import ResetCrossBox from "../componants/resetCross/resetCrossBox";
 
 export default function Types() {
-    const { theme } = useTheme();
+    const { theme, currentColors } = useTheme();
     const [types, setTypes] = useState([]);
     const [typeForm, setTypeForm] = useState({ type1: "none", type2: "none" });
     const [typeResult, setTypeResult] = useState(null);
@@ -93,12 +93,12 @@ export default function Types() {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container,{ backgroundColor: currentColors.background }]}>
 
             {/* Picker Type 1 */}
             <View style={{ flexDirection: 'row' }}>
                 <View style={styles.pickerContainer}>
-                    <Text style={styles.pickerLabel}>Type 1</Text>
+                    <Text style={[styles.pickerLabel, {color: currentColors.text}]}>Type 1</Text>
                     <TouchableOpacity
                         style={styles.customPicker}
                         onPress={() => openPicker("type1")}
@@ -119,7 +119,7 @@ export default function Types() {
                 {/* Picker Type 2 */}
                 {typeForm.type1 !== "none" && (
                     <View style={styles.pickerContainer}>
-                        <Text style={styles.pickerLabel}>Type 2</Text>
+                        <Text style={[styles.pickerLabel, {color: currentColors.text}]}>Type 2</Text>
                         <TouchableOpacity
                             style={[styles.customPicker, { flex: 1 }]}
                             onPress={() => openPicker("type2")}

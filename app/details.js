@@ -8,12 +8,15 @@ import context from "../context";
 import TargetPokemonPreComponant from "./componants/targetPokemon/targetPokemonPreComponant";
 import TargetPokemonNextComponant from "./componants/targetPokemon/targetPokemonNextComponant";
 import TargetPokemonRegionComponant from "./componants/targetPokemon/targetPokemonRegionComponant";
+import { useTheme } from "../ThemeContext";
 
 export default function Details() {
 
     const { id } = useLocalSearchParams();
     const { storage, setStorage } = useContext(context);
     const { params } = useContext(context);
+    const {theme,  currentColors } = useTheme();
+
 
     /*const [poke, setPoke] = useState()
     const spePoke = (id) => {
@@ -118,11 +121,11 @@ export default function Details() {
                                                         {talent.tc ? (
                                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                                 <Text style={{ borderTopWidth: 1, borderLeftWidth: 1, borderBottomWidth: 1, borderColor: '#cc0000', backgroundColor: '#CC0000', color: 'white', padding: 10, fontWeight: 'bold', borderTopLeftRadius: 5, borderBottomLeftRadius: 5 }}>Caché</Text>
-                                                                <Text style={{ paddingVertical: 10, borderTopWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, flex: 1, borderColor: '#cc0000', borderTopRightRadius: 5, borderBottomRightRadius: 5, textAlign: 'center' }}>{talent.name}</Text>
+                                                                <Text style={{color: currentColors.text, paddingVertical: 10, borderTopWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, flex: 1, borderColor: '#cc0000', borderTopRightRadius: 5, borderBottomRightRadius: 5, textAlign: 'center' }}>{talent.name}</Text>
                                                             </View>
                                                         ) : <Text style={{
                                                             borderWidth: 1, borderRadius: 5,
-                                                            borderColor: '#cdcdcd', textAlign: 'center', padding: 10
+                                                            borderColor: '#cdcdcd', textAlign: 'center', padding: 10, color: currentColors.text,
                                                         }}>{talent.name}</Text>}
 
                                                     </View>
@@ -133,43 +136,43 @@ export default function Details() {
                             </>
                         )}
 
-                        <Text style={styles.sectionTitle}>Informations générales</Text>
+                        <Text style={[styles.sectionTitle, { color: currentColors.text}]}>Informations générales</Text>
                         <View style={{ marginBottom: 10 }}>
                             <View style={styles.infoContainer}>
                                 <View style={[styles.table, styles.infoElement]}>
-                                    <Text style={styles.subTitle}>Génération</Text>
-                                    <Text style={styles.infoText}>{item.generation}</Text>
+                                    <Text style={[styles.subTitle, { color: currentColors.text }]}>Génération</Text>
+                                    <Text style={[styles.infoText, { color: currentColors.text }]}>{item.generation}</Text>
                                 </View>
                                 <View style={[styles.table, styles.infoElement]}>
-                                    <Text style={styles.subTitle}>Catégorie</Text>
-                                    <Text style={styles.infoText}>{item.category}</Text>
+                                    <Text style={[styles.subTitle, { color: currentColors.text }]}>Catégorie</Text>
+                                    <Text style={[styles.infoText, { color: currentColors.text }]}>{item.category}</Text>
                                 </View>
                             </View>
                             <View style={styles.infoContainer}>
                                 <View style={[styles.table, styles.infoElement]}>
-                                    <Text style={styles.subTitle}>Taille</Text>
-                                    <Text style={styles.infoText}>{item.height}</Text>
+                                    <Text style={[styles.subTitle, { color: currentColors.text }]}>Taille</Text>
+                                    <Text style={[styles.infoText, { color: currentColors.text }]}>{item.height}</Text>
                                 </View>
                                 <View style={[styles.table, styles.infoElement]}>
-                                    <Text style={styles.subTitle}>Poids</Text>
-                                    <Text style={styles.infoText}>{item.weight}</Text>
+                                    <Text style={[styles.subTitle, { color: currentColors.text }]}>Poids</Text>
+                                    <Text style={[styles.infoText, { color: currentColors.text }]}>{item.weight}</Text>
                                 </View>
                                 <View style={[styles.table, styles.infoElement]}>
-                                    <Text style={styles.subTitle}>Taux de capture</Text>
-                                    <Text style={styles.infoText}>{item.catch_rate}</Text>
+                                    <Text style={[styles.subTitle, { color: currentColors.text }]}>Taux de capture</Text>
+                                    <Text style={[styles.infoText, { color: currentColors.text }]}>{item.catch_rate}</Text>
                                 </View>
                             </View>
                            <View style={styles.infoContainer}>
                                 <View style={[styles.table, styles.infoElement]}>
-                                    <Text style={styles.subTitle}>Niveau 100</Text>
-                                    <Text style={styles.infoText}>{item.level_100} pts d'expériences</Text>
+                                    <Text style={[styles.subTitle, { color: currentColors.text }]}>Niveau 100</Text>
+                                    <Text style={[styles.infoText, { color: currentColors.text }]}>{item.level_100} pts d'expériences</Text>
                                 </View>
                                 {item.egg_groups && (
                                     <View style={[styles.table, styles.infoElement]}>
-                                        <Text style={styles.subTitle}>Groupe d'oeuf</Text>
+                                        <Text style={[styles.subTitle, { color: currentColors.text }]}>Groupe d'oeuf</Text>
                                         <View>
                                             {item.egg_groups.map((egg, index) => (
-                                                <Text style={styles.infoText} key={index}>{egg}</Text>
+                                                <Text style={[styles.infoText, { color: currentColors.text }]} key={index}>{egg}</Text>
                                             ))}
                                         </View>
                                     </View>
@@ -178,29 +181,29 @@ export default function Details() {
                         </View>
                         {item.sexe ? (
                             <View>
-                                <Text>
+                                <Text style={{color: currentColors.text}}>
                                     Sexe: <Text style={{ fontWeight: 'bold' }}>{item.sexe.female}%</Text> Femelle ; <Text style={{ fontWeight: 'bold' }}>{item.sexe.male}%</Text> Mâle
                                 </Text>
-                                <View style={styles.progressContainer}>
+                                 <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.progressContainer]}>
                                     <View style={[styles.progressBar, { width: `${item.sexe.female}%`, backgroundColor: 'pink' }]} />
                                     <View style={[styles.progressBar, { width: `${item.sexe.male}%`, backgroundColor: 'lightblue' }]} />
                                 </View>
                             </View>
                         ) : (
                             <View>
-                                <Text>Sexe: Asexué</Text>
-                                <View style={styles.progressContainer}>
+                                <Text style={{color: currentColors.text}} >Sexe: Asexué</Text>
+                                 <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.progressContainer]}>
                                     <View style={styles.progressBar} />
                                 </View>
                             </View>
                         )}
 
                         <View>
-                            <Text style={styles.sectionTitle}>Statistiques</Text>
+                            <Text style={[styles.sectionTitle, { color: currentColors.text }]}>Statistiques</Text>
                             <View style={{ gap: 5 }}>
                                 <View>
-                                    <Text>HP : {item.stats.hp}</Text>
-                                    <View style={styles.statBarcontainter}>
+                                    <Text style={{color: currentColors.text}}>HP : {item.stats.hp}</Text>
+                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.hp)}%`,
                                             backgroundColor: `${setStatColor(item.stats.hp)}`,
@@ -209,8 +212,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text>Attaque : {item.stats.atk}</Text>
-                                    <View style={styles.statBarcontainter}>
+                                    <Text style={{color: currentColors.text}}>Attaque : {item.stats.atk}</Text>
+                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.atk)}%`,
                                             backgroundColor: `${setStatColor(item.stats.atk)}`,
@@ -218,8 +221,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text>Défense : {item.stats.def}</Text>
-                                    <View style={styles.statBarcontainter}>
+                                    <Text style={{color: currentColors.text}}>Défense : {item.stats.def}</Text>
+                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.def)}%`,
                                             backgroundColor: `${setStatColor(item.stats.def)}`,
@@ -227,8 +230,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text>Attaque spéciale : {item.stats.spe_atk}</Text>
-                                    <View style={styles.statBarcontainter}>
+                                    <Text style={{color: currentColors.text}}>Attaque spéciale : {item.stats.spe_atk}</Text>
+                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.spe_atk)}%`,
                                             backgroundColor: `${setStatColor(item.stats.spe_atk)}`,
@@ -236,8 +239,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text>Défense spéciale : {item.stats.spe_def}</Text>
-                                    <View style={styles.statBarcontainter}>
+                                    <Text style={{color: currentColors.text}}>Défense spéciale : {item.stats.spe_def}</Text>
+                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.spe_def)}%`,
                                             backgroundColor: `${setStatColor(item.stats.spe_def)}`,
@@ -245,8 +248,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text>Vitesse : {item.stats.vit}</Text>
-                                    <View style={styles.statBarcontainter}>
+                                    <Text style={{color: currentColors.text}}>Vitesse : {item.stats.vit}</Text>
+                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.vit)}%`,
                                             backgroundColor: `${setStatColor(item.stats.vit)}`,
@@ -260,13 +263,13 @@ export default function Details() {
             </View>
             <View style={styles.itemContainer}>
                 <ScrollView style={styles.scrollView}>
-                    <Text style={styles.sectionTitle}>Sensibilités</Text>
+                    <Text style={[styles.sectionTitle, { color: currentColors.text }]}>Sensibilités</Text>
 
                     {/* Double Faiblesse x4 */}
                     {item.resistances.some((resiste) => resiste.multiplier === 4) && (
                         <View>
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Double Faiblesse x4</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Double Faiblesse x4</Text>
                                 {item.resistances
                                     .filter((resiste) => resiste.multiplier === 4)
                                     .reduce((rows, resiste, index) => {
@@ -290,7 +293,7 @@ export default function Details() {
                                                         source={{ uri: typeCorrespondant.sprites }}
                                                         alt={typeCorrespondant.name.fr}
                                                     />
-                                                    <Text>{typeCorrespondant.name.fr}</Text>
+                                                    <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                                 </View>
                                             ))}
                                         </View>
@@ -302,7 +305,7 @@ export default function Details() {
                     {item.resistances.some((resiste) => resiste.multiplier === 2) && (
                         <View>
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Faiblesse x2</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Faiblesse x2</Text>
                                 {item.resistances
                                     .filter((resiste) => resiste.multiplier === 2)
                                     .reduce((rows, resiste, index) => {
@@ -326,7 +329,7 @@ export default function Details() {
                                                         source={{ uri: typeCorrespondant.sprites }}
                                                         alt={typeCorrespondant.name.fr}
                                                     />
-                                                    <Text>{typeCorrespondant.name.fr}</Text>
+                                                    <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                                 </View>
                                             ))}
                                         </View>
@@ -341,7 +344,7 @@ export default function Details() {
                     {item.resistances.some((resiste) => resiste.multiplier === 1) && (
                         <View>
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Neutre x1</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Neutre x1</Text>
                                 {item.resistances
                                     .filter((resiste) => resiste.multiplier === 1)
                                     .reduce((rows, resiste, index) => {
@@ -365,7 +368,7 @@ export default function Details() {
                                                         source={{ uri: typeCorrespondant.sprites }}
                                                         alt={typeCorrespondant.name.fr}
                                                     />
-                                                    <Text>{typeCorrespondant.name.fr}</Text>
+                                                    <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                                 </View>
                                             ))}
                                         </View>
@@ -378,7 +381,7 @@ export default function Details() {
                     {item.resistances.some((resiste) => resiste.multiplier === 0.5) && (
                         <View>
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Résistance x1/2</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Résistance x1/2</Text>
                                 {item.resistances
                                     .filter((resiste) => resiste.multiplier === 0.5)
                                     .reduce((rows, resiste, index) => {
@@ -402,7 +405,7 @@ export default function Details() {
                                                         source={{ uri: typeCorrespondant.sprites }}
                                                         alt={typeCorrespondant.name.fr}
                                                     />
-                                                    <Text>{typeCorrespondant.name.fr}</Text>
+                                                    <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                                 </View>
                                             ))}
                                         </View>
@@ -415,7 +418,7 @@ export default function Details() {
                     {item.resistances.some((resiste) => resiste.multiplier === 0.25) && (
                         <View>
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Double Résistance x1/4</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Double Résistance x1/4</Text>
                                 {item.resistances
                                     .filter((resiste) => resiste.multiplier === 0.25)
                                     .reduce((rows, resiste, index) => {
@@ -439,7 +442,7 @@ export default function Details() {
                                                         source={{ uri: typeCorrespondant.sprites }}
                                                         alt={typeCorrespondant.name.fr}
                                                     />
-                                                    <Text>{typeCorrespondant.name.fr}</Text>
+                                                    <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                                 </View>
                                             ))}
                                         </View>
@@ -452,7 +455,7 @@ export default function Details() {
                     {item.resistances.some((resiste) => resiste.multiplier === 0) && (
                         <View>
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Immunité x0</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Immunité x0</Text>
                                 {item.resistances
                                     .filter((resiste) => resiste.multiplier === 0)
                                     .reduce((rows, resiste, index) => {
@@ -476,7 +479,7 @@ export default function Details() {
                                                         source={{ uri: typeCorrespondant.sprites }}
                                                         alt={typeCorrespondant.name.fr}
                                                     />
-                                                    <Text>{typeCorrespondant.name.fr}</Text>
+                                                    <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                                 </View>
                                             ))}
                                         </View>
@@ -492,28 +495,28 @@ export default function Details() {
                     <ScrollView style={styles.scrollView}>
                         {item.evolution?.pre && (
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Pré-évolutions</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Pré-évolutions</Text>
                                 <TargetPokemonPreComponant style={[styles.tableCellContainer, { gap: 10 }]} targetpokemon={targetPokemonPre} />
 
                             </View>
                         )}
                         {item.evolution?.next && (
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Évolutions</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Évolutions</Text>
                                 <TargetPokemonNextComponant style={[styles.tableCellContainer, { gap: 10 }]} targetpokemon={targetPokemonNext} />
                             </View>
                         )}
                         {item.evolution?.mega && (
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Méga évolutions</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Méga évolutions</Text>
                                 <View>
                                     {item.evolution.mega.map((mega, megaId) => (
                                         <View key={megaId} style={[styles.tableCellContainer, { gap: 10 }]}>
-                                            <Text style={{ alignItems: "center", margin: 10 }}>Mega-{pokemon.name[params.lang]}</Text>
+                                            <Text style={{ alignItems: "center", margin: 10, color : currentColors.text }}>Mega-{pokemon.name[params.lang]}</Text>
                                             <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
                                                 {mega.sprites.regular && (
                                                     <View style={{ alignItems: "center", margin: 10 }}>
-                                                        <Text style={{ margin: 5 }} >Normal</Text>
+                                                        <Text style={{ margin: 5, color : currentColors.text }} >Normal</Text>
                                                         <Image
                                                             style={{ width: 100, height: 100 }}
                                                             source={{ uri: mega.sprites.regular }}
@@ -522,7 +525,7 @@ export default function Details() {
                                                 )}
                                                 {mega.sprites.shiny && (
                                                     <View style={{ alignItems: "center", margin: 10 }}>
-                                                        <Text style={{ margin: 5 }}>Chromatique</Text>
+                                                        <Text style={{ margin: 5, color : currentColors.text }}>Chromatique</Text>
                                                         <Image
                                                             style={{ width: 100, height: 100 }}
                                                             source={{ uri: mega.sprites.shiny }}
@@ -530,7 +533,7 @@ export default function Details() {
                                                     </View>
                                                 )}
                                             </View>
-                                            <Text>{mega.orbe}</Text>
+                                            <Text style={{color : currentColors.text}}>{mega.orbe}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -546,7 +549,7 @@ export default function Details() {
                         <Text style={styles.sectionTitle}>Formes</Text>
                         {item.sprites.shiny && (
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Chromatique</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Chromatique</Text>
                                 <View style={styles.tableRow}>
                                     <View style={[styles.tableCellContainer, { gap: 10, paddingBottom: 10 }]}>
                                         <Image
@@ -560,13 +563,13 @@ export default function Details() {
                         )}
                         {item.sprites.gmax && (
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Gigamax</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Gigamax</Text>
                                 <View style={styles.tableRow}>
                                     <View style={[styles.tableCellContainer, { gap: 10 }]}>
                                         <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
                                             {item.sprites.gmax.regular && (
                                                 <View style={{ alignItems: "center", margin: 10 }}>
-                                                    <Text style={{ margin: 5 }} >Normal</Text>
+                                                    <Text style={{ margin: 5,color : currentColors.text }} >Normal</Text>
                                                     <Image
                                                         style={{ width: 100, height: 100 }}
                                                         source={{ uri: item.sprites.gmax.regular }}
@@ -575,7 +578,7 @@ export default function Details() {
                                             )}
                                             {item.sprites.gmax.shiny && (
                                                 <View style={{ alignItems: "center", margin: 10 }}>
-                                                    <Text style={{ margin: 5 }}>Chromatique</Text>
+                                                    <Text style={{ margin: 5, color : currentColors.text }}>Chromatique</Text>
                                                     <Image
                                                         style={{ width: 100, height: 100 }}
                                                         source={{ uri: item.sprites.gmax.shiny }}
@@ -589,7 +592,7 @@ export default function Details() {
                         )}
                         {item.formes && (
                             <View style={styles.table}>
-                                <Text style={styles.subTitle}>Régionaux</Text>
+                                <Text style={[styles.subTitle, { color: currentColors.text }]}>Régionaux</Text>
                                 <View style={styles.tableRow}>
                                     <View style={[styles.tableCellContainer, { gap: 10 }]}>
                                         <TargetPokemonRegionComponant targetpokemon={{ "pokedex_id": item.pokedex_id, "region": targetPokemonRegion }} />
@@ -604,7 +607,7 @@ export default function Details() {
     );
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{flex :1, backgroundColor: currentColors.background}}>
             <Stack.Screen options={{
                 title: pokemon?.name[params.lang], headerRight: () => (
                     <Text style={{ margin: 5, color: 'white', fontWeight: 'bold', fontSize: 18 }}>#{String(pokemon?.pokedex_id).padStart(4, '0')}</Text>
@@ -623,7 +626,7 @@ export default function Details() {
                                         source={{ uri: type.image }}
                                         accessibilityLabel={type.name}
                                     />
-                                    <Text>{type.name}</Text>
+                                    <Text style={{ color : currentColors.text}}>{type.name}</Text>
                                 </View>
                             );
                         })}
@@ -636,7 +639,7 @@ export default function Details() {
                         </Pressable>
                         :
                         <Pressable onPress={addItem}>
-                            <MaterialCommunityIcons name="pokeball" size={32} color={'#050689'} />
+                            <MaterialCommunityIcons name="pokeball" size={32} color={theme === 'dark' ? '#fff' : '#050689'} />
                         </Pressable>
                     }
                 </View>
@@ -683,7 +686,6 @@ const styles = StyleSheet.create({
     statBarcontainter: {
         borderRadius: 10,
         marginTop: 0,
-        backgroundColor: `#e0e0e0`,
         height: 15,
     },
 
@@ -693,8 +695,7 @@ const styles = StyleSheet.create({
     },
     progressContainer: {
         height: 15,
-        marginTop: 5,
-        backgroundColor: '#e0e0e0', // Background color for the empty bar
+        marginTop: 5, // Background color for the empty bar
         borderRadius: 10,
         flexDirection: 'row',
         overflow: 'hidden',

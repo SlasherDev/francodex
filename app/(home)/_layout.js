@@ -1,8 +1,10 @@
 import { Drawer } from 'expo-router/drawer';
 import { FontAwesome, FontAwesome6, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomDrawer from "../componants/customs/CustomDrawer";
+import { useTheme } from '../../ThemeContext';
 
 export default function Layout() {
+    const { theme, currentColors } = useTheme();
     
     const iconSize = 30;
     return (
@@ -14,9 +16,9 @@ export default function Layout() {
                 headerTitleStyle: { fontWeight: 'bold', textTransform: 'capitalize' },
 
                 // 👇 Styles pour l'élément de menu sélectionné
-                drawerActiveBackgroundColor: '#fce8e6', // Un fond rouge très clair
-                drawerActiveTintColor: '#CC0000',      // La couleur du texte ET de l'icône en rouge
-                drawerInactiveTintColor: '#050689',        // La couleur du texte et de l'icône en gris foncé pour les autres
+                drawerActiveBackgroundColor:  theme === 'dark' ? 'white' :'#fce8e6', // Un fond rouge très clair
+                drawerActiveTintColor: theme === 'dark' ? 'black' : '#CC0000',      // La couleur du texte ET de l'icône en rouge
+                drawerInactiveTintColor: theme === 'dark' ? 'white' : '#050689',        // La couleur du texte et de l'icône en gris foncé pour les autres
                 
                 drawerLabelStyle: {
                     fontSize: 16,

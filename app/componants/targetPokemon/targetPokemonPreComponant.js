@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import context from "../../../context";
+import { useTheme } from "../../../ThemeContext";
 
 export default function TargetPokemonPreComponant({ targetpokemon }) {
  const { params } = useContext(context);
+   const { theme, currentColors } = useTheme();
 
  const styles = StyleSheet.create({
          image: {
@@ -42,12 +44,12 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
         const targetData = targetpokemon.find((t) => t.pokedex_id === pokemon.pokedex_id);
         return (
           <View key={key} style={{ alignItems: "center", margin: 10 }}>
-            <Text>{pokemon?.name?.[params.lang]}</Text>
+             <Text style={{color : currentColors.text}}>{pokemon?.name?.[params.lang]}</Text>
             <Image
               style={{ width: 100, height: 100 }}
               source={{ uri: pokemon?.sprites?.regular }}
             />
-            {targetData && <Text>{targetData.condition}</Text>}
+           {targetData && <Text style={{color : currentColors.text}}>{targetData.condition}</Text>}
             <View style={{ flexDirection: "row", gap: 20, paddingBottom: 10, marginTop: 10 }} >
                             {pokemon?.types.map((type, typeId) => {
                                 return (
@@ -57,7 +59,7 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
                                             source={{ uri: type.image }}
                                             accessibilityLabel={type.name}
                                         />
-                                        <Text>{type.name}</Text>
+                                        <Text style={{color : currentColors.text}}>{type.name}</Text>
                                     </View>
                                 );
                             })}

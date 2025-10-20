@@ -71,17 +71,19 @@ export default function TrainerEditForm({ onCancel }) {
     }, []);
 
     return (
-        <ScrollView >
-            <View style={styles.container}>
-                <Text style={styles.title}>Modifier la fiche</Text>
+        <ScrollView style={{ backgroundColor: currentColors.background }}>
+            <View style={[styles.container]}>
+                <Text style={[{ color: currentColors.text }, styles.title]}>Modifier la fiche</Text>
                 <View>
 
-                    <Text style={styles.elementTitle}>Prénom du dresseur</Text>
+                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Prénom du dresseur</Text>
                     <View style={styles.input}>
                         <TextInput
-                            selectionColor={'black'}
+                            selectionColor={theme === 'dark' ? 'white' : 'black'}
                             style={{ flex: 1 }}
+                            color={theme === 'dark' ? 'white' : 'black'}
                             placeholder="Écrit ton nom de dresseur"
+                            placeholderTextColor={'grey'}
                             value={trainerForm.firstName}
                             onChangeText={(value) => handleChange('firstName', value)}
                         />
@@ -92,12 +94,14 @@ export default function TrainerEditForm({ onCancel }) {
                 </View>
 
                 <View>
-                    <Text style={styles.elementTitle}>Âge du dresseur</Text>
+                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Âge du dresseur</Text>
                     <View style={styles.input}>
                         <TextInput
                             style={{ flex: 1 }}
-                            selectionColor={'black'}
+                            selectionColor={theme === 'dark' ? 'white' : 'black'}
+                            color={theme === 'dark' ? 'white' : 'black'}
                             placeholder="Écrit ton âge"
+                            placeholderTextColor={'grey'}
                             keyboardType="numeric"
                             value={trainerForm.age}
                             onChangeText={(value) => handleChange('age', value)}
@@ -109,7 +113,7 @@ export default function TrainerEditForm({ onCancel }) {
                 </View>
 
                 <View>
-                    <Text style={styles.elementTitle}>Genre du dresseur</Text>
+                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Genre du dresseur</Text>
                     <TouchableOpacity
                         style={[styles.preview, styles.selector]}
                         onPress={() => setIsGenderPickerVisible(true)}
@@ -120,13 +124,13 @@ export default function TrainerEditForm({ onCancel }) {
                                 <ResetCrossText onReset={() => handleChange('genre', '')} />
                             </>
                         ) : (
-                            <Text style={[{ color: theme === 'dark' ? 'white' : 'black' }, styles.textLegend]}>Sélectionner ton genre</Text>
+                            <Text style={styles.textLegend}>Sélectionner ton genre</Text>
                         )}
                     </TouchableOpacity>
                 </View>
 
                 <View>
-                    <Text style={styles.elementTitle}>Région Pokémon du dresseur</Text>
+                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Région Pokémon du dresseur</Text>
                     <TouchableOpacity
                         style={[styles.preview, styles.selector]}
                         onPress={() => setIsRegionPickerVisible(true)}
@@ -137,14 +141,14 @@ export default function TrainerEditForm({ onCancel }) {
                                 <ResetCrossText onReset={() => handleChange('region', '')} />
                             </>
                         ) : (
-                            <Text style={[{ color: theme === 'dark' ? 'white' : 'black' }, styles.textLegend]}>Région préférée du dresseur</Text>
+                            <Text style={styles.textLegend}>Région préférée du dresseur</Text>
                         )}
                     </TouchableOpacity>
                 </View>
 
                 {trainerForm.region && (
                     <View>
-                        <Text style={styles.elementTitle}>Ville Pokémon du dresseur</Text>
+                        <Text style={[{ color: currentColors.text },styles.elementTitle]}>Ville Pokémon du dresseur</Text>
                         <TouchableOpacity
                             style={[styles.preview, styles.selector]}
                             onPress={() => setIsCityPickerVisible(true)}
@@ -155,7 +159,7 @@ export default function TrainerEditForm({ onCancel }) {
                                     <ResetCrossText onReset={() => handleChange('city', '')} />
                                 </>
                             ) : (
-                                <Text style={[{ color: theme === 'dark' ? 'white' : 'black' }, styles.textLegend]}>Ville préférée du dresseur</Text>
+                                <Text style={styles.textLegend}>Ville préférée du dresseur</Text>
                             )}
                         </TouchableOpacity>
 
@@ -163,7 +167,7 @@ export default function TrainerEditForm({ onCancel }) {
                 )}
 
                 <View>
-                    <Text style={styles.elementTitle}>Type de prédilection du dresseur</Text>
+                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Type de prédilection du dresseur</Text>
                     <TouchableOpacity
                         style={styles.preview}
                         onPress={() => setIsTypePickerVisible(true)}
@@ -178,19 +182,21 @@ export default function TrainerEditForm({ onCancel }) {
                                 <ResetCrossBox onReset={() => handleChange('type', '')} />
                             </>
                         ) : (
-                            <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>Choisit ton type de prédilection</Text>
+                            <Text style={styles.textLegend}>Choisit ton type de prédilection</Text>
                         )}
                     </TouchableOpacity>
                 </View>
 
                 <View>
-                    <Text style={styles.elementTitle}>Devise du dresseur</Text>
+                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Devise du dresseur</Text>
                     <View style={styles.input}>
                         <TextInput
                             style={{ flex: 1 }}
                             placeholder="Rédige ta devise ici"
+                            placeholderTextColor={'grey'}
+                            color={theme === 'dark' ? 'white' : 'black'}
                             multiline={true}
-                            selectionColor={'black'}
+                            selectionColor={theme === 'dark' ? 'white' : 'black'}
                             value={trainerForm.devise}
                             onChangeText={(value) => handleChange('devise', value)}
                         />
@@ -201,12 +207,12 @@ export default function TrainerEditForm({ onCancel }) {
                 </View>
 
                 <View>
-                    <Text style={styles.elementTitle}>Image de profil du dresseur</Text>
+                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Image de profil du dresseur</Text>
                     <TouchableOpacity onPress={() => setIsProfilePicModalVisible(true)} style={styles.preview}>
 
                         {trainerForm.profilePic ? (
                             <>
-                                <Text>changer l'image de profil</Text>
+                                <Text style={{ color: currentColors.text }}>changer l'image de profil</Text>
                                 <Image
                                     source={profileImages[trainerForm.profilePic]}
                                     style={styles.image}
@@ -215,7 +221,7 @@ export default function TrainerEditForm({ onCancel }) {
                             </>
                         ) : (
                             <>
-                                <Text >Choisir une image de profil</Text>
+                                <Text style={{ color: 'grey' }}>Choisir une image de profil</Text>
                                 <Ionicons name="person-circle" size={100} color={'#cacaca'} />
                             </>
                         )}
@@ -317,7 +323,8 @@ const styles = StyleSheet.create({
     },
     textLegend: {
         flex: 1,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'grey'
     },
     itemStyle: {
         // backgroundColor:'blue'

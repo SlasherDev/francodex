@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { ActivityIndicator, Alert, FlatList, Image, Text, TextInput, Pressable, View, useWindowDimensions } from "react-native";
+import { ActivityIndicator, Alert, FlatList, Image, Text, TextInput, Pressable, View, useWindowDimensions, Modal } from "react-native";
 import { Link } from "expo-router";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import NetInfo from "@react-native-community/netinfo";
@@ -7,10 +7,11 @@ import context from "../../context";
 import { sanitizeString } from "../../utils";
 import { StatusBar } from 'expo-status-bar';
 import { useTheme } from "../../ThemeContext";
+import AlertNoInternetModal from "../componants/alertModals/alertNoInternetModal";
 
 export default function Pokedex() {
     const { theme, currentColors } = useTheme();
-  
+
     const { filtredPokemon, setFiltredPokemon } = useContext(context);
     const { params } = useContext(context);
 
@@ -19,6 +20,7 @@ export default function Pokedex() {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(true);
     const [isConnected, setIsConnected] = useState(true);
+    const [isAlertNoInternetModal, setIsAlertNoInternetModal] = useState(false);
 
     const checkConnection = useCallback(() => {
         NetInfo.fetch().then(state => {
@@ -26,14 +28,7 @@ export default function Pokedex() {
                 setIsConnected(true);
             } else {
                 setIsConnected(false);
-                Alert.alert(
-                    `Pas de connexion Internet`,
-                    "Merci de vérifier votre connexion internet (j'en ai besoin pour fonctionner)",
-                    [
-                        { text: 'OK', onPress: () => checkConnection() },
-                    ],
-                    { cancelable: false }
-                );
+                setIsAlertNoInternetModal(true);
             }
         });
     }, []);
@@ -112,14 +107,14 @@ export default function Pokedex() {
 
     if (loading) {
         return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: currentColors.background }}>
                 <ActivityIndicator size="large" color={currentColors.text} />
             </View>
         );
     } else if (filtredPokemon.length === 0) {
         return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <Text style={{ color: currentColors.text }}>Aucun Pokémon à afficher selon les filtres actuels.</Text>
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: currentColors.background }}>
+                <Text style={{ color: currentColors.text }}>Aucun Pokémon trouvé.</Text>
                 <View>
 
                 </View>
@@ -130,7 +125,7 @@ export default function Pokedex() {
     return (
         <View style={{ flex: 1, backgroundColor: currentColors.background, }}>
             <StatusBar style="light" />
-            <View style={{flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
                 <Ionicons name="search" color={currentColors.text} size={18} />
                 <TextInput value={input} color={currentColors.text} selectionColor={currentColors.text} style={{ flex: 1 }} onChangeText={e => setInput(e)} />
                 {input && (
@@ -147,6 +142,16 @@ export default function Pokedex() {
                 renderItem={renderItem}
                 numColumns={1}
             />
+
+            <AlertNoInternetModal
+                visible={isAlertNoInternetModal}
+                onClose={() => setIsAlertNoInternetModal(false)}
+                onPress={() => {
+                    setIsAlertNoInternetModal(false);
+                    checkConnection();
+                }}
+            />
         </View>
+
     );
 }

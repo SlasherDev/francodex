@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Modal, Button, StyleSheet, Image, Animated, Switch } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import context from "../../context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from "../../ThemeContext";
