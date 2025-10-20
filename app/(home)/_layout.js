@@ -1,6 +1,6 @@
 import { Drawer } from 'expo-router/drawer';
 import { FontAwesome, FontAwesome6, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import CustomDrawer from "../componants/CustomDrawer";
+import CustomDrawer from "../componants/customs/CustomDrawer";
 
 export default function Layout() {
     

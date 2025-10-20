@@ -5,9 +5,9 @@ import { Pressable, Image, Text, View, ScrollView, FlatList, StyleSheet, Dimensi
 import { useCallback, useContext, useEffect, useState } from "react";
 
 import context from "../context";
-import TargetPokemonPreComponant from "./componants/targetPokemonPreComponant";
-import TargetPokemonNextComponant from "./componants/targetPokemonNextComponant";
-import TargetPokemonRegionComponant from "./componants/targetPokemonRegionComponant";
+import TargetPokemonPreComponant from "./componants/targetPokemon/targetPokemonPreComponant";
+import TargetPokemonNextComponant from "./componants/targetPokemon/targetPokemonNextComponant";
+import TargetPokemonRegionComponant from "./componants/targetPokemon/targetPokemonRegionComponant";
 
 export default function Details() {
 

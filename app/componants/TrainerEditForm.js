@@ -3,9 +3,14 @@ import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView, Touchable
 import context from '../../context';
 import profileImages from '../utils/imageMapper';
 import { useTheme } from '../../ThemeContext';
-import CustomPickerModal from '../componants/CustomPicker';
-import CustomImagePickerModale from './customImagePicker';
-import { Ionicons } from '@expo/vector-icons';
+import CustomPickerModal from './customs/CustomPicker';
+import CustomImagePickerModale from './customs/customImagePicker';
+import { Entypo, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import ResetCrossBox from './resetCross/resetCrossBox';
+import ResetCrossText from './resetCross/resetCrossText';
+import SaveButton from './buttons/saveButton';
+import ResetButton from './buttons/resetButton';
+import CancelButton from './buttons/cancelButton';
 const { regions_with_cities, profilePics } = require('../regions_pokemon.json');
 
 export default function TrainerEditForm({ onCancel }) {
@@ -69,130 +74,173 @@ export default function TrainerEditForm({ onCancel }) {
         <ScrollView >
             <View style={styles.container}>
                 <Text style={styles.title}>Modifier la fiche</Text>
-                <Text>Prénom</Text>
-                <TextInput
-                    selectionColor={'black'}
-                    style={styles.input}
-                    placeholder="Prénom du dresseur"
-                    value={trainerForm.firstName}
-                    onChangeText={(value) => handleChange('firstName', value)}
-                />
+                <View>
 
-                <Text>Âge</Text>
-                <TextInput
-                    style={styles.input}
-                    selectionColor={'black'}
-                    placeholder="Âge du dresseur"
-                    keyboardType="numeric"
-                    value={trainerForm.age}
-                    onChangeText={(value) => handleChange('age', value)}
-                />
-
-                <Text>Genre</Text>
-
-                <TouchableOpacity
-                    style={[
-                        styles.customPicker,
-                        { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
-                    ]}
-                    onPress={() => setIsGenderPickerVisible(true)}
-                >
-                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                        {trainerForm.genre || 'Sélectionner le genre'}
-                    </Text>
-                </TouchableOpacity>
-
-
-
-
-                <Text>Choisir la région</Text>
-                <TouchableOpacity
-                    style={[
-                        styles.customPicker,
-                        { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
-                    ]}
-                    onPress={() => setIsRegionPickerVisible(true)}
-                >
-                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                        {trainerForm.region || 'Sélectionner une région'}
-                    </Text>
-                </TouchableOpacity>
-
-                {trainerForm.region && (
-                    <>
-                        <Text>Choisir la ville</Text>
-                        <TouchableOpacity
-                            style={[
-                                styles.customPicker,
-                                { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
-                            ]}
-                            onPress={() => setIsCityPickerVisible(true)}
-                        >
-                            <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                                {trainerForm.city || 'Sélectionner une ville'}
-                            </Text>
-                        </TouchableOpacity>
-
-                    </>
-                )}
-
-                <Text>Choisir le type de prédilection</Text>
-                <TouchableOpacity
-                    style={[
-                        styles.customPicker,
-                        { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }
-                    ]}
-                    onPress={() => setIsTypePickerVisible(true)}
-                >
-                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
-                        {trainerForm.type || 'Sélectionner un type'}
-                    </Text>
-                </TouchableOpacity>
-                <Text>Devise</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Rédige ta devise ici"
-                    multiline={true}
-                    selectionColor={'black'}
-                    value={trainerForm.devise}
-                    onChangeText={(value) => handleChange('devise', value)}
-                />
-
-                <TouchableOpacity onPress={() => setIsProfilePicModalVisible(true)} style={styles.preview}>
-                    
-                    {trainerForm.profilePic ? (
-                        <>
-                    <Text style={{ fontStyle: 'italic' }}>changer l'image de profil</Text>
-                        <Image
-                            source={profileImages[trainerForm.profilePic]}
-                            style={styles.profilePic}
+                    <Text style={styles.elementTitle}>Prénom du dresseur</Text>
+                    <View style={styles.input}>
+                        <TextInput
+                            selectionColor={'black'}
+                            style={{ flex: 1 }}
+                            placeholder="Écrit ton nom de dresseur"
+                            value={trainerForm.firstName}
+                            onChangeText={(value) => handleChange('firstName', value)}
                         />
-                        </>
-                    ) : (
-                        <>
-                        <Text style={{ fontStyle: 'italic' }}>Choisir une image de profil</Text>
-                        <Ionicons name="person-circle" size={100} color={'#cacaca'} />
-                        </>
-                    )}
-                </TouchableOpacity>
-
-                <View style={styles.buttonContainer}>
-                    <View style={styles.buttonStyle}>
-                        <Button color={'green'} title="Enregistrer" onPress={handleSave} />
-                    </View>
-                    <View style={styles.buttonStyle}>
-                        <Button color={"blue"} title="Réinitialiser la fiche Dresseur" onPress={handleReset} />
-                    </View>
-                    <View style={styles.buttonStyle}>
-                        <Button color={"#CC0000"} title="Annuler" onPress={onCancel} />
+                        {trainerForm.firstName !== '' && (
+                            <Entypo name="cross" size={25} onPress={() => { trainerForm.firstName = ''; handleChange('firstName', '') }} />
+                        )}
                     </View>
                 </View>
 
+                <View>
+                    <Text style={styles.elementTitle}>Âge du dresseur</Text>
+                    <View style={styles.input}>
+                        <TextInput
+                            style={{ flex: 1 }}
+                            selectionColor={'black'}
+                            placeholder="Écrit ton âge"
+                            keyboardType="numeric"
+                            value={trainerForm.age}
+                            onChangeText={(value) => handleChange('age', value)}
+                        />
+                        {trainerForm.age !== '' && (
+                            <Entypo name="cross" size={25} onPress={() => { trainerForm.age = ''; handleChange('age', '') }} />
+                        )}
+                    </View>
+                </View>
+
+                <View>
+                    <Text style={styles.elementTitle}>Genre du dresseur</Text>
+                    <TouchableOpacity
+                        style={[styles.preview, styles.selector]}
+                        onPress={() => setIsGenderPickerVisible(true)}
+                    >
+                        {trainerForm.genre !== '' ? (
+                            <>
+                                <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>{trainerForm.genre}</Text>
+                                <ResetCrossText onReset={() => handleChange('genre', '')} />
+                            </>
+                        ) : (
+                            <Text style={[{ color: theme === 'dark' ? 'white' : 'black' }, styles.textLegend]}>Sélectionner ton genre</Text>
+                        )}
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <Text style={styles.elementTitle}>Région Pokémon du dresseur</Text>
+                    <TouchableOpacity
+                        style={[styles.preview, styles.selector]}
+                        onPress={() => setIsRegionPickerVisible(true)}
+                    >
+                        {trainerForm.region !== '' ? (
+                            <>
+                                <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>{trainerForm.region}</Text>
+                                <ResetCrossText onReset={() => handleChange('region', '')} />
+                            </>
+                        ) : (
+                            <Text style={[{ color: theme === 'dark' ? 'white' : 'black' }, styles.textLegend]}>Région préférée du dresseur</Text>
+                        )}
+                    </TouchableOpacity>
+                </View>
+
+                {trainerForm.region && (
+                    <View>
+                        <Text style={styles.elementTitle}>Ville Pokémon du dresseur</Text>
+                        <TouchableOpacity
+                            style={[styles.preview, styles.selector]}
+                            onPress={() => setIsCityPickerVisible(true)}
+                        >
+                            {trainerForm.city !== '' ? (
+                                <>
+                                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>{trainerForm.city}</Text>
+                                    <ResetCrossText onReset={() => handleChange('city', '')} />
+                                </>
+                            ) : (
+                                <Text style={[{ color: theme === 'dark' ? 'white' : 'black' }, styles.textLegend]}>Ville préférée du dresseur</Text>
+                            )}
+                        </TouchableOpacity>
+
+                    </View>
+                )}
+
+                <View>
+                    <Text style={styles.elementTitle}>Type de prédilection du dresseur</Text>
+                    <TouchableOpacity
+                        style={styles.preview}
+                        onPress={() => setIsTypePickerVisible(true)}
+                    >
+                        {trainerForm.type !== '' ? (
+                            <>
+                                <Image
+                                    source={types.find(t => t.name.fr === trainerForm.type)?.sprites ? { uri: types.find(t => t.name.fr === trainerForm.type)?.sprites } : null}
+                                    style={styles.image}
+                                />
+                                <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>{trainerForm.type}</Text>
+                                <ResetCrossBox onReset={() => handleChange('type', '')} />
+                            </>
+                        ) : (
+                            <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>Choisit ton type de prédilection</Text>
+                        )}
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <Text style={styles.elementTitle}>Devise du dresseur</Text>
+                    <View style={styles.input}>
+                        <TextInput
+                            style={{ flex: 1 }}
+                            placeholder="Rédige ta devise ici"
+                            multiline={true}
+                            selectionColor={'black'}
+                            value={trainerForm.devise}
+                            onChangeText={(value) => handleChange('devise', value)}
+                        />
+                        {trainerForm.devise !== '' && (
+                            <Entypo name="cross" size={25} onPress={() => { trainerForm.devise = ''; handleChange('devise', '') }} />
+                        )}
+                    </View>
+                </View>
+
+                <View>
+                    <Text style={styles.elementTitle}>Image de profil du dresseur</Text>
+                    <TouchableOpacity onPress={() => setIsProfilePicModalVisible(true)} style={styles.preview}>
+
+                        {trainerForm.profilePic ? (
+                            <>
+                                <Text>changer l'image de profil</Text>
+                                <Image
+                                    source={profileImages[trainerForm.profilePic]}
+                                    style={styles.image}
+                                />
+                                <ResetCrossBox onReset={() => handleChange('profilePic', '')} />
+                            </>
+                        ) : (
+                            <>
+                                <Text >Choisir une image de profil</Text>
+                                <Ionicons name="person-circle" size={100} color={'#cacaca'} />
+                            </>
+                        )}
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <View style={styles.buttonStyle}>
+                        <SaveButton onPress={handleSave} />
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <ResetButton onPress={handleReset} />
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <CancelButton onPress={onCancel} />
+                    </View>
+                </View>
+
+
+
                 <CustomImagePickerModale
                     visible={isProfilePicModalVisible}
-                    options={profilePics.map((profilePic) => ({ 
-                        name: profilePic.name, 
-                        img:  profileImages[profilePic.pic],
+                    options={profilePics.map((profilePic) => ({
+                        name: profilePic.name,
+                        img: profileImages[profilePic.pic],
                         key: profilePic.pic,
                     }))}
                     onClose={() => setIsProfilePicModalVisible(false)}
@@ -227,8 +275,8 @@ export default function TrainerEditForm({ onCancel }) {
                 />
                 <CustomImagePickerModale
                     visible={isTypePickerVisible}
-                    options={types.map((type) => ({ 
-                        name: type.name.fr, 
+                    options={types.map((type) => ({
+                        name: type.name.fr,
                         img: { uri: type.sprites },
                         key: type.name.fr,
 
@@ -248,19 +296,29 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 20,
-        paddingBottom: 25
+        paddingBottom: 25,
+        gap: 10
     },
     title: {
         fontSize: 20,
-        marginBottom: 20,
         fontWeight: 'bold',
     },
-    input: {
-        borderWidth: 1,
-        marginBottom: 15,
-        padding: 10,
+    elementTitle: {
+        fontSize: 16,
+        fontWeight: '600'
     },
-
+    input: {
+        borderColor: '#cacaca',
+        borderWidth: 3,
+        borderRadius: 10,
+        marginVertical: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    textLegend: {
+        flex: 1,
+        textAlign: 'center'
+    },
     itemStyle: {
         // backgroundColor:'blue'
     },
@@ -275,19 +333,18 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 10,
         padding: 10,
-        marginVertical: 16,
+        marginVertical: 5,
         alignItems: 'center',
     },
-    profilePic: {
+    selector: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    image: {
         width: 100,
         height: 100,
         borderRadius: 100,
-        marginTop: 8,
+        margin: 5
     },
-    customPicker: {
-        paddingVertical: 12,
-        paddingHorizontal: 11,
-        marginTop: 5
-    }
-
 });

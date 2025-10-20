@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
-import { useTheme } from '../../ThemeContext';
+import { useTheme } from '../../../ThemeContext';
 
 export default function CustomImagePickerModale({ 
   visible,

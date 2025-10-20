@@ -1,21 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import context from "../../context";
+import context from "../../../context";
 
-export default function TargetPokemonPreComponant({ targetpokemon }) {
+export default function TargetPokemonNextComponant({ targetpokemon }) {
  const { params } = useContext(context);
-
- const styles = StyleSheet.create({
-         image: {
-             borderRadius: 12.5,
-             width: 25,
-             height: 25
-         },
-     });
 
   function buildPokemonUrl(id) {
     return `https://tyradex.vercel.app/api/v1/pokemon/${id}`;
   }
+
+  const styles = StyleSheet.create({
+          image: {
+              borderRadius: 12.5,
+              width: 25,
+              height: 25
+          },
+      });
 
   const [TargetedPokemons, setTargetedPokemons] = useState([]);
 
@@ -35,7 +35,6 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
     }
   }, [targetpokemon]);
 
-
   return (
     <View>
       {TargetedPokemons.map((pokemon, key) => {
@@ -49,7 +48,7 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
             />
             {targetData && <Text>{targetData.condition}</Text>}
             <View style={{ flexDirection: "row", gap: 20, paddingBottom: 10, marginTop: 10 }} >
-                            {pokemon?.types.map((type, typeId) => {
+            {pokemon?.types.map((type, typeId) => {
                                 return (
                                     <View key={`${pokemon.pokedex_id}-${typeId}`} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                                         <Image
@@ -61,7 +60,7 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
                                     </View>
                                 );
                             })}
-                        </View>
+                            </View>
           </View>
         );
       })}

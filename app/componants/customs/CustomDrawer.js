@@ -1,13 +1,13 @@
 import { Image, Text, View } from "react-native";
 import { DrawerContentScrollView, DrawerItemList,} from "@react-navigation/drawer";
-import app from "../../app.json"
+import app from "../../../app.json"
 
 export default function CustomDrawer(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
        <Image
-        source={require('../images/banniere.png')}
+        source={require('../../images/banniere.png')}
         style={{ width: '100%', height: 150, }}
        />
 

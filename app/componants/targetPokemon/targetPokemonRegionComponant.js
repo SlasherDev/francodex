@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import context from "../../context";
+import context from "../../../context";
 
 export default function TargetPokemonRegionComponant({ targetpokemon }) {
      const { params } = useContext(context);

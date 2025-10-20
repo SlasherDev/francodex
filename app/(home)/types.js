@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import TypesResult from "../componants/typesResults";
-import CustomImagePickerModale from "../componants/customImagePicker";
+import CustomImagePickerModale from "../componants/customs/customImagePicker";
 import { useTheme } from "../../ThemeContext";
+import ResetCrossBox from "../componants/resetCross/resetCrossBox";
 
 export default function Types() {
     const { theme } = useTheme();
@@ -99,19 +100,19 @@ export default function Types() {
                 <View style={styles.pickerContainer}>
                     <Text style={styles.pickerLabel}>Type 1</Text>
                     <TouchableOpacity
-                        style={[styles.customPicker, { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray'}]}
+                        style={styles.customPicker}
                         onPress={() => openPicker("type1")}
                     >
-                        {typeForm.type1 !== "none" &&(
-                                <Image
-                                    source={types.find(t => t.name.fr === typeForm.type1)?.sprites ? { uri: types.find(t => t.name.fr === typeForm.type1).sprites } : null}
-                                    style={styles.typeImage}
-                                />
-                            )}
+                        {typeForm.type1 !== "none" && (
+                            <Image
+                                source={types.find(t => t.name.fr === typeForm.type1)?.sprites ? { uri: types.find(t => t.name.fr === typeForm.type1).sprites } : null}
+                                style={styles.typeImage}
+                            />
+                        )}
                         <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
                             {typeForm.type1 === "none" ? 'Choisir le premier type' : typeForm.type1}
                         </Text>
-                        
+
                     </TouchableOpacity>
                 </View>
 
@@ -120,10 +121,10 @@ export default function Types() {
                     <View style={styles.pickerContainer}>
                         <Text style={styles.pickerLabel}>Type 2</Text>
                         <TouchableOpacity
-                            style={[styles.customPicker, { backgroundColor: theme === 'dark' ? 'pink' : 'lightgray' }]}
+                            style={[styles.customPicker, { flex: 1 }]}
                             onPress={() => openPicker("type2")}
                         >
-                            {typeForm.type2 !== "none" &&(
+                            {typeForm.type2 !== "none" && (
                                 <Image
                                     source={types.find(t => t.name.fr === typeForm.type2)?.sprites ? { uri: types.find(t => t.name.fr === typeForm.type2).sprites } : null}
                                     style={styles.typeImage}
@@ -132,6 +133,9 @@ export default function Types() {
                             <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
                                 {typeForm.type2 === "none" ? 'Choisir le second type' : typeForm.type2}
                             </Text>
+                            {typeForm.type2 !== "none" && (
+                                <ResetCrossBox onReset={() => handleChange('type2', 'none')} element={'type2'} />
+                            )}
                         </TouchableOpacity>
                     </View>
                 )}
@@ -159,12 +163,25 @@ export default function Types() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, paddingHorizontal: 16, paddingTop: 16 },
-    pickerContainer: { flex: 1, margin: 5 },
+    container: { 
+        flex: 1, 
+        paddingHorizontal: 16, 
+        paddingTop: 16 
+    },
+    pickerContainer: { 
+        flex: 1, 
+        margin: 5 
+    },
     pickerLabel: { fontWeight: 'bold', fontSize: 16, marginBottom: 8, textAlign: 'center' },
-    customPicker: { alignItems: 'center', justifyContent: 'center', borderRadius: 10, paddingVertical:20 },
+    customPicker: { alignItems: 'center', justifyContent: 'center',paddingVertical: 20,
+         borderColor: '#cacaca',
+        borderWidth: 3,
+        borderRadius: 10,
+        marginVertical: 5,
+     },
     resultsContainer: { flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap' },
     typeImage: { width: 40, height: 40, borderRadius: 25 },
     loadingText: { textAlign: 'center', color: '#555', marginVertical: 16 },
     infoText: { textAlign: 'center', color: '#555', marginVertical: 16 },
+    
 });

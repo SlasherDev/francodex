@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import { useTheme } from '../../ThemeContext';
+import { useTheme } from '../../../ThemeContext';
 
 export default function CustomPickerModal({
   visible,

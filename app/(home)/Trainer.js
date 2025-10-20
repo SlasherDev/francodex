@@ -1,4 +1,4 @@
-import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text, View, Pressable, Image, ScrollView } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import TrainerEditForm from "../componants/TrainerEditForm";
@@ -28,8 +28,7 @@ export default function Trainer() {
 
     return (
         <View style={{ flex: 1, padding: 16 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 16 }}>Fiche Dresseur</Text>
-
+            
             {/* Affichage des informations du dresseur */}
             <View style={{ flex: 1 }}>
                 {trainer.firstName ? (
@@ -175,7 +174,7 @@ export default function Trainer() {
                 onPress={() => setIsEditing(true)}
                 style={{
                     position: 'absolute',
-                    bottom: 50,
+                    bottom: 60,
                     right: 10,
                     width: 60,
                     height: 60,
@@ -185,7 +184,7 @@ export default function Trainer() {
                     justifyContent: 'center',
                 }}
             >
-                <Ionicons name="person" size={35} color={'white'} />
+                <MaterialCommunityIcons name="account-edit" size={45} color={'white'}  />
             </Pressable>
         </View>
     );
