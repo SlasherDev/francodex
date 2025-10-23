@@ -32,9 +32,9 @@ export const useStorage = (key, defaultValue) => {
 
     useEffect(() => {
         AsyncStorage.getItem(key)
-        .then(JSON.parse)
-        .then(data => setStorage(data ?? defaultValue))
-        .catch(console.error)
+            .then(JSON.parse)
+            .then(data => setStorage(data ?? defaultValue))
+            .catch(console.error)
     }, [])
 
     useEffect(() => {

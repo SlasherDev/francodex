@@ -5,7 +5,7 @@ import { useTheme } from '../../ThemeContext';
 
 export default function Layout() {
     const { theme, currentColors } = useTheme();
-    
+
     const iconSize = 30;
     return (
         <Drawer
@@ -16,10 +16,10 @@ export default function Layout() {
                 headerTitleStyle: { fontWeight: 'bold', textTransform: 'capitalize' },
 
                 // 👇 Styles pour l'élément de menu sélectionné
-                drawerActiveBackgroundColor:  theme === 'dark' ? 'white' :'#fce8e6', // Un fond rouge très clair
+                drawerActiveBackgroundColor: theme === 'dark' ? 'white' : '#fce8e6', // Un fond rouge très clair
                 drawerActiveTintColor: theme === 'dark' ? 'black' : '#CC0000',      // La couleur du texte ET de l'icône en rouge
                 drawerInactiveTintColor: theme === 'dark' ? 'white' : '#050689',        // La couleur du texte et de l'icône en gris foncé pour les autres
-                
+
                 drawerLabelStyle: {
                     fontSize: 16,
                 }

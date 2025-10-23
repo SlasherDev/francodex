@@ -32,9 +32,9 @@ export default function Equipe() {
   };
 
   const handleSelect = (item) => {
-  setSelectedPokemon(item);
-  setIsAlertReleasePokemonModal(true);
-};
+    setSelectedPokemon(item);
+    setIsAlertReleasePokemonModal(true);
+  };
 
   const deleteItem = (selectedId) => {
     setStorage((prev) => prev.filter((i) => Number(i) !== Number(selectedId)));
@@ -51,7 +51,7 @@ export default function Equipe() {
           </Text>
           <Image style={styles.picture} source={{ uri: item.sprites?.regular }} />
           <Pressable onPress={() => handleSelect(item)}>
-            <MaterialIcons style={{ marginVertical: 5 }}name="catching-pokemon" size={40} color="#890605" />
+            <MaterialIcons style={{ marginVertical: 5 }} name="catching-pokemon" size={40} color="#890605" />
           </Pressable>
         </View>
       );
@@ -74,7 +74,7 @@ export default function Equipe() {
         onPress={() => {
           deleteItem(selectedPokemon?.pokedex_id);
         }}
-        option = {selectedPokemon}
+        option={selectedPokemon}
       />
     </View>
   );

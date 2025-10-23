@@ -66,7 +66,7 @@ export default function Settings() {
             <View style={styles.settingItem}>
 
                 <TouchableOpacity style={styles.box} onPress={() => setModalVisible(true)} accessibilityLabel="Change Language" accessibilityHint="Opens a modal to change the app language">
-                    <Text style={{ color: currentColors.text, fontWeight: 'bold'}}>Langue des noms des pokémons</Text>
+                    <Text style={{ color: currentColors.text, fontWeight: 'bold' }}>Langue des noms des pokémons</Text>
                     <Text style={{ color: currentColors.text }}>{langApi[params.lang].langName}</Text>
                 </TouchableOpacity>
 

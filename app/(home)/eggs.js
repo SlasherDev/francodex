@@ -2,9 +2,11 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList, Pressable, Text, TextInput, ToastAndroid, View } from "react-native";
 import { sanitizeString } from "../../utils";
+import { useTheme } from "../../ThemeContext";
 
 
 export default function Eggs() {
+    const { currentColors } = useTheme();
 
      const [pokemons, setPokemons] = useState([])
         const [input, setInput] = useState('');
@@ -34,7 +36,7 @@ export default function Eggs() {
         return (            
             <View style={{ flex: 1}}>
             <Pressable onPress={() => ToastAndroid.show(item, ToastAndroid.SHORT)} style={{  flex: 1, padding: 5, marginHorizontal: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
-                <Text style={{ textAlign: "center", fontSize: 20 }}>{item}</Text>
+                <Text style={{ textAlign: "center", fontSize: 20, color: currentColors.text}}>{item}</Text>
             </Pressable>
             </View>
         )
@@ -43,19 +45,18 @@ export default function Eggs() {
     
 
     return (
-       <View style={{ flex: 1 }}>
+       <View style={{ flex: 1, backgroundColor: currentColors.background}}>
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
-                    <Ionicons name="search" size={18} />
-                    <TextInput value={input} selectionColor={'black'} style={{ flex: 1}} onChangeText={e => setInput(e)} />
+                    <Ionicons name="search" color={currentColors.text} size={18} />
+                    <TextInput value={input} color={currentColors.text} selectionColor={currentColors.text} style={{ flex: 1, color: currentColors.text }} onChangeText={e => setInput(e)} />
                 {input && (
-                    <Entypo name="cross" size={25} onPress={() => { setInput('') }} />
+                    <Entypo name="cross" color={currentColors.text} size={25} onPress={() => { setInput('') }} />
                 )}
             </View>
             <FlatList data={eggs.filter(item => (sanitizeString(item).includes(sanitizeString(input))))}
                 contentContainerStyle={{ gap: 10, paddingBottom: 50 }}
                 renderItem={renderItem}
                 numColumns={1}
-                // keyExtractor={(item, index) => `${item}-${index}`}
             />
         </View>
     );

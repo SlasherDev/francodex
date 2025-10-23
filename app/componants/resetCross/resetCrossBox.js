@@ -2,7 +2,7 @@ import { Entypo } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { useTheme } from '../../../ThemeContext';
 
-export default function ResetCrossText({onReset }) {
+export default function ResetCrossText({ onReset }) {
     const { theme } = useTheme();
     return (
         <TouchableOpacity style={{
@@ -12,7 +12,7 @@ export default function ResetCrossText({onReset }) {
             padding: 1,
         }}
             onPress={onReset}>
-            <Entypo style={{ color: theme === 'dark' ? 'white' : 'black', }} name="cross" size={20} />
+            <Entypo style={{ color: theme === 'dark' ? 'white' : 'black', }} name="cross" size={25} />
         </TouchableOpacity>
     );
 }

@@ -4,8 +4,8 @@ import context from "../../../context";
 import { useTheme } from "../../../ThemeContext";
 
 export default function TargetPokemonRegionComponant({ targetpokemon }) {
-     const { params } = useContext(context);
-       const { theme, currentColors } = useTheme();
+    const { params } = useContext(context);
+    const { theme, currentColors } = useTheme();
 
     const styles = StyleSheet.create({
         image: {
@@ -35,23 +35,23 @@ export default function TargetPokemonRegionComponant({ targetpokemon }) {
     }, [targetpokemon]);
 
     return (
-        <View style={{gap:10}}>
+        <View style={{ gap: 10 }}>
             {TargetedPokemons.length === 0 ? (
-                <Text style={{color : currentColors.text}}>Aucun Pokémon trouvé.</Text>
+                <Text style={{ color: currentColors.text }}>Aucun Pokémon trouvé.</Text>
             ) : (
                 TargetedPokemons.map((pokemon, index) => (
                     <View key={index} style={{ alignItems: "center" }}>
-                        <Text style={{ fontWeight: "bold", color : currentColors.text }}>{pokemon?.name?.[params.lang]}</Text>
+                        <Text style={{ fontWeight: "bold", color: currentColors.text }}>{pokemon?.name?.[params.lang]}</Text>
                         <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }} >
                             {pokemon?.sprites?.regular && (
                                 <View style={{ alignItems: "center", margin: 10 }}>
-                                    <Text style={{color : currentColors.text}}>Normal</Text>
+                                    <Text style={{ color: currentColors.text }}>Normal</Text>
                                     <Image source={{ uri: pokemon.sprites.regular }} style={{ width: 100, height: 100 }} />
                                 </View>
                             )}
                             {pokemon?.sprites?.regular && (
                                 <View style={{ alignItems: "center", margin: 10 }}>
-                                    <Text style={{color : currentColors.text}}>Chromatique</Text>
+                                    <Text style={{ color: currentColors.text }}>Chromatique</Text>
                                     <Image source={{ uri: pokemon.sprites.shiny }} style={{ width: 100, height: 100 }} />
                                 </View>
                             )}
@@ -65,7 +65,7 @@ export default function TargetPokemonRegionComponant({ targetpokemon }) {
                                             source={{ uri: type.image }}
                                             accessibilityLabel={type.name}
                                         />
-                                        <Text style={{color : currentColors.text}}>{type.name}</Text>
+                                        <Text style={{ color: currentColors.text }}>{type.name}</Text>
                                     </View>
                                 );
                             })}

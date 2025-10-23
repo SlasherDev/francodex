@@ -15,7 +15,7 @@ export default function Details() {
     const { id } = useLocalSearchParams();
     const { storage, setStorage } = useContext(context);
     const { params } = useContext(context);
-    const {theme,  currentColors } = useTheme();
+    const { theme, currentColors } = useTheme();
 
 
     /*const [poke, setPoke] = useState()
@@ -121,7 +121,7 @@ export default function Details() {
                                                         {talent.tc ? (
                                                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                                                 <Text style={{ borderTopWidth: 1, borderLeftWidth: 1, borderBottomWidth: 1, borderColor: '#cc0000', backgroundColor: '#CC0000', color: 'white', padding: 10, fontWeight: 'bold', borderTopLeftRadius: 5, borderBottomLeftRadius: 5 }}>Caché</Text>
-                                                                <Text style={{color: currentColors.text, paddingVertical: 10, borderTopWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, flex: 1, borderColor: '#cc0000', borderTopRightRadius: 5, borderBottomRightRadius: 5, textAlign: 'center' }}>{talent.name}</Text>
+                                                                <Text style={{ color: currentColors.text, paddingVertical: 10, borderTopWidth: 1, borderRightWidth: 1, borderBottomWidth: 1, flex: 1, borderColor: '#cc0000', borderTopRightRadius: 5, borderBottomRightRadius: 5, textAlign: 'center' }}>{talent.name}</Text>
                                                             </View>
                                                         ) : <Text style={{
                                                             borderWidth: 1, borderRadius: 5,
@@ -136,7 +136,7 @@ export default function Details() {
                             </>
                         )}
 
-                        <Text style={[styles.sectionTitle, { color: currentColors.text}]}>Informations générales</Text>
+                        <Text style={[styles.sectionTitle, { color: currentColors.text }]}>Informations générales</Text>
                         <View style={{ marginBottom: 10 }}>
                             <View style={styles.infoContainer}>
                                 <View style={[styles.table, styles.infoElement]}>
@@ -162,7 +162,7 @@ export default function Details() {
                                     <Text style={[styles.infoText, { color: currentColors.text }]}>{item.catch_rate}</Text>
                                 </View>
                             </View>
-                           <View style={styles.infoContainer}>
+                            <View style={styles.infoContainer}>
                                 <View style={[styles.table, styles.infoElement]}>
                                     <Text style={[styles.subTitle, { color: currentColors.text }]}>Niveau 100</Text>
                                     <Text style={[styles.infoText, { color: currentColors.text }]}>{item.level_100} pts d'expériences</Text>
@@ -181,18 +181,18 @@ export default function Details() {
                         </View>
                         {item.sexe ? (
                             <View>
-                                <Text style={{color: currentColors.text}}>
+                                <Text style={{ color: currentColors.text }}>
                                     Sexe: <Text style={{ fontWeight: 'bold' }}>{item.sexe.female}%</Text> Femelle ; <Text style={{ fontWeight: 'bold' }}>{item.sexe.male}%</Text> Mâle
                                 </Text>
-                                 <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.progressContainer]}>
+                                <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.progressContainer]}>
                                     <View style={[styles.progressBar, { width: `${item.sexe.female}%`, backgroundColor: 'pink' }]} />
                                     <View style={[styles.progressBar, { width: `${item.sexe.male}%`, backgroundColor: 'lightblue' }]} />
                                 </View>
                             </View>
                         ) : (
                             <View>
-                                <Text style={{color: currentColors.text}} >Sexe: Asexué</Text>
-                                 <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.progressContainer]}>
+                                <Text style={{ color: currentColors.text }} >Sexe: Asexué</Text>
+                                <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.progressContainer]}>
                                     <View style={styles.progressBar} />
                                 </View>
                             </View>
@@ -202,8 +202,8 @@ export default function Details() {
                             <Text style={[styles.sectionTitle, { color: currentColors.text }]}>Statistiques</Text>
                             <View style={{ gap: 5 }}>
                                 <View>
-                                    <Text style={{color: currentColors.text}}>HP : {item.stats.hp}</Text>
-                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
+                                    <Text style={{ color: currentColors.text }}>HP : {item.stats.hp}</Text>
+                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.hp)}%`,
                                             backgroundColor: `${setStatColor(item.stats.hp)}`,
@@ -212,8 +212,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text style={{color: currentColors.text}}>Attaque : {item.stats.atk}</Text>
-                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
+                                    <Text style={{ color: currentColors.text }}>Attaque : {item.stats.atk}</Text>
+                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.atk)}%`,
                                             backgroundColor: `${setStatColor(item.stats.atk)}`,
@@ -221,8 +221,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text style={{color: currentColors.text}}>Défense : {item.stats.def}</Text>
-                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
+                                    <Text style={{ color: currentColors.text }}>Défense : {item.stats.def}</Text>
+                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.def)}%`,
                                             backgroundColor: `${setStatColor(item.stats.def)}`,
@@ -230,8 +230,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text style={{color: currentColors.text}}>Attaque spéciale : {item.stats.spe_atk}</Text>
-                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
+                                    <Text style={{ color: currentColors.text }}>Attaque spéciale : {item.stats.spe_atk}</Text>
+                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.spe_atk)}%`,
                                             backgroundColor: `${setStatColor(item.stats.spe_atk)}`,
@@ -239,8 +239,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text style={{color: currentColors.text}}>Défense spéciale : {item.stats.spe_def}</Text>
-                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
+                                    <Text style={{ color: currentColors.text }}>Défense spéciale : {item.stats.spe_def}</Text>
+                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.spe_def)}%`,
                                             backgroundColor: `${setStatColor(item.stats.spe_def)}`,
@@ -248,8 +248,8 @@ export default function Details() {
                                     </View >
                                 </View>
                                 <View>
-                                    <Text style={{color: currentColors.text}}>Vitesse : {item.stats.vit}</Text>
-                                     <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0'},styles.statBarcontainter]}>
+                                    <Text style={{ color: currentColors.text }}>Vitesse : {item.stats.vit}</Text>
+                                    <View style={[{ backgroundColor: theme === 'dark' ? '#000054ff' : '#e0e0e0' }, styles.statBarcontainter]}>
                                         <View style={[{
                                             width: `${StatToPercentage(item.stats.vit)}%`,
                                             backgroundColor: `${setStatColor(item.stats.vit)}`,
@@ -512,11 +512,11 @@ export default function Details() {
                                 <View>
                                     {item.evolution.mega.map((mega, megaId) => (
                                         <View key={megaId} style={[styles.tableCellContainer, { gap: 10 }]}>
-                                            <Text style={{ alignItems: "center", margin: 10, color : currentColors.text }}>Mega-{pokemon.name[params.lang]}</Text>
+                                            <Text style={{ alignItems: "center", margin: 10, color: currentColors.text }}>Mega-{pokemon.name[params.lang]}</Text>
                                             <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
                                                 {mega.sprites.regular && (
                                                     <View style={{ alignItems: "center", margin: 10 }}>
-                                                        <Text style={{ margin: 5, color : currentColors.text }} >Normal</Text>
+                                                        <Text style={{ margin: 5, color: currentColors.text }} >Normal</Text>
                                                         <Image
                                                             style={{ width: 100, height: 100 }}
                                                             source={{ uri: mega.sprites.regular }}
@@ -525,7 +525,7 @@ export default function Details() {
                                                 )}
                                                 {mega.sprites.shiny && (
                                                     <View style={{ alignItems: "center", margin: 10 }}>
-                                                        <Text style={{ margin: 5, color : currentColors.text }}>Chromatique</Text>
+                                                        <Text style={{ margin: 5, color: currentColors.text }}>Chromatique</Text>
                                                         <Image
                                                             style={{ width: 100, height: 100 }}
                                                             source={{ uri: mega.sprites.shiny }}
@@ -533,7 +533,7 @@ export default function Details() {
                                                     </View>
                                                 )}
                                             </View>
-                                            <Text style={{color : currentColors.text}}>{mega.orbe}</Text>
+                                            <Text style={{ color: currentColors.text }}>{mega.orbe}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -569,7 +569,7 @@ export default function Details() {
                                         <View style={{ flexDirection: "row", gap: 10, paddingBottom: 10 }}>
                                             {item.sprites.gmax.regular && (
                                                 <View style={{ alignItems: "center", margin: 10 }}>
-                                                    <Text style={{ margin: 5,color : currentColors.text }} >Normal</Text>
+                                                    <Text style={{ margin: 5, color: currentColors.text }} >Normal</Text>
                                                     <Image
                                                         style={{ width: 100, height: 100 }}
                                                         source={{ uri: item.sprites.gmax.regular }}
@@ -578,7 +578,7 @@ export default function Details() {
                                             )}
                                             {item.sprites.gmax.shiny && (
                                                 <View style={{ alignItems: "center", margin: 10 }}>
-                                                    <Text style={{ margin: 5, color : currentColors.text }}>Chromatique</Text>
+                                                    <Text style={{ margin: 5, color: currentColors.text }}>Chromatique</Text>
                                                     <Image
                                                         style={{ width: 100, height: 100 }}
                                                         source={{ uri: item.sprites.gmax.shiny }}
@@ -607,7 +607,7 @@ export default function Details() {
     );
 
     return (
-        <View style={{flex :1, backgroundColor: currentColors.background}}>
+        <View style={{ flex: 1, backgroundColor: currentColors.background }}>
             <Stack.Screen options={{
                 title: pokemon?.name[params.lang], headerRight: () => (
                     <Text style={{ margin: 5, color: 'white', fontWeight: 'bold', fontSize: 18 }}>#{String(pokemon?.pokedex_id).padStart(4, '0')}</Text>
@@ -626,7 +626,7 @@ export default function Details() {
                                         source={{ uri: type.image }}
                                         accessibilityLabel={type.name}
                                     />
-                                    <Text style={{ color : currentColors.text}}>{type.name}</Text>
+                                    <Text style={{ color: currentColors.text }}>{type.name}</Text>
                                 </View>
                             );
                         })}
@@ -655,7 +655,7 @@ export default function Details() {
                     decelerationRate={"normal"}
                     pagingEnabled
                     keyExtractor={(item) => item.pokedex_id.toString()}
-                />                
+                />
             )}
 
         </View>
@@ -671,7 +671,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         marginBottom: 50,
-        
+
         //justifyContent: 'space-around',
     },
     scrollView: {
@@ -736,10 +736,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 5,
     },
-    infoContainer:{
-         flexDirection: 'row'
+    infoContainer: {
+        flexDirection: 'row'
     },
-    infoElement : {
+    infoElement: {
         flex: 1,
         marginBottom: 10
     },

@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
 import { useTheme } from '../../../ThemeContext';
 
-export default function CustomImagePickerModale({ 
+export default function CustomImagePickerModale({
   visible,
   options = [],
   onClose,
@@ -28,7 +28,7 @@ export default function CustomImagePickerModale({
             numColumns={3}
             contentContainerStyle={styles.grid}
             renderItem={({ item }) => {
-              const isSelected = selectedValue === item.key; 
+              const isSelected = selectedValue === item.key;
               return (
                 <TouchableOpacity
                   onPress={() => { onSelect(item.key); onClose(); }}
@@ -41,12 +41,12 @@ export default function CustomImagePickerModale({
                     <View
                       style={[{ backgroundColor: '#cacaca' }, styles.image]}
                     ></View>) : (
-                  <Image
-                    source={item.img}
-                    style={[
-                      styles.image,
-                      isSelected && styles.selectedImage, 
-                    ]}
+                    <Image
+                      source={item.img}
+                      style={[
+                        styles.image,
+                        isSelected && styles.selectedImage,
+                      ]}
                     />
                   )}
                   <Text
@@ -55,7 +55,7 @@ export default function CustomImagePickerModale({
                       { color: currentColors.text },
                       isSelected && {
                         fontWeight: 'bold',
-                        
+
                       },
                     ]}
                   >
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 100,
     borderColor: '#cc0000',
-   
+
   },
   optionText: {
     fontSize: 14,
@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   selectedOption: {
-   
+
   },
 });

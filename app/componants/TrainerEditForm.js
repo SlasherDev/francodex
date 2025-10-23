@@ -76,7 +76,7 @@ export default function TrainerEditForm({ onCancel }) {
                 <Text style={[{ color: currentColors.text }, styles.title]}>Modifier la fiche</Text>
                 <View>
 
-                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Prénom du dresseur</Text>
+                    <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Prénom du dresseur</Text>
                     <View style={styles.input}>
                         <TextInput
                             selectionColor={theme === 'dark' ? 'white' : 'black'}
@@ -88,13 +88,14 @@ export default function TrainerEditForm({ onCancel }) {
                             onChangeText={(value) => handleChange('firstName', value)}
                         />
                         {trainerForm.firstName !== '' && (
-                            <Entypo name="cross" size={25} onPress={() => { trainerForm.firstName = ''; handleChange('firstName', '') }} />
+                            <ResetCrossText onReset={() => handleChange('firstName', '')} />
+
                         )}
                     </View>
                 </View>
 
                 <View>
-                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Âge du dresseur</Text>
+                    <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Âge du dresseur</Text>
                     <View style={styles.input}>
                         <TextInput
                             style={{ flex: 1 }}
@@ -107,13 +108,13 @@ export default function TrainerEditForm({ onCancel }) {
                             onChangeText={(value) => handleChange('age', value)}
                         />
                         {trainerForm.age !== '' && (
-                            <Entypo name="cross" size={25} onPress={() => { trainerForm.age = ''; handleChange('age', '') }} />
+                            <ResetCrossText onReset={() => handleChange('age', '')} />
                         )}
                     </View>
                 </View>
 
                 <View>
-                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Genre du dresseur</Text>
+                    <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Genre du dresseur</Text>
                     <TouchableOpacity
                         style={[styles.preview, styles.selector]}
                         onPress={() => setIsGenderPickerVisible(true)}
@@ -130,7 +131,7 @@ export default function TrainerEditForm({ onCancel }) {
                 </View>
 
                 <View>
-                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Région Pokémon du dresseur</Text>
+                    <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Région Pokémon du dresseur</Text>
                     <TouchableOpacity
                         style={[styles.preview, styles.selector]}
                         onPress={() => setIsRegionPickerVisible(true)}
@@ -148,7 +149,7 @@ export default function TrainerEditForm({ onCancel }) {
 
                 {trainerForm.region && (
                     <View>
-                        <Text style={[{ color: currentColors.text },styles.elementTitle]}>Ville Pokémon du dresseur</Text>
+                        <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Ville Pokémon du dresseur</Text>
                         <TouchableOpacity
                             style={[styles.preview, styles.selector]}
                             onPress={() => setIsCityPickerVisible(true)}
@@ -167,7 +168,7 @@ export default function TrainerEditForm({ onCancel }) {
                 )}
 
                 <View>
-                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Type de prédilection du dresseur</Text>
+                    <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Type de prédilection du dresseur</Text>
                     <TouchableOpacity
                         style={styles.preview}
                         onPress={() => setIsTypePickerVisible(true)}
@@ -188,7 +189,7 @@ export default function TrainerEditForm({ onCancel }) {
                 </View>
 
                 <View>
-                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Devise du dresseur</Text>
+                    <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Devise du dresseur</Text>
                     <View style={styles.input}>
                         <TextInput
                             style={{ flex: 1 }}
@@ -201,13 +202,13 @@ export default function TrainerEditForm({ onCancel }) {
                             onChangeText={(value) => handleChange('devise', value)}
                         />
                         {trainerForm.devise !== '' && (
-                            <Entypo name="cross" size={25} onPress={() => { trainerForm.devise = ''; handleChange('devise', '') }} />
+                            <ResetCrossText onReset={() => handleChange('devise', '')} />
                         )}
                     </View>
                 </View>
 
                 <View>
-                    <Text style={[{ color: currentColors.text },styles.elementTitle]}>Image de profil du dresseur</Text>
+                    <Text style={[{ color: currentColors.text }, styles.elementTitle]}>Image de profil du dresseur</Text>
                     <TouchableOpacity onPress={() => setIsProfilePicModalVisible(true)} style={styles.preview}>
 
                         {trainerForm.profilePic ? (
@@ -228,17 +229,23 @@ export default function TrainerEditForm({ onCancel }) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.buttonContainer}>
-                    <View style={styles.buttonStyle}>
-                        <SaveButton onPress={handleSave} />
+                {trainerForm.firstName && (
+                    <View style={styles.buttonContainer}>
+                        <View style={styles.buttonStyle}>
+                            <SaveButton onPress={handleSave} />
+                        </View>
+                        {(trainerForm.firstName || trainerForm.age || trainerForm.genre || trainerForm.region || trainerForm.city || trainerForm.type || trainerForm.devise || trainerForm.profilePic) && (
+                            <View style={styles.buttonStyle}>
+                                <ResetButton onPress={handleReset} />
+                            </View>
+                        )}
+                        {trainer.firstName && (
+                            <View style={styles.buttonStyle}>
+                                <CancelButton onPress={onCancel} />
+                            </View>
+                        )}
                     </View>
-                    <View style={styles.buttonStyle}>
-                        <ResetButton onPress={handleReset} />
-                    </View>
-                    <View style={styles.buttonStyle}>
-                        <CancelButton onPress={onCancel} />
-                    </View>
-                </View>
+                )}
 
 
 

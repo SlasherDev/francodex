@@ -35,13 +35,13 @@ export default function CustomPickerModal({
                   item === selectedValue && styles.selectedOption,
                 ]}
               >
-               <Text style={[ styles.optionText, { color: currentColors.text }, ...(item === selectedValue ? [ styles.selectedOptionText, { borderColor: theme === 'dark' ? 'white' : 'black' }, ] : []), ]} > {item} </Text>
+                <Text style={[styles.optionText, { color: currentColors.text }, ...(item === selectedValue ? [styles.selectedOptionText, { borderColor: theme === 'dark' ? 'white' : 'black' },] : []),]} > {item} </Text>
               </TouchableOpacity>
             )}
           />
-           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                    <Text style={styles.closeText}>Fermer</Text>
-                  </TouchableOpacity>
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <Text style={styles.closeText}>Fermer</Text>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </Modal>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
-   closeButton: {
+  closeButton: {
     marginTop: 16,
     alignSelf: 'center',
     padding: 10,

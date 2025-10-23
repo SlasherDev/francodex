@@ -4,15 +4,15 @@ import { useTheme } from "../../ThemeContext";
 
 
 export default function TypesResult({ typeResult, types }) {
-   const { currentColors } = useTheme();
+    const { currentColors } = useTheme();
 
     return (
-        <View style={{paddingBottom: 200, gap:10}} >
+        <View style={{ paddingBottom: 200, gap: 10 }} >
             {/* Double Faiblesse x4 */}
             {typeResult.resistances.some((resiste) => resiste.multiplier === 4) && (
                 <View>
                     <View style={styles.table}>
-                        <Text style={[styles.subTitle, {color: currentColors.text} ]}>Double Faiblesse x4</Text>
+                        <Text style={[styles.subTitle, { color: currentColors.text }]}>Double Faiblesse x4</Text>
                         {typeResult.resistances
                             .filter((resiste) => resiste.multiplier === 4)
                             .reduce((rows, resiste, index) => {
@@ -36,7 +36,7 @@ export default function TypesResult({ typeResult, types }) {
                                                 source={{ uri: typeCorrespondant.sprites }}
                                                 alt={typeCorrespondant.name.fr}
                                             />
-                                            <Text style={{color: currentColors.text}}>{typeCorrespondant.name.fr}</Text>
+                                            <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -48,7 +48,7 @@ export default function TypesResult({ typeResult, types }) {
             {typeResult.resistances.some((resiste) => resiste.multiplier === 2) && (
                 <View>
                     <View style={styles.table}>
-                        <Text style={[styles.subTitle, {color: currentColors.text} ]}>Faiblesse x2</Text>
+                        <Text style={[styles.subTitle, { color: currentColors.text }]}>Faiblesse x2</Text>
                         {typeResult.resistances
                             .filter((resiste) => resiste.multiplier === 2)
                             .reduce((rows, resiste, index) => {
@@ -72,7 +72,7 @@ export default function TypesResult({ typeResult, types }) {
                                                 source={{ uri: typeCorrespondant.sprites }}
                                                 alt={typeCorrespondant.name.fr}
                                             />
-                                            <Text style={{color: currentColors.text}}>{typeCorrespondant.name.fr}</Text>
+                                            <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -84,7 +84,7 @@ export default function TypesResult({ typeResult, types }) {
             {typeResult.resistances.some((resiste) => resiste.multiplier === 1) && (
                 <View>
                     <View style={styles.table}>
-                        <Text style={[styles.subTitle, {color: currentColors.text} ]}>Neutre x1</Text>
+                        <Text style={[styles.subTitle, { color: currentColors.text }]}>Neutre x1</Text>
                         {typeResult.resistances
                             .filter((resiste) => resiste.multiplier === 1)
                             .reduce((rows, resiste, index) => {
@@ -108,7 +108,7 @@ export default function TypesResult({ typeResult, types }) {
                                                 source={{ uri: typeCorrespondant.sprites }}
                                                 alt={typeCorrespondant.name.fr}
                                             />
-                                            <Text style={{color: currentColors.text}}>{typeCorrespondant.name.fr}</Text>
+                                            <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -121,7 +121,7 @@ export default function TypesResult({ typeResult, types }) {
             {typeResult.resistances.some((resiste) => resiste.multiplier === 0.5) && (
                 <View>
                     <View style={styles.table}>
-                        <Text style={[styles.subTitle, {color: currentColors.text} ]}>Résistance x1/2</Text>
+                        <Text style={[styles.subTitle, { color: currentColors.text }]}>Résistance x1/2</Text>
                         {typeResult.resistances
                             .filter((resiste) => resiste.multiplier === 0.5)
                             .reduce((rows, resiste, index) => {
@@ -145,7 +145,7 @@ export default function TypesResult({ typeResult, types }) {
                                                 source={{ uri: typeCorrespondant.sprites }}
                                                 alt={typeCorrespondant.name.fr}
                                             />
-                                            <Text style={{color: currentColors.text}}>{typeCorrespondant.name.fr}</Text>
+                                            <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -158,7 +158,7 @@ export default function TypesResult({ typeResult, types }) {
             {typeResult.resistances.some((resiste) => resiste.multiplier === 0.25) && (
                 <View>
                     <View style={styles.table}>
-                        <Text style={[styles.subTitle, {color: currentColors.text} ]}>Double Résistance x1/4</Text>
+                        <Text style={[styles.subTitle, { color: currentColors.text }]}>Double Résistance x1/4</Text>
                         {typeResult.resistances
                             .filter((resiste) => resiste.multiplier === 0.25)
                             .reduce((rows, resiste, index) => {
@@ -182,7 +182,7 @@ export default function TypesResult({ typeResult, types }) {
                                                 source={{ uri: typeCorrespondant.sprites }}
                                                 alt={typeCorrespondant.name.fr}
                                             />
-                                            <Text style={{color: currentColors.text}}>{typeCorrespondant.name.fr}</Text>
+                                            <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -195,7 +195,7 @@ export default function TypesResult({ typeResult, types }) {
             {typeResult.resistances.some((resiste) => resiste.multiplier === 0) && (
                 <View>
                     <View style={styles.table}>
-                        <Text style={[styles.subTitle, {color: currentColors.text} ]}>Immunité x0</Text>
+                        <Text style={[styles.subTitle, { color: currentColors.text }]}>Immunité x0</Text>
                         {typeResult.resistances
                             .filter((resiste) => resiste.multiplier === 0)
                             .reduce((rows, resiste, index) => {
@@ -219,7 +219,7 @@ export default function TypesResult({ typeResult, types }) {
                                                 source={{ uri: typeCorrespondant.sprites }}
                                                 alt={typeCorrespondant.name.fr}
                                             />
-                                            <Text style={{color: currentColors.text}}>{typeCorrespondant.name.fr}</Text>
+                                            <Text style={{ color: currentColors.text }}>{typeCorrespondant.name.fr}</Text>
                                         </View>
                                     ))}
                                 </View>
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#cdcdcd',
         borderRadius: 5,
-        margin : 5
+        margin: 5
     },
     tableRow: {
         flexDirection: 'row',

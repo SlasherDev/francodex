@@ -8,7 +8,7 @@ import { useTheme } from "../../ThemeContext";
 
 
 export default function Trainer() {
-       const { currentColors, theme } = useTheme();
+    const { currentColors, theme } = useTheme();
 
     const [isEditing, setIsEditing] = useState(false);
     const { trainer } = useContext(context);
@@ -28,15 +28,15 @@ export default function Trainer() {
     }
 
     return (
-        <View style={{ flex: 1, padding: 16,  backgroundColor: currentColors.background }}>
-            
+        <View style={{ flex: 1, padding: 16, backgroundColor: currentColors.background }}>
+
             {/* Affichage des informations du dresseur */}
-            <View style={{ flex: 1}}>
+            <View style={{ flex: 1 }}>
                 {trainer.firstName ? (
 
                     <View style={{ justifyContent: 'space-between', borderWidth: 2, borderColor: 'gray', borderRadius: 5 }}>
                         <ScrollView>
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 15, textAlign: 'center',  color: currentColors.text }}>{trainer.firstName}</Text>
+                            <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 15, textAlign: 'center', color: currentColors.text }}>{trainer.firstName}</Text>
                             {trainer.profilePic && profileImages[trainer.profilePic] ? (
                                 <Image
                                     source={profileImages[trainer.profilePic]}
@@ -55,17 +55,17 @@ export default function Trainer() {
                                     <View style={styles.container}>
                                         {/* Icône */}
                                         <View style={styles.element}>
-                                            <FontAwesome style={[styles.icon , {color: currentColors.text}]} name="birthday-cake" />
+                                            <FontAwesome style={[styles.icon, { color: currentColors.text }]} name="birthday-cake" />
                                         </View>
 
                                         {/* Titre */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.label, {color: currentColors.text}]}>Âge</Text>
+                                            <Text style={[styles.label, { color: currentColors.text }]}>Âge</Text>
                                         </View>
 
                                         {/* Donnée */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.value,{color: currentColors.text}]}>{trainer.age}</Text>
+                                            <Text style={[styles.value, { color: currentColors.text }]}>{trainer.age}</Text>
                                         </View>
                                     </View>
                                 ) : null}
@@ -75,17 +75,17 @@ export default function Trainer() {
                                     <View style={styles.container}>
                                         {/* Icône */}
                                         <View style={styles.element}>
-                                            <FontAwesome5 style={[styles.icon, {color: currentColors.text}]} name="genderless" />
+                                            <FontAwesome5 style={[styles.icon, { color: currentColors.text }]} name="genderless" />
                                         </View>
 
                                         {/* Titre */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.label,{color: currentColors.text}]}>Genre</Text>
+                                            <Text style={[styles.label, { color: currentColors.text }]}>Genre</Text>
                                         </View>
 
                                         {/* Donnée */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.value, {color: currentColors.text}]}>{trainer.genre}</Text>
+                                            <Text style={[styles.value, { color: currentColors.text }]}>{trainer.genre}</Text>
                                         </View>
                                     </View>
                                 ) : null}
@@ -95,17 +95,17 @@ export default function Trainer() {
                                     <View style={styles.container}>
                                         {/* Icône */}
                                         <View style={styles.element}>
-                                            <FontAwesome6 style={[styles.icon, {color: currentColors.text}]} name="location-dot" />
+                                            <FontAwesome6 style={[styles.icon, { color: currentColors.text }]} name="location-dot" />
                                         </View>
 
                                         {/* Titre */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.label,{color: currentColors.text}]}>Région</Text>
+                                            <Text style={[styles.label, { color: currentColors.text }]}>Région</Text>
                                         </View>
 
                                         {/* Donnée */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.value, {color: currentColors.text}]}>{trainer.region}</Text>
+                                            <Text style={[styles.value, { color: currentColors.text }]}>{trainer.region}</Text>
                                         </View>
                                     </View>
                                 ) : null}
@@ -114,17 +114,17 @@ export default function Trainer() {
                                     <View style={styles.container}>
                                         {/* Icône */}
                                         <View style={styles.element}>
-                                            <FontAwesome6 style={[styles.icon, {color: currentColors.text}]} name="house-chimney" />
+                                            <FontAwesome6 style={[styles.icon, { color: currentColors.text }]} name="house-chimney" />
                                         </View>
 
                                         {/* Titre */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.label,{color: currentColors.text}]}>Ville</Text>
+                                            <Text style={[styles.label, { color: currentColors.text }]}>Ville</Text>
                                         </View>
 
                                         {/* Donnée */}
                                         <View style={styles.element}>
-                                            <Text style={[styles.value, {color: currentColors.text}]} >{trainer.city}</Text>
+                                            <Text style={[styles.value, { color: currentColors.text }]} >{trainer.city}</Text>
                                         </View>
                                     </View>
                                 ) : null}
@@ -138,7 +138,7 @@ export default function Trainer() {
                                     alignItems: 'center', // aligne à gauche
                                     margin: 5,
                                 }}>
-                                    <Text style={{ fontWeight: 'bold', fontSize: 14, margin: 5, color: currentColors.text}}>Type de prédilection</Text>
+                                    <Text style={{ fontWeight: 'bold', fontSize: 14, margin: 5, color: currentColors.text }}>Type de prédilection</Text>
 
                                     <Image
                                         source={{ uri: selectedType.sprites }}
@@ -150,7 +150,7 @@ export default function Trainer() {
                                         }}
                                     />
 
-                                    <Text style={{ margin: 5, fontSize: 14, fontWeight: 'bold', color: currentColors.text}}>
+                                    <Text style={{ margin: 5, fontSize: 14, fontWeight: 'bold', color: currentColors.text }}>
                                         {selectedType.name.fr}
                                     </Text>
                                 </View>
@@ -158,8 +158,8 @@ export default function Trainer() {
 
                             {trainer.devise ? (
                                 <View style={{ margin: 5, alignItems: 'center' }}>
-                                    <Text style={{ fontWeight: 'bold', fontSize: 14, margin: 5, color: currentColors.text}}>Devise</Text>
-                                    <Text style={{ margin: 5, fontSize: 14, textAlign: 'center', color: currentColors.text}}>"{trainer.devise}"</Text>
+                                    <Text style={{ fontWeight: 'bold', fontSize: 14, margin: 5, color: currentColors.text }}>Devise</Text>
+                                    <Text style={{ margin: 5, fontSize: 14, textAlign: 'center', color: currentColors.text }}>"{trainer.devise}"</Text>
                                 </View>
                             ) : null}
 
@@ -185,7 +185,7 @@ export default function Trainer() {
                     justifyContent: 'center',
                 }}
             >
-                <MaterialCommunityIcons name="account-edit" size={45} color={'white'}  />
+                <MaterialCommunityIcons name="account-edit" size={45} color={'white'} />
             </Pressable>
         </View>
     );

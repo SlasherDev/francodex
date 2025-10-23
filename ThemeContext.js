@@ -9,7 +9,7 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const systemColorScheme = useColorScheme(); 
+  const systemColorScheme = useColorScheme();
   const [theme, setTheme] = useState(systemColorScheme);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +36,7 @@ export const ThemeProvider = ({ children }) => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     try {
-      await AsyncStorage.setItem('theme', newTheme); 
+      await AsyncStorage.setItem('theme', newTheme);
     } catch (error) {
       console.error('Failed to save theme', error);
     }
@@ -45,7 +45,7 @@ export const ThemeProvider = ({ children }) => {
   const currentColors = theme === 'dark' ? darkColors : lightColors;
 
   if (loading) {
-    return null; 
+    return null;
   }
 
   return (

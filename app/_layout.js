@@ -25,20 +25,20 @@ export default function Layout() {
 
     return (
         <ThemeProvider>
-        <Context.Provider value={{ filtredPokemon, setFiltredPokemon, storage, setStorage, trainer, setTrainer, params, setParams }}>
-            <View style={{ flex: 1 }}>
-                <Stack screenOptions={{
-                    headerStyle: { backgroundColor: '#CC0000' },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: { fontWeight: 'bold', textTransform: 'capitalize' },
-                    tabBarShowLabel: false, tabBarActiveBackgroundColor: '#05068955'
-                }}>
+            <Context.Provider value={{ filtredPokemon, setFiltredPokemon, storage, setStorage, trainer, setTrainer, params, setParams }}>
+                <View style={{ flex: 1 }}>
+                    <Stack screenOptions={{
+                        headerStyle: { backgroundColor: '#CC0000' },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: { fontWeight: 'bold', textTransform: 'capitalize' },
+                        tabBarShowLabel: false, tabBarActiveBackgroundColor: '#05068955'
+                    }}>
 
-                    <Stack.Screen name="(home)" options={{ headerShown: false }} />
-                    <Stack.Screen name="details" />
-                </Stack>
-            </View>
-        </Context.Provider>
+                        <Stack.Screen name="(home)" options={{ headerShown: false }} />
+                        <Stack.Screen name="details" />
+                    </Stack>
+                </View>
+            </Context.Provider>
         </ThemeProvider>
 
     )

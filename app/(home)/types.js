@@ -93,12 +93,12 @@ export default function Types() {
     };
 
     return (
-        <View style={[styles.container,{ backgroundColor: currentColors.background }]}>
+        <View style={[styles.container, { backgroundColor: currentColors.background }]}>
 
             {/* Picker Type 1 */}
             <View style={{ flexDirection: 'row' }}>
                 <View style={styles.pickerContainer}>
-                    <Text style={[styles.pickerLabel, {color: currentColors.text}]}>Type 1</Text>
+                    <Text style={[styles.pickerLabel, { color: currentColors.text }]}>Type 1</Text>
                     <TouchableOpacity
                         style={styles.customPicker}
                         onPress={() => openPicker("type1")}
@@ -119,7 +119,7 @@ export default function Types() {
                 {/* Picker Type 2 */}
                 {typeForm.type1 !== "none" && (
                     <View style={styles.pickerContainer}>
-                        <Text style={[styles.pickerLabel, {color: currentColors.text}]}>Type 2</Text>
+                        <Text style={[styles.pickerLabel, { color: currentColors.text }]}>Type 2</Text>
                         <TouchableOpacity
                             style={[styles.customPicker, { flex: 1 }]}
                             onPress={() => openPicker("type2")}
@@ -163,25 +163,26 @@ export default function Types() {
 }
 
 const styles = StyleSheet.create({
-    container: { 
-        flex: 1, 
-        paddingHorizontal: 16, 
-        paddingTop: 16 
+    container: {
+        flex: 1,
+        paddingHorizontal: 16,
+        paddingTop: 16
     },
-    pickerContainer: { 
-        flex: 1, 
-        margin: 5 
+    pickerContainer: {
+        flex: 1,
+        margin: 5
     },
     pickerLabel: { fontWeight: 'bold', fontSize: 16, marginBottom: 8, textAlign: 'center' },
-    customPicker: { alignItems: 'center', justifyContent: 'center',paddingVertical: 20,
-         borderColor: '#cacaca',
+    customPicker: {
+        alignItems: 'center', justifyContent: 'center', paddingVertical: 20,
+        borderColor: '#cacaca',
         borderWidth: 3,
         borderRadius: 10,
         marginVertical: 5,
-     },
+    },
     resultsContainer: { flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap' },
     typeImage: { width: 40, height: 40, borderRadius: 25 },
     loadingText: { textAlign: 'center', color: '#555', marginVertical: 16 },
     infoText: { textAlign: 'center', color: '#555', marginVertical: 16 },
-    
+
 });

@@ -115,90 +115,89 @@
         ]
     },
     "profilePics": [
-    {
-        "name": "Agent Jenny",
-        "pic": "agt_jenny.jpg"
-    },
-    {
-        "name": "Aurore",
-        "pic": "aurore.jpg"
-    },
-    {
-        "name": "Clem",
-        "pic": "clem.jpg"
-    },
-    {
-        "name": "Cynthia",
-        "pic": "cynthia.jpg"
-    },
-    {
-        "name": "Flora",
-        "pic": "flora.jpg"
-    },
-    {
-        "name": "Giovanni",
-        "pic": "giovanni.jpg"
-    },
-    {
-        "name": "Infirmière Joëlle",
-        "pic": "inf_joelle.jpg"
-    },
-    {
-        "name": "Jacky",
-        "pic": "jacky.jpg"
-    },
-    {
-        "name": "James",
-        "pic": "james.jpg"
-    },
-    {
-        "name": "Jessie",
-        "pic": "jessie.jpg"
-    },
-    {
-        "name": "Kiawe",
-        "pic": "kiawe.jpg"
-    },
-    {
-        "name": "Lillie",
-        "pic": "lillie.jpg"
-    },
-    {
-        "name": "Max",
-        "pic": "max.jpg"
-    },
-    {
-        "name": "Miaouss",
-        "pic": "miaouss.jpg"
-    },
-    {
-        "name": "Ondine",
-        "pic": "ondine.jpg"
-    },
-    {
-        "name": "Pierre",
-        "pic": "pierre.jpg"
-    },
-    {
-        "name": "Pikachu",
-        "pic": "pikachu.jpg"
-    },
-    {
-        "name": "Professeur Chen",
-        "pic": "prof_chen.jpg"
-    },
-    {
-        "name": "Régis",
-        "pic": "regis.jpg"
-    },
-    {
-        "name": "Sacha",
-        "pic": "sacha.jpg"
-    },
-    {
-        "name": "Serena",
-        "pic": "serena.jpg"
-    }
-]
-
+        {
+            "name": "Agent Jenny",
+            "pic": "agt_jenny.jpg"
+        },
+        {
+            "name": "Aurore",
+            "pic": "aurore.jpg"
+        },
+        {
+            "name": "Clem",
+            "pic": "clem.jpg"
+        },
+        {
+            "name": "Cynthia",
+            "pic": "cynthia.jpg"
+        },
+        {
+            "name": "Flora",
+            "pic": "flora.jpg"
+        },
+        {
+            "name": "Giovanni",
+            "pic": "giovanni.jpg"
+        },
+        {
+            "name": "Infirmière Joëlle",
+            "pic": "inf_joelle.jpg"
+        },
+        {
+            "name": "Jacky",
+            "pic": "jacky.jpg"
+        },
+        {
+            "name": "James",
+            "pic": "james.jpg"
+        },
+        {
+            "name": "Jessie",
+            "pic": "jessie.jpg"
+        },
+        {
+            "name": "Kiawe",
+            "pic": "kiawe.jpg"
+        },
+        {
+            "name": "Lillie",
+            "pic": "lillie.jpg"
+        },
+        {
+            "name": "Max",
+            "pic": "max.jpg"
+        },
+        {
+            "name": "Miaouss",
+            "pic": "miaouss.jpg"
+        },
+        {
+            "name": "Ondine",
+            "pic": "ondine.jpg"
+        },
+        {
+            "name": "Pierre",
+            "pic": "pierre.jpg"
+        },
+        {
+            "name": "Pikachu",
+            "pic": "pikachu.jpg"
+        },
+        {
+            "name": "Professeur Chen",
+            "pic": "prof_chen.jpg"
+        },
+        {
+            "name": "Régis",
+            "pic": "regis.jpg"
+        },
+        {
+            "name": "Sacha",
+            "pic": "sacha.jpg"
+        },
+        {
+            "name": "Serena",
+            "pic": "serena.jpg"
+        }
+    ]
 }
