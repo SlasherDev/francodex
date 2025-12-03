@@ -25,7 +25,7 @@ export default function Layout() {
 
     return (
         <ThemeProvider>
-            <Context.Provider value={{ filtredPokemon, setFiltredPokemon, storage, setStorage, trainer, setTrainer, params, setParams }}>
+            <Context.Provider value={{ filtredPokemon, setFiltredPokemon, storage, setStorage, trainer, setTrainer, params, setParams, routeParams: params }}>
                 <View style={{ flex: 1 }}>
                     <Stack screenOptions={{
                         headerStyle: { backgroundColor: '#CC0000' },

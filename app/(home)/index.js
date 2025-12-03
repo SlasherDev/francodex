@@ -12,8 +12,19 @@ import AlertNoInternetModal from "../componants/alertModals/alertNoInternetModal
 export default function Pokedex() {
     const { theme, currentColors } = useTheme();
 
-    const { filtredPokemon, setFiltredPokemon } = useContext(context);
-    const { params } = useContext(context);
+    const contextValue = useContext(context);
+
+    // Add safeguard for context values
+    if (!contextValue) {
+        console.warn('Context not available in Pokedex component');
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Erreur de chargement du contexte</Text>
+            </View>
+        );
+    }
+
+    const { filtredPokemon, setFiltredPokemon, params } = contextValue;
 
     const { width } = useWindowDimensions();
 
@@ -64,6 +75,11 @@ export default function Pokedex() {
     }, [isConnected, checkConnection]);
 
     const renderItem = useCallback(({ item }) => {
+        // Add safeguards for item data
+        if (!item || !item.pokedex_id) {
+            return null;
+        }
+
         return (
             <Link asChild
                 key={item.pokedex_id}
@@ -76,20 +92,20 @@ export default function Pokedex() {
                     underlayColor={'#CACACA'}
                 >
                     <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <Image style={{ width: 125, aspectRatio: 1 }} source={{ uri: item.sprites.regular }} alt={item.name[params.lang]} />
+                        <Image style={{ width: 125, aspectRatio: 1 }} source={{ uri: item.sprites?.regular }} alt={item.name?.[params?.lang || 'fr']} />
                         <View style={{ flex: 1 }}>
-                            <Text style={{ color: currentColors.text, fontWeight: 'bold', fontSize: 25 }}>{item.name[params.lang]}</Text>
+                            <Text style={{ color: currentColors.text, fontWeight: 'bold', fontSize: 25 }}>{item.name?.[params?.lang || 'fr'] || 'Unknown'}</Text>
                             <View style={{ margin: 10 }}>
                                 <View style={{ flex: 1, justifyContent: "center", alignItems: "flex-start", gap: 5 }}>
-                                    {item.types.map((type, typeId) => {
+                                    {(item.types || []).map((type, typeId) => {
                                         return (
                                             <View key={`${item.pokedex_id}-${typeId}`} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                                                 <Image
                                                     style={{ borderRadius: 12.5, width: 25, height: 25 }}
-                                                    source={{ uri: type.image }}
-                                                    accessibilityLabel={type.name}
+                                                    source={{ uri: type?.image }}
+                                                    accessibilityLabel={type?.name}
                                                 />
-                                                <Text style={{ color: currentColors.text }}>{type.name}</Text>
+                                                <Text style={{ color: currentColors.text }}>{type?.name || 'Unknown'}</Text>
                                             </View>
                                         );
                                     })}
@@ -111,7 +127,7 @@ export default function Pokedex() {
                 <ActivityIndicator size="large" color={currentColors.text} />
             </View>
         );
-    } else if (filtredPokemon.length === 0) {
+    } else if (!filtredPokemon || filtredPokemon.length === 0) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: currentColors.background }}>
                 <Text style={{ color: currentColors.text }}>Aucun Pokémon trouvé.</Text>
@@ -134,13 +150,16 @@ export default function Pokedex() {
             </View>
 
             <FlatList
-                data={filtredPokemon.filter(item =>
-                    sanitizeString(item.name[params.lang]).includes(sanitizeString(input)) ||
-                    item.pokedex_id.toString().includes(input)
+                data={(filtredPokemon || []).filter(item =>
+                    item && item.name && item.pokedex_id && (
+                        sanitizeString(item.name[params?.lang || 'fr']).includes(sanitizeString(input)) ||
+                        item.pokedex_id.toString().includes(input)
+                    )
                 )}
                 contentContainerStyle={{ gap: 5, alignItems: "center", paddingBottom: 50 }}
                 renderItem={renderItem}
                 numColumns={1}
+                keyExtractor={(item) => item?.pokedex_id?.toString() || Math.random().toString()}
             />
 
             <AlertNoInternetModal
