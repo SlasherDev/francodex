@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { ActivityIndicator, Alert, FlatList, Image, Text, TextInput, Pressable, View, useWindowDimensions, Modal } from "react-native";
+import { ActivityIndicator, Alert, FlatList, Image, Text, TextInput, Pressable, View, useWindowDimensions, Modal, Button } from "react-native";
 import { Link } from "expo-router";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import NetInfo from "@react-native-community/netinfo";
@@ -57,6 +57,29 @@ export default function Pokedex() {
             unsubscribe();
         };
     }, []);
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+const [hasSeenModal, setHasSeenModal] = useState(false);
+
+// Exemple : écoute de l'état de la connexion
+useEffect(() => {
+    const handleConnectionChange = (isConnected) => {
+        if (!isConnected) {
+            setIsModalVisible(true);
+            setHasSeenModal(false); // reset si on perd la connexion
+        } else if (!hasSeenModal) {
+            setIsModalVisible(false); // ferme la modale
+            setHasSeenModal(true);   // marque comme vue pour éviter réouverture
+        }
+    };
+
+    // ici ton listener réseau
+    const unsubscribe = NetInfo.addEventListener(state => {
+        handleConnectionChange(state.isConnected);
+    });
+
+    return () => unsubscribe();
+}, [hasSeenModal]);
 
     useEffect(() => {
         if (isConnected) {
@@ -162,14 +185,12 @@ export default function Pokedex() {
                 keyExtractor={(item) => item?.pokedex_id?.toString() || Math.random().toString()}
             />
 
-            <AlertNoInternetModal
-                visible={isAlertNoInternetModal}
-                onClose={() => setIsAlertNoInternetModal(false)}
-                onPress={() => {
-                    setIsAlertNoInternetModal(false);
-                    checkConnection();
-                }}
-            />
+{isModalVisible && (
+  <AlertNoInternetModal
+      visible={isModalVisible}
+      onClose={() => setIsModalVisible(false)}
+  />
+)}
         </View>
 
     );

@@ -6,7 +6,6 @@ export default function AlertNoInternetModal({
     onClose,
     title = "Pas de connexion Internet",
     message = "Merci de vérifier votre connexion internet\n(le Franc'O dex en a besoin pour fonctionner)",
-    onPress,
 }) {
     const { currentColors } = useTheme();
 
@@ -27,13 +26,6 @@ export default function AlertNoInternetModal({
                         {message}
                     </Text>
 
-                    <TouchableOpacity
-                        onPress={onPress}
-                        style={styles.closeButton}>
-                        <Text style={styles.closeText}>
-                            OK
-                        </Text>
-                    </TouchableOpacity>
                 </View>
             </View>
         </Modal>
@@ -43,6 +35,7 @@ export default function AlertNoInternetModal({
 const styles = StyleSheet.create({
     modalOverlay: {
         flex: 1,
+        
         backgroundColor: "#000000aa",
         justifyContent: 'center',
         alignItems: 'center',
@@ -59,18 +52,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 15,
         textAlign: 'center',
-    },
-    closeButton: {
-        marginTop: 20,
-        backgroundColor: '#ff0000',
-        paddingVertical: 10,
-        paddingHorizontal: 30,
-        borderRadius: 8,
-    },
-    closeText: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 18
-    },
+    }
 
 });
