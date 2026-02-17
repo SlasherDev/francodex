@@ -2,7 +2,7 @@ import { Entypo } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import { useTheme } from '../../../ThemeContext';
 
-export default function ResetCrossText({ onReset }) {
+export default function ResetCrossBox({ onReset }) {
     const { theme } = useTheme();
     return (
         <TouchableOpacity style={{

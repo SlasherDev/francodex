@@ -15,7 +15,7 @@ export default function Trainer() {
     const [types, setTypes] = useState([]);
 
     useEffect(() => {
-        fetch("https://tyradex.vercel.app/api/v1/types")
+        fetch("https://tyradex.app/api/v1/types")
             .then(res => res.json())
             .then(data => setTypes(data))
             .catch(console.error)

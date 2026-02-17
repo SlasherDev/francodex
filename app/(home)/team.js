@@ -22,7 +22,7 @@ export default function Equipe() {
     try {
       const responses = await Promise.all(
         data.map((id) =>
-          fetch(`https://tyradex.vercel.app/api/v1/pokemon/${id}`).then((res) => res.json())
+          fetch(`https://tyradex.app/api/v1/pokemon/${id}`).then((res) => res.json())
         )
       );
       setPokemons(responses);

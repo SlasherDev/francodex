@@ -10,7 +10,7 @@ export default function Talents() {
     const [pokemons, setPokemons] = useState([])
     const [input, setInput] = useState('');
     useEffect(() => {
-        fetch('https://tyradex.vercel.app/api/v1/pokemon')
+        fetch('https://tyradex.app/api/v1/pokemon')
             .then(res => res.json())
             .then(data => {
                 data.shift(); // Remove the first element

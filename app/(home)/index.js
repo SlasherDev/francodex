@@ -84,7 +84,7 @@ useEffect(() => {
     useEffect(() => {
         if (isConnected) {
             setLoading(true);
-            fetch('https://tyradex.vercel.app/api/v1/pokemon')
+            fetch('https://tyradex.app/api/v1/pokemon')
                 .then(res => res.json())
                 .then(data => {
                     data.shift(),

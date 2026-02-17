@@ -16,7 +16,7 @@ export default function TargetPokemonPreComponant({ targetpokemon }) {
   });
 
   function buildPokemonUrl(id) {
-    return `https://tyradex.vercel.app/api/v1/pokemon/${id}`;
+    return `https://tyradex.app/api/v1/pokemon/${id}`;
   }
 
   const [TargetedPokemons, setTargetedPokemons] = useState([]);

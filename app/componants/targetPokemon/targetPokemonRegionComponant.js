@@ -22,7 +22,7 @@ export default function TargetPokemonRegionComponant({ targetpokemon }) {
 
         // Générer les URLs en récupérant les régions dans le tableau `region`
         const urls = targetpokemon.region.map(regionData =>
-            `https://tyradex.vercel.app/api/v1/pokemon/${targetpokemon.pokedex_id}/${regionData.region}`
+            `https://tyradex.app/api/v1/pokemon/${targetpokemon.pokedex_id}/${regionData.region}`
         );
 
         Promise.all(

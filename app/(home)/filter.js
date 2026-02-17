@@ -116,7 +116,7 @@ export default function Filter() {
 
         const [pokemons, setPokemons] = useState([])
         useEffect(() => {
-            fetch('https://tyradex.vercel.app/api/v1/pokemon')
+            fetch('https://tyradex.app/api/v1/pokemon')
                 .then(res => {
                     if (!res.ok) {
                         throw new Error(`HTTP error! status: ${res.status}`);
@@ -137,7 +137,7 @@ export default function Filter() {
 
         const [types, setTypes] = useState([]);
         useEffect(() => {
-            fetch("https://tyradex.vercel.app/api/v1/types")
+            fetch("https://tyradex.app/api/v1/types")
                 .then(res => {
                     if (!res.ok) {
                         throw new Error(`HTTP error! status: ${res.status}`);
@@ -158,7 +158,7 @@ export default function Filter() {
 
         const [generations, setGenerations] = useState([])
         useEffect(() => {
-            fetch("https://tyradex.vercel.app/api/v1/gen")
+            fetch("https://tyradex.app/api/v1/gen")
                 .then(res => {
                     if (!res.ok) {
                         throw new Error(`HTTP error! status: ${res.status}`);

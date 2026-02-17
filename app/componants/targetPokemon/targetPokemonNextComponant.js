@@ -8,7 +8,7 @@ export default function TargetPokemonNextComponant({ targetpokemon }) {
   const { theme, currentColors } = useTheme();
 
   function buildPokemonUrl(id) {
-    return `https://tyradex.vercel.app/api/v1/pokemon/${id}`;
+    return `https://tyradex.app/api/v1/pokemon/${id}`;
   }
 
   const styles = StyleSheet.create({

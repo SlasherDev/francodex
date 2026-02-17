@@ -20,7 +20,7 @@ export default function Details() {
 
     /*const [poke, setPoke] = useState()
     const spePoke = (id) => {
-        fetch('https://tyradex.vercel.app/api/v1/pokemon/' + id)
+        fetch('https://tyradex.app/api/v1/pokemon/' + id)
         .then(res => res.json())
         .then(data => setPoke(data))r
         .catch(console.error)
@@ -32,7 +32,7 @@ export default function Details() {
     const [targetPokemonRegion, setTargetPokemonRegion] = useState([]);
 
     useEffect(() => {
-        fetch('https://tyradex.vercel.app/api/v1/pokemon/' + id)
+        fetch('https://tyradex.app/api/v1/pokemon/' + id)
             .then(res => res.json())
             .then(data => setPokemon(data))
             .catch(console.error)
@@ -57,7 +57,7 @@ export default function Details() {
 
     const [types, setTypes] = useState([]);
     useEffect(() => {
-        fetch("https://tyradex.vercel.app/api/v1/types")
+        fetch("https://tyradex.app/api/v1/types")
             .then(res => res.json())
             .then(data => setTypes(data.map(type => type)))
             .catch(console.error)
