@@ -1,11 +1,36 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import context from "../../context";
 import { useRouter } from "expo-router";
 import { notify } from "../../utils";
-import { Picker } from "@react-native-picker/picker";
+
+import CustomImagePickerModale from "../componants/customs/customImagePicker";
+import CustomPickerSymbols from "../componants/customs/CustomPickerSymbols";
+import ResetCrossBox from "../componants/resetCross/resetCrossBox";
+import { useTheme } from "../../ThemeContext";
+
 
 export default function Filter() {
+    // Options pour les comparateurs de stats
+    const signOptions = [
+        { label: '\u2265', value: 'egalMax' },
+        { label: '>', value: 'max' },
+        { label: '=', value: 'egal' },
+        { label: '<', value: 'min' },
+        { label: '\u2264', value: 'egalMin' },
+    ];
+
+    const allGens = [{ name: "Toutes les générations", key: "all", img: null },
+    { name: "Génération 1", key: 1, img: require('../images/starters/1.png') },
+    { name: "Génération 2", key: 2, img: require('../images/starters/2.png') },
+    { name: "Génération 3", key: 3, img: require('../images/starters/3.png') },
+    { name: "Génération 4", key: 4, img: require('../images/starters/4.png') },
+    { name: "Génération 5", key: 5, img: require('../images/starters/5.png') },
+    { name: "Génération 6", key: 6, img: require('../images/starters/6.png') },
+    { name: "Génération 7", key: 7, img: require('../images/starters/7.png') },
+    { name: "Génération 8", key: 8, img: require('../images/starters/8.png') },
+    { name: "Génération 9", key: 9, img: require('../images/starters/9.png') }];
+
     // Error boundary state
     const [hasError, setHasError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -29,6 +54,102 @@ export default function Filter() {
         };
     }, []);
 
+    const [isGenPickerVisible, setIsGenPickerVisible] = useState(false);
+    const [isTypePickerVisible, setIsTypePickerVisible] = useState(false);
+    const [typePickerKey, setTypePickerKey] = useState(null); // "type1" ou "type2"
+    const [SignPickerVisible, setSignPickerVisible] = useState(false);
+    const { theme, currentColors } = useTheme();
+
+    const router = useRouter();
+    const contextValue = useContext(context);
+
+    //filter
+    const [pokeForm, setpokeForm] = useState({
+        generation: 'all',
+        type1: 'all', type2: 'all',
+        hpSign: 'egalMax', hpNbr: '',
+        attSign: 'egalMax', attNbr: '',
+        defSign: 'egalMax', defNbr: '',
+        attSpeSign: 'egalMax', attSpeNbr: '',
+        defSpeSign: 'egalMax', defSpeNbr: '',
+        speedSign: 'egalMax', speedNbr: ''
+    });
+
+    // Log state changes
+    useEffect(() => {
+    }, [pokeForm]);
+
+    const [pokemons, setPokemons] = useState([]);
+    useEffect(() => {
+        fetch('https://tyradex.app/api/v1/pokemon')
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (Array.isArray(data)) {
+                    data.shift(); // Remove the first element
+                    setPokemons(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching Pokémon data:', error);
+                notify('Erreur lors du chargement des données Pokémon');
+            });
+    }, []);
+
+    // Store full type objects (with sprites) like types.js does
+    const [types, setTypes] = useState([]);
+    useEffect(() => {
+        fetch("https://tyradex.app/api/v1/types")
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setTypes(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching types data:', error);
+                notify('Erreur lors du chargement des types');
+            });
+    }, []);
+
+    const openTypePicker = (key) => {
+        setTypePickerKey(key);
+        setIsTypePickerVisible(true);
+    };
+
+    const [generations, setGenerations] = useState([]);
+    useEffect(() => {
+        fetch("https://tyradex.app/api/v1/gen")
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (Array.isArray(data)) {
+                    const genNumbers = data.map(generation => generation.generation);
+                    setGenerations(genNumbers);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching generations data:', error);
+                notify('Erreur lors du chargement des générations');
+            });
+    }, []);
+
+    // Create updated form with proper type conversions only when needed for filtering
+    const updatedPokeForm = { ...pokeForm };
+
     // If there's an error, show error message
     if (hasError) {
         return (
@@ -48,42 +169,6 @@ export default function Filter() {
     }
 
     try {
-
-        const styles = StyleSheet.create({
-            buttonContainer: {
-                width: "100%",
-            },
-            buttonStyle: {
-                margin: 16,
-            },
-            filterGroup: {
-                width: '90%'
-            },
-            filterTitle: {
-                fontWeight: 'bold'
-            },
-            filterViewContent: {
-                alignItems: "center",
-                flexDirection: 'row',
-                gap: 5
-            },
-            filterPicker: {
-                width: "30%"
-            },
-            filterTextInput: {
-                width: '70%',
-                paddingHorizontal: 10,
-                paddingVertical: 5,
-                backgroundColor: 'white',
-                borderColor: 'gray',
-                borderWidth: 1,
-                borderRadius: 5
-            }
-        }
-        );
-        const router = useRouter();
-        const contextValue = useContext(context);
-
         // Add safeguard for context values
         if (!contextValue) {
             console.warn('Context not available in Filter component');
@@ -91,91 +176,6 @@ export default function Filter() {
         }
 
         const { filtredPokemon, setFiltredPokemon } = contextValue;
-
-        //filter
-        const [pokeForm, setpokeForm] = useState({
-            generation: 'all',
-            type1: 'all', type2: 'all',
-            hpSign: 'max', hpNbr: '',
-            attSign: 'max', attNbr: '',
-            defSign: 'max', defNbr: '',
-            attSpeSign: 'max', attSpeNbr: '',
-            defSpeSign: 'max', defSpeNbr: '',
-            speedSign: 'max', speedNbr: ''
-        })
-
-        // Log state changes
-        useEffect(() => {
-        }, [pokeForm]);
-
-        // Create updated form with proper type conversions only when needed for filtering
-        const updatedPokeForm = { ...pokeForm };
-
-
-
-
-        const [pokemons, setPokemons] = useState([])
-        useEffect(() => {
-            fetch('https://tyradex.app/api/v1/pokemon')
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`HTTP error! status: ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    if (Array.isArray(data)) {
-                        data.shift(); // Remove the first element
-                        setPokemons(data);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching Pokémon data:', error);
-                    notify('Erreur lors du chargement des données Pokémon');
-                })
-        }, [])
-
-        const [types, setTypes] = useState([]);
-        useEffect(() => {
-            fetch("https://tyradex.app/api/v1/types")
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`HTTP error! status: ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    if (Array.isArray(data)) {
-                        const typeNames = data.map(type => type.name?.fr || type.name);
-                        setTypes(typeNames);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching types data:', error);
-                    notify('Erreur lors du chargement des types');
-                })
-        }, [])
-
-        const [generations, setGenerations] = useState([])
-        useEffect(() => {
-            fetch("https://tyradex.app/api/v1/gen")
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`HTTP error! status: ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    if (Array.isArray(data)) {
-                        const genNumbers = data.map(generation => generation.generation);
-                        setGenerations(genNumbers);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching generations data:', error);
-                    notify('Erreur lors du chargement des générations');
-                })
-        }, [])
 
         const handleChange = (key, value) => {
             // Add validation to prevent setting undefined values
@@ -205,6 +205,7 @@ export default function Filter() {
                 console.error('Required values not available for reset');
                 return;
             }
+
 
             const { setFiltredPokemon } = contextValue;
 
@@ -268,6 +269,7 @@ export default function Filter() {
             }
 
             // Filter by type1 if selected
+            // Note: pokemon API stores types as {name: "Plante", image: "..."} (plain string)
             try {
                 if (updatedPokeForm.type1 && updatedPokeForm.type1 !== 'all') {
                     filtered = filtered.filter(pokemon => {
@@ -281,7 +283,7 @@ export default function Filter() {
                 console.error('Error in type1 filter:', error);
             }
 
-            // Filter by type2 if selected
+            // Filter by type2 — same plain string comparison as type1
             try {
                 if (updatedPokeForm.type2 !== undefined && updatedPokeForm.type1 !== 'all') {
                     if (updatedPokeForm.type2 === 'none') {
@@ -396,217 +398,218 @@ export default function Filter() {
         }
 
         return (
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: currentColors.background }}>
                 <View style={{ flex: 1, alignItems: "center", marginVertical: 20, gap: 15, paddingBottom: 20 }}>
                     <View style={styles.filterGroup}>
                         <Text style={styles.filterTitle}>Générations</Text>
 
-
-
-                        <Picker
-                            selectedValue={pokeForm.generation}
-                            onValueChange={(value) => {
-                                handleChange('generation', value);
-                            }}>
-                            <Picker.Item label="Toutes les générations" value="all" />
-                            {generations.map((genNbr, index) => (
-                                <Picker.Item
-                                    key={index}
-                                    label={`Génération ${genNbr}`}
-                                    value={genNbr}
-                                />
-                            ))}
-                        </Picker>
-                    </View>
-
-                    <View style={styles.filterGroup}>
-                        <Text style={styles.filterTitle}>Type 1</Text>
-                        <Picker
-                            selectedValue={pokeForm.type1}
-                            onValueChange={(value) => {
-                                handleChange('type1', value);
-                            }}
+                        <TouchableOpacity
+                            onPress={() => setIsGenPickerVisible(true)}
+                            style={styles.customPicker}
                         >
-                            <Picker.Item label="Tout les types" value="all" />
-                            {types.map((typeName, index) => (
-                                <Picker.Item
-                                    key={index}
-                                    label={typeName}
-                                    value={typeName}
+                            {pokeForm.generation !== 'all' && allGens.find(g => g.key == pokeForm.generation)?.img && (
+                                <Image
+                                    source={allGens.find(g => g.key == pokeForm.generation).img}
+                                    style={styles.generationImage}
+                                    resizeMode="contain"
                                 />
-                            ))}
-                        </Picker>
+                            )}
+                            <Text style={{ color: theme === 'dark' ? 'white' : 'black', fontSize: 16 }}>
+                                {pokeForm.generation === 'all' ? 'Toutes les générations' : `Génération ${pokeForm.generation}`}
+                            </Text>
+                            {pokeForm.generation !== 'all' && (
+                                <ResetCrossBox onReset={() => handleChange('generation', 'all')} element={'generation'} />
+                            )}
+                        </TouchableOpacity>
+
                     </View>
-                    {pokeForm.type1 !== 'all' && (
-                        <View style={styles.filterGroup}>
-                            <>
-                                <Text style={styles.filterTitle}>Type 2</Text>
-                                <Picker
-                                    selectedValue={pokeForm.type2}
-                                    onValueChange={(value) => {
-                                        handleChange('type2', value);
-                                    }}>
-                                    <Picker.Item label="Tout les types" value="all" />
-                                    <Picker.Item label="pas de second type" value="none" />
-                                    {types.map((typeName, index) => (
-                                        <Picker.Item
-                                            key={index}
-                                            label={typeName}
-                                            value={typeName}
-                                        />
-                                    ))}
-                                </Picker>
-                            </>
+
+                    {/* Type pickers – same visual system as types.js */}
+                    <View style={{ flexDirection: 'row', width: '90%', gap: 10 }}>
+                        {/* Type 1 */}
+                        <View style={styles.typePickerContainer}>
+                            <Text style={[styles.filterTitle, { textAlign: 'center', marginBottom: 6 }]}>Type 1</Text>
+                            <TouchableOpacity
+                                style={styles.customPicker}
+                                onPress={() => openTypePicker('type1')}
+                            >
+                                {pokeForm.type1 !== 'all' && (
+                                    <Image
+                                        source={{ uri: types.find(t => t.name?.fr === pokeForm.type1)?.sprites }}
+                                        style={styles.typeImage}
+                                    />
+                                )}
+                                <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
+                                    {pokeForm.type1 === 'all' ? 'Tous les types' : pokeForm.type1}
+                                </Text>
+                                {pokeForm.type1 !== 'all' && (
+                                    <ResetCrossBox onReset={() => handleChange('type1', 'all')} element={'type1'} />
+                                )}
+                            </TouchableOpacity>
                         </View>
-                    )}
+
+                        {/* Type 2 – affiché seulement si type1 est sélectionné */}
+                        {pokeForm.type1 !== 'all' && (
+                            <View style={styles.typePickerContainer}>
+                                <Text style={[styles.filterTitle, { textAlign: 'center', marginBottom: 6 }]}>Type 2</Text>
+                                <TouchableOpacity
+                                    style={[styles.customPicker, { flex: 1 }]}
+                                    onPress={() => openTypePicker('type2')}
+                                >
+                                    {pokeForm.type2 !== 'all' && pokeForm.type2 !== 'none' && (
+                                        <Image
+                                            source={{ uri: types.find(t => t.name?.fr === pokeForm.type2)?.sprites }}
+                                            style={styles.typeImage}
+                                        />
+                                    )}
+                                    <Text style={{ color: theme === 'dark' ? 'white' : 'black' }}>
+                                        {pokeForm.type2 === 'all' ? 'Tous les types'
+                                            : pokeForm.type2 === 'none' ? 'Pas de 2e type'
+                                                : pokeForm.type2}
+                                    </Text>
+                                    {pokeForm.type2 !== 'all' && (
+                                        <ResetCrossBox onReset={() => handleChange('type2', 'all')} element={'type2'} />
+                                    )}
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                    </View>
 
                     <View style={styles.filterGroup}>
                         <Text style={styles.filterTitle}>HP</Text>
                         <View style={styles.filterViewContent}>
-                            <Picker
-                                style={styles.filterPicker}
+                            {/* Bouton qui ouvre le modal de sélection du comparateur */}
+                            <CustomPickerSymbols
+                                style={[styles.filterPicker, styles.signButton, theme === 'dark' ? { color: 'white' } : { color: 'black' }]}
+                                options={signOptions}
                                 selectedValue={pokeForm.hpSign}
-                                onValueChange={(value) => {
-                                    handleChange('hpSign', value);
-                                }}
+                                onSelect={(value) => handleChange('hpSign', value)}
+                                title="Choix condition HP"
                             >
-                                <Picker.Item label=">" value="max" />
-                                <Picker.Item label="<" value="min" />
-                                <Picker.Item label="=" value="egal" />
-                                <Picker.Item label=">=" value="egalMax" />
-                                <Picker.Item label="<=" value="egalMin" />
-                            </Picker>
-                            <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
+                                <Text style={[styles.signButtonText, { color: theme === 'dark' ? 'white' : 'black' }]}>
+                                    {signOptions.find(o => o.value === pokeForm.hpSign)?.label ?? '>'}
+                                </Text>
+                            </CustomPickerSymbols>
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
                                 value={pokeForm.hpNbr?.toString() || ''}
-                                onChangeText={(value) => {
-                                    handleChange('hpNbr', value);
-                                }}
-                                placeholder="0"
+                                onChangeText={(value) => { handleChange('hpNbr', value); }}
+                                placeholder="0" placeholderTextColor={theme === 'dark' ? 'white' : 'black'}
                             />
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
                         <Text style={styles.filterTitle}>Attaque</Text>
                         <View style={styles.filterViewContent}>
-                            <Picker
-                                style={styles.filterPicker}
+                            <CustomPickerSymbols
+                                style={[styles.filterPicker, styles.signButton]}
+                                options={signOptions}
                                 selectedValue={pokeForm.attSign}
-                                onValueChange={(value) => {
-                                    handleChange('attSign', value);
-                                }}
+                                onSelect={(value) => handleChange('attSign', value)}
+                                title="Choix condition Attaque"
                             >
-                                <Picker.Item label=">" value="max" />
-                                <Picker.Item label="<" value="min" />
-                                <Picker.Item label="=" value="egal" />
-                                <Picker.Item label=">=" value="egalMax" />
-                                <Picker.Item label="<=" value="egalMin" />
-                            </Picker>
-                            <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
+                                <Text style={[styles.signButtonText, { color: theme === 'dark' ? 'white' : 'black' }]}>
+                                    {signOptions.find(o => o.value === pokeForm.attSign)?.label ?? '>'}
+                                </Text>
+                            </CustomPickerSymbols>
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
                                 value={pokeForm.attNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('attNbr', value);
                                 }}
-                                placeholder="0"
+                                placeholder="0" placeholderTextColor={theme === 'dark' ? 'white' : 'black'}
                             />
                         </View>
                     </View>
                     <View style={styles.filterGroup} >
                         <Text style={styles.filterTitle}>Defense</Text>
                         <View style={styles.filterViewContent}>
-                            <Picker
-                                style={styles.filterPicker}
+                            <CustomPickerSymbols
+                                style={[styles.filterPicker, styles.signButton]}
+                                options={signOptions}
                                 selectedValue={pokeForm.defSign}
-                                onValueChange={(value) => {
-                                    handleChange('defSign', value);
-                                }}
+                                onSelect={(value) => handleChange('defSign', value)}
+                                title="Choix condition Défense"
                             >
-                                <Picker.Item label=">" value="max" />
-                                <Picker.Item label="<" value="min" />
-                                <Picker.Item label="=" value="egal" />
-                                <Picker.Item label=">=" value="egalMax" />
-                                <Picker.Item label="<=" value="egalMin" />
-                            </Picker>
-                            <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
+                                <Text style={[styles.signButtonText, { color: theme === 'dark' ? 'white' : 'black' }]}>
+                                    {signOptions.find(o => o.value === pokeForm.defSign)?.label ?? '>'}
+                                </Text>
+                            </CustomPickerSymbols>
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
                                 value={pokeForm.defNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('defNbr', value);
                                 }}
-                                placeholder="0"
+                                placeholder="0" placeholderTextColor={theme === 'dark' ? 'white' : 'black'}
                             />
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
                         <Text style={styles.filterTitle}>Attaque Speciale</Text>
                         <View style={styles.filterViewContent}>
-                            <Picker
-                                style={styles.filterPicker}
+                            <CustomPickerSymbols
+                                style={[styles.filterPicker, styles.signButton]}
+                                options={signOptions}
                                 selectedValue={pokeForm.attSpeSign}
-                                onValueChange={(value) => {
-                                    handleChange('attSpeSign', value);
-                                }}
+                                onSelect={(value) => handleChange('attSpeSign', value)}
+                                title="Choix condition Attaque Spéciale"
                             >
-                                <Picker.Item label=">" value="max" />
-                                <Picker.Item label="<" value="min" />
-                                <Picker.Item label="=" value="egal" />
-                                <Picker.Item label=">=" value="egalMax" />
-                                <Picker.Item label="<=" value="egalMin" />
-                            </Picker>
-                            <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
+                                <Text style={[styles.signButtonText, { color: theme === 'dark' ? 'white' : 'black' }]}>
+                                    {signOptions.find(o => o.value === pokeForm.attSpeSign)?.label ?? '>'}
+                                </Text>
+                            </CustomPickerSymbols>
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
                                 value={pokeForm.attSpeNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('attSpeNbr', value);
                                 }}
-                                placeholder="0"
+                                placeholder="0" placeholderTextColor={theme === 'dark' ? 'white' : 'black'}
                             />
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
                         <Text style={styles.filterTitle}>Defense Speciale</Text>
                         <View style={styles.filterViewContent}>
-                            <Picker
-                                style={styles.filterPicker}
+                            <CustomPickerSymbols
+                                style={[styles.filterPicker, styles.signButton]}
+                                options={signOptions}
                                 selectedValue={pokeForm.defSpeSign}
-                                onValueChange={(value) => {
-                                    handleChange('defSpeSign', value);
-                                }}
+                                onSelect={(value) => handleChange('defSpeSign', value)}
+                                title="Choix condition Défense Spéciale"
                             >
-                                <Picker.Item label=">" value="max" />
-                                <Picker.Item label="<" value="min" />
-                                <Picker.Item label="=" value="egal" />
-                                <Picker.Item label=">=" value="egalMax" />
-                                <Picker.Item label="<=" value="egalMin" />
-                            </Picker>
+                                <Text style={[styles.signButtonText, { color: theme === 'dark' ? 'white' : 'black' }]}>
+                                    {signOptions.find(o => o.value === pokeForm.defSpeSign)?.label ?? '>'}
+                                </Text>
+                            </CustomPickerSymbols>
                             <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
                                 value={pokeForm.defSpeNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('defSpeNbr', value);
                                 }}
-                                placeholder="0"
+                                placeholder="0" placeholderTextColor={theme === 'dark' ? 'white' : 'black'}
                             />
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
                         <Text style={styles.filterTitle}>Vitesse</Text>
                         <View style={styles.filterViewContent}>
-                            <Picker
-                                style={styles.filterPicker}
+                            <CustomPickerSymbols
+                                style={[styles.filterPicker, styles.signButton]}
+                                options={signOptions}
                                 selectedValue={pokeForm.speedSign}
-                                onValueChange={(value) => {
-                                    handleChange('speedSign', value);
-                                }}
+                                onSelect={(value) => handleChange('speedSign', value)}
+                                title="Choix condition Vitesse"
                             >
-                                <Picker.Item label=">" value="max" />
-                                <Picker.Item label="<" value="min" />
-                                <Picker.Item label="=" value="egal" />
-                                <Picker.Item label=">=" value="egalMax" />
-                                <Picker.Item label="<=" value="egalMin" />
-                            </Picker>
+                                <Text style={[styles.signButtonText, { color: theme === 'dark' ? 'white' : 'black' }]}>
+                                    {signOptions.find(o => o.value === pokeForm.speedSign)?.label ?? '>'}
+                                </Text>
+                            </CustomPickerSymbols>
                             <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
                                 value={pokeForm.speedNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('speedNbr', value);
                                 }}
-                                placeholder="0" />
+                                placeholder="0" placeholderTextColor={theme === 'dark' ? 'white' : 'black'}
+                            />
                         </View>
                     </View>
 
@@ -625,10 +628,105 @@ export default function Filter() {
                         </View>
                     </View>
                 </View>
+                <CustomImagePickerModale
+                    visible={isGenPickerVisible}
+                    options={[...allGens]}
+                    selectedValue={pokeForm.generation}
+                    onSelect={(selectedGen) => { handleChange('generation', selectedGen); }}
+                    onClose={() => setIsGenPickerVisible(false)}
+                    title="Sélectionner une génération" />
+
+                {/* Modal partagé pour type1 et type2 */}
+                <CustomImagePickerModale
+                    visible={isTypePickerVisible}
+                    options={[
+                        { name: 'Tous les types', img: null, key: 'all' },
+                        ...(typePickerKey === 'type2' ? [{ name: 'Pas de 2e type', img: null, key: 'none' }] : []),
+                        ...types.map(type => ({ name: type.name?.fr, img: { uri: type.sprites }, key: type.name?.fr })),
+                    ]}
+                    selectedValue={typePickerKey ? pokeForm[typePickerKey] : null}
+                    onSelect={(selectedType) => {
+                        if (typePickerKey) handleChange(typePickerKey, selectedType);
+                    }}
+                    onClose={() => setIsTypePickerVisible(false)}
+                    title="Sélectionner un type" />
+
             </ScrollView>
         );
+
     } catch (error) {
         handleError(error);
         return null;
     }
+
 }
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        width: "100%",
+    },
+    buttonStyle: {
+        margin: 16,
+    },
+    filterGroup: {
+        width: '90%'
+    },
+    typePickerContainer: {
+        flex: 1,
+
+    },
+    generationImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+        marginBottom: 4,
+    },
+    typeImage: {
+        width: 40,
+        height: 40,
+        borderRadius: 25,
+        marginBottom: 4,
+    },
+    filterTitle: {
+        fontWeight: 'bold'
+    },
+    filterViewContent: {
+        borderWidth: 2,
+        borderColor: '#cacaca',
+        borderRadius: 10,
+
+        flexDirection: 'row',
+
+    },
+    filterPicker: {
+        width: "30%"
+    },
+    signButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 10,
+        borderBottomLeftRadius: 10,
+        borderTopLeftRadius: 10,
+        borderRightColor: "#cacaca",
+        borderRightWidth: 2,
+    },
+    signButtonText: {
+        fontSize: 20,
+    },
+    filterTextInput: {
+        flex: 1,
+        paddingHorizontal: 10,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+    },
+    customPicker: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 20,
+        borderColor: '#cacaca',
+        borderWidth: 2,
+        borderRadius: 10,
+        marginVertical: 5,
+    },
+}
+);

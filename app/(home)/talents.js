@@ -34,7 +34,7 @@ export default function Talents() {
 
         return (
             <View style={{ flex: 1 }}>
-                <Pressable onPress={() => ToastAndroid.show(item, ToastAndroid.SHORT)} style={{ flex: 1, padding: 5, marginHorizontal: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
+                <Pressable style={{ flex: 1, padding: 5, marginHorizontal: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
                     <Text style={{ textAlign: "center", fontSize: 20, color: currentColors.text }}>{item}</Text>
                 </Pressable>
             </View>

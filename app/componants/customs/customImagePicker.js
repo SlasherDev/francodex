@@ -37,7 +37,7 @@ export default function CustomImagePickerModale({
                     isSelected && styles.selectedOption,
                   ]}
                 >
-                  {item.key === "none" ? (
+                  {!item.img ? (
                     <View
                       style={[{ backgroundColor: '#cacaca' }, styles.image]}
                     ></View>) : (
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 14,
+    width: 80,
     textAlign: 'center',
     marginTop: 4,
   },

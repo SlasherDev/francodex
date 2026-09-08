@@ -8,47 +8,47 @@ import { useTheme } from "../../ThemeContext";
 export default function Eggs() {
     const { currentColors } = useTheme();
 
-     const [pokemons, setPokemons] = useState([])
-        const [input, setInput] = useState('');
-        useEffect(() => {
-            fetch('https://tyradex.app/api/v1/pokemon')
-                .then(res => res.json())
-                .then(data => {
-                    data.shift(); // Remove the first element
-                    setPokemons(data);
-                })
-                .catch(console.error)
-        }, [])
-        const [eggs, setEggs] = useState([]);
-       useEffect(() => {
+    const [pokemons, setPokemons] = useState([])
+    const [input, setInput] = useState('');
+    useEffect(() => {
+        fetch('https://tyradex.app/api/v1/pokemon')
+            .then(res => res.json())
+            .then(data => {
+                data.shift(); // Remove the first element
+                setPokemons(data);
+            })
+            .catch(console.error)
+    }, [])
+    const [eggs, setEggs] = useState([]);
+    useEffect(() => {
         if (pokemons.length === 0) return;
-    
+
         // Flatten all eggs into a single array of names
         const allEggs = pokemons.flatMap(pokemon =>
-    pokemon?.egg_groups ?? []
-);
+            pokemon?.egg_groups ?? []
+        );
 
         setEggs([...new Set(allEggs)].sort())
     }, [pokemons]);
 
     const renderItem = useCallback(({ item, index }) => {
-        
-        return (            
-            <View style={{ flex: 1}}>
-            <Pressable onPress={() => ToastAndroid.show(item, ToastAndroid.SHORT)} style={{  flex: 1, padding: 5, marginHorizontal: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
-                <Text style={{ textAlign: "center", fontSize: 20, color: currentColors.text}}>{item}</Text>
-            </Pressable>
+
+        return (
+            <View style={{ flex: 1 }}>
+                <Pressable style={{ flex: 1, padding: 5, marginHorizontal: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
+                    <Text style={{ textAlign: "center", fontSize: 20, color: currentColors.text }}>{item}</Text>
+                </Pressable>
             </View>
         )
     }, []);
-    
-    
+
+
 
     return (
-       <View style={{ flex: 1, backgroundColor: currentColors.background}}>
+        <View style={{ flex: 1, backgroundColor: currentColors.background }}>
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 5, marginHorizontal: 5, gap: 5, padding: 3, marginTop: 5, borderColor: '#CACACA', borderWidth: 2, borderRadius: 10 }}>
-                    <Ionicons name="search" color={currentColors.text} size={18} />
-                    <TextInput value={input} color={currentColors.text} selectionColor={currentColors.text} style={{ flex: 1, color: currentColors.text }} onChangeText={e => setInput(e)} />
+                <Ionicons name="search" color={currentColors.text} size={18} />
+                <TextInput value={input} color={currentColors.text} selectionColor={currentColors.text} style={{ flex: 1, color: currentColors.text }} onChangeText={e => setInput(e)} />
                 {input && (
                     <Entypo name="cross" color={currentColors.text} size={25} onPress={() => { setInput('') }} />
                 )}
@@ -60,8 +60,7 @@ export default function Eggs() {
             />
         </View>
     );
-    
+
 }
 
 
-  

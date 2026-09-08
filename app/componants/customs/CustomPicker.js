@@ -13,7 +13,7 @@ export default function CustomPickerModal({
   const { theme, currentColors } = useTheme();
 
   return (
-    <Modal visible={visible} transparent animationType="slide">
+    <Modal visible={visible} transparent animationType="fade">
       <TouchableOpacity
         style={styles.modalOverlay}
         activeOpacity={1}
