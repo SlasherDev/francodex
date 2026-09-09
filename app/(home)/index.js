@@ -33,23 +33,20 @@ export default function Pokedex() {
     const [isConnected, setIsConnected] = useState(true);
     const [isAlertNoInternetModal, setIsAlertNoInternetModal] = useState(false);
 
-    const checkConnection = useCallback(() => {
-        NetInfo.fetch().then(state => {
-            if (state.isConnected && state.isInternetReachable) {
-                setIsConnected(true);
-            } else {
-                setIsConnected(false);
-                setIsAlertNoInternetModal(true);
-            }
-        });
-    }, []);
-
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
-            if (state.isConnected && state.isInternetReachable) {
-                setIsConnected(true);
-            } else {
-                setIsConnected(false);
+            // isConnected = connecté à un réseau local (wifi/cellulaire)
+            // isInternetReachable = accès effectif à Internet
+            const hasInternet = Boolean(state.isConnected && state.isInternetReachable !== false);
+
+            setIsConnected(hasInternet);
+            if (state.isConnected !== null && state.isInternetReachable !== null) {
+                // S'il n'y a pas d'accès Internet (ou pas de réseau)
+                if (!state.isConnected || state.isInternetReachable === false) {
+                    setIsAlertNoInternetModal(true);
+                } else {
+                    setIsAlertNoInternetModal(false);
+                }
             }
         });
 
@@ -58,44 +55,19 @@ export default function Pokedex() {
         };
     }, []);
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-const [hasSeenModal, setHasSeenModal] = useState(false);
-
-// Exemple : écoute de l'état de la connexion
-useEffect(() => {
-    const handleConnectionChange = (isConnected) => {
-        if (!isConnected) {
-            setIsModalVisible(true);
-            setHasSeenModal(false); // reset si on perd la connexion
-        } else if (!hasSeenModal) {
-            setIsModalVisible(false); // ferme la modale
-            setHasSeenModal(true);   // marque comme vue pour éviter réouverture
-        }
-    };
-
-    // ici ton listener réseau
-    const unsubscribe = NetInfo.addEventListener(state => {
-        handleConnectionChange(state.isConnected);
-    });
-
-    return () => unsubscribe();
-}, [hasSeenModal]);
-
     useEffect(() => {
         if (isConnected) {
             setLoading(true);
             fetch('https://tyradex.app/api/v1/pokemon')
                 .then(res => res.json())
                 .then(data => {
-                    data.shift(),
-                        setFiltredPokemon(data);
+                    data.shift();
+                    setFiltredPokemon(data);
                 })
                 .catch(console.error)
                 .finally(() => setLoading(false));
-        } else {
-            checkConnection();
         }
-    }, [isConnected, checkConnection]);
+    }, [isConnected]);
 
     const renderItem = useCallback(({ item }) => {
         // Add safeguards for item data
@@ -185,12 +157,12 @@ useEffect(() => {
                 keyExtractor={(item) => item?.pokedex_id?.toString() || Math.random().toString()}
             />
 
-{isModalVisible && (
-  <AlertNoInternetModal
-      visible={isModalVisible}
-      onClose={() => setIsModalVisible(false)}
-  />
-)}
+            {isAlertNoInternetModal && (
+                <AlertNoInternetModal
+                    visible={isAlertNoInternetModal}
+                    onClose={() => setIsAlertNoInternetModal(false)}
+                />
+            )}
         </View>
 
     );
