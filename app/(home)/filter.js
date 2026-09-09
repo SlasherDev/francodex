@@ -401,7 +401,7 @@ export default function Filter() {
             <ScrollView style={{ backgroundColor: currentColors.background }}>
                 <View style={{ flex: 1, alignItems: "center", marginVertical: 20, gap: 15, paddingBottom: 20 }}>
                     <View style={styles.filterGroup}>
-                        <Text style={styles.filterTitle}>Générations</Text>
+                        <Text style={[styles.filterTitle, { color: currentColors.text }]}>Générations</Text>
 
                         <TouchableOpacity
                             onPress={() => setIsGenPickerVisible(true)}
@@ -428,7 +428,7 @@ export default function Filter() {
                     <View style={{ flexDirection: 'row', width: '90%', gap: 10 }}>
                         {/* Type 1 */}
                         <View style={styles.typePickerContainer}>
-                            <Text style={[styles.filterTitle, { textAlign: 'center', marginBottom: 6 }]}>Type 1</Text>
+                            <Text style={[styles.filterTitle, { textAlign: 'center', marginBottom: 6, color: currentColors.text }]}>Type 1</Text>
                             <TouchableOpacity
                                 style={styles.customPicker}
                                 onPress={() => openTypePicker('type1')}
@@ -451,7 +451,7 @@ export default function Filter() {
                         {/* Type 2 – affiché seulement si type1 est sélectionné */}
                         {pokeForm.type1 !== 'all' && (
                             <View style={styles.typePickerContainer}>
-                                <Text style={[styles.filterTitle, { textAlign: 'center', marginBottom: 6 }]}>Type 2</Text>
+                                <Text style={[styles.filterTitle, { textAlign: 'center', marginBottom: 6, color: currentColors.text }]}>Type 2</Text>
                                 <TouchableOpacity
                                     style={[styles.customPicker, { flex: 1 }]}
                                     onPress={() => openTypePicker('type2')}
@@ -476,7 +476,7 @@ export default function Filter() {
                     </View>
 
                     <View style={styles.filterGroup}>
-                        <Text style={styles.filterTitle}>HP</Text>
+                        <Text style={[styles.filterTitle, { color: currentColors.text }]}>HP</Text>
                         <View style={styles.filterViewContent}>
                             {/* Bouton qui ouvre le modal de sélection du comparateur */}
                             <CustomPickerSymbols
@@ -490,7 +490,7 @@ export default function Filter() {
                                     {signOptions.find(o => o.value === pokeForm.hpSign)?.label ?? '>'}
                                 </Text>
                             </CustomPickerSymbols>
-                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={[styles.filterTextInput, { color: theme === 'dark' ? 'white' : 'black' }]}
                                 value={pokeForm.hpNbr?.toString() || ''}
                                 onChangeText={(value) => { handleChange('hpNbr', value); }}
                                 placeholder="0" placeholderTextColor={theme === 'dark' ? 'white' : 'black'}
@@ -498,7 +498,7 @@ export default function Filter() {
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
-                        <Text style={styles.filterTitle}>Attaque</Text>
+                        <Text style={[styles.filterTitle, { color: currentColors.text }]}>Attaque</Text>
                         <View style={styles.filterViewContent}>
                             <CustomPickerSymbols
                                 style={[styles.filterPicker, styles.signButton]}
@@ -511,7 +511,7 @@ export default function Filter() {
                                     {signOptions.find(o => o.value === pokeForm.attSign)?.label ?? '>'}
                                 </Text>
                             </CustomPickerSymbols>
-                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={[styles.filterTextInput, { color: theme === 'dark' ? 'white' : 'black' }]}
                                 value={pokeForm.attNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('attNbr', value);
@@ -521,7 +521,7 @@ export default function Filter() {
                         </View>
                     </View>
                     <View style={styles.filterGroup} >
-                        <Text style={styles.filterTitle}>Defense</Text>
+                        <Text style={[styles.filterTitle, { color: currentColors.text }]}>Defense</Text>
                         <View style={styles.filterViewContent}>
                             <CustomPickerSymbols
                                 style={[styles.filterPicker, styles.signButton]}
@@ -534,7 +534,7 @@ export default function Filter() {
                                     {signOptions.find(o => o.value === pokeForm.defSign)?.label ?? '>'}
                                 </Text>
                             </CustomPickerSymbols>
-                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={[styles.filterTextInput, { color: theme === 'dark' ? 'white' : 'black' }]}
                                 value={pokeForm.defNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('defNbr', value);
@@ -544,7 +544,7 @@ export default function Filter() {
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
-                        <Text style={styles.filterTitle}>Attaque Speciale</Text>
+                        <Text style={[styles.filterTitle, { color: currentColors.text }]}>Attaque Speciale</Text>
                         <View style={styles.filterViewContent}>
                             <CustomPickerSymbols
                                 style={[styles.filterPicker, styles.signButton]}
@@ -557,7 +557,7 @@ export default function Filter() {
                                     {signOptions.find(o => o.value === pokeForm.attSpeSign)?.label ?? '>'}
                                 </Text>
                             </CustomPickerSymbols>
-                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={styles.filterTextInput}
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={[styles.filterTextInput, { color: theme === 'dark' ? 'white' : 'black' }]}
                                 value={pokeForm.attSpeNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('attSpeNbr', value);
@@ -567,7 +567,7 @@ export default function Filter() {
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
-                        <Text style={styles.filterTitle}>Defense Speciale</Text>
+                        <Text style={[styles.filterTitle, { color: currentColors.text }]}>Defense Speciale</Text>
                         <View style={styles.filterViewContent}>
                             <CustomPickerSymbols
                                 style={[styles.filterPicker, styles.signButton]}
@@ -580,7 +580,7 @@ export default function Filter() {
                                     {signOptions.find(o => o.value === pokeForm.defSpeSign)?.label ?? '>'}
                                 </Text>
                             </CustomPickerSymbols>
-                            <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={[styles.filterTextInput, { color: theme === 'dark' ? 'white' : 'black' }]}
                                 value={pokeForm.defSpeNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('defSpeNbr', value);
@@ -590,7 +590,7 @@ export default function Filter() {
                         </View>
                     </View>
                     <View style={styles.filterGroup}>
-                        <Text style={styles.filterTitle}>Vitesse</Text>
+                        <Text style={[styles.filterTitle, { color: currentColors.text }]}>Vitesse</Text>
                         <View style={styles.filterViewContent}>
                             <CustomPickerSymbols
                                 style={[styles.filterPicker, styles.signButton]}
@@ -603,7 +603,7 @@ export default function Filter() {
                                     {signOptions.find(o => o.value === pokeForm.speedSign)?.label ?? '>'}
                                 </Text>
                             </CustomPickerSymbols>
-                            <TextInput selectionColor={'black'} inputMode="numeric" style={styles.filterTextInput}
+                            <TextInput selectionColor={theme === 'dark' ? 'white' : 'black'} inputMode="numeric" style={[styles.filterTextInput, { color: theme === 'dark' ? 'white' : 'black' }]}
                                 value={pokeForm.speedNbr?.toString() || ''}
                                 onChangeText={(value) => {
                                     handleChange('speedNbr', value);

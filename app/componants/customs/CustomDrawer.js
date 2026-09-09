@@ -23,7 +23,7 @@ export default function CustomDrawer(props) {
 
       <View style={{ padding: 20, alignItems: 'center', paddingBottom: 50 }}>
         <Text style={{ fontSize: 18, fontWeight: 'bold', color: currentColors.text }}>{app.expo.name}</Text>
-        <Text style={{ fontSize: 16, color: currentColors.text }}>{app.expo.owner}</Text>
+        <Text style={{ fontSize: 16, color: currentColors.text }}>{app.expo.creator}</Text>
         <Text style={{ fontSize: 14, color: currentColors.text }}>Version {app.expo.version}</Text>
       </View>
 
