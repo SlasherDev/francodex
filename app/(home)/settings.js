@@ -1,12 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Modal, Button, StyleSheet, Image, Animated, Switch } from "react-native";
+import { View, Text, TouchableOpacity, Modal, StyleSheet, Image } from "react-native";
 import context from "../../context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from "../../ThemeContext";
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Settings() {
     const { params, setParams } = useContext(context);
-    const { theme, toggleTheme, currentColors } = useTheme();
+    const { theme, themeMode, setThemeMode, currentColors } = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
 
     const handleSelectLang = async (lang) => {
@@ -48,18 +50,6 @@ export default function Settings() {
         }
     };
 
-
-    const togglePosition = theme === "dark" ? 35 : 0;
-    const [toggleAnim] = useState(new Animated.Value(togglePosition));
-
-    // Animate the toggle when the theme changes
-    useEffect(() => {
-        Animated.spring(toggleAnim, {
-            toValue: togglePosition,
-            useNativeDriver: false,
-        }).start();
-    }, [theme]);
-
     return (
         <View style={[styles.container, { backgroundColor: currentColors.background }]}>
             {/* Language Change Section */}
@@ -70,15 +60,68 @@ export default function Settings() {
                     <Text style={{ color: currentColors.text }}>{langApi[params.lang].langName}</Text>
                 </TouchableOpacity>
 
-                <View style={[styles.box, { backgroundColor: currentColors.background }]}>
-                    <Text style={{ color: theme === 'dark' ? 'white' : 'black', fontWeight: 'bold' }}>Thème: {theme === 'dark' ? 'Sombre' : 'Clair'}</Text>
-                    <Switch
-                        value={theme === 'dark'}
-                        onValueChange={toggleTheme}
-                        trackColor={{ false: '#767577', true: 'gray' }}
-                        thumbColor={theme === 'dark' ? 'white' : 'black'}
-                        style={styles.switch}
-                    />
+                <View style={[styles.themeContainer, { borderColor: '#CACACA' }]}>
+                    <Text style={{ color: currentColors.text, fontWeight: 'bold', marginBottom: 12 }}>
+                        Thème de l'application
+                    </Text>
+                    <View style={styles.themeOptionsRow}>
+                        <TouchableOpacity
+                            style={[
+                                styles.themeOption,
+                                { borderColor: currentColors.text === 'white' ? '#555' : '#CACACA' },
+                                themeMode === 'light' && styles.themeOptionSelected
+                            ]}
+                            onPress={() => setThemeMode('light')}
+                            accessibilityLabel="Thème clair"
+                        >
+                            <Ionicons name="sunny" size={24} color={currentColors.text} />
+                            <Text style={[
+                                styles.themeOptionText,
+                                { color: currentColors.text },
+                                themeMode === 'light' && styles.themeOptionTextSelected
+                            ]}>
+                                Clair
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[
+                                styles.themeOption,
+                                { borderColor: currentColors.text === 'white' ? '#555' : '#CACACA' },
+                                themeMode === 'dark' && styles.themeOptionSelected
+                            ]}
+                            onPress={() => setThemeMode('dark')}
+                            accessibilityLabel="Thème sombre"
+                        >
+                            <Ionicons name="moon" size={24} color={currentColors.text} />
+                            <Text style={[
+                                styles.themeOptionText,
+                                { color: currentColors.text },
+                                themeMode === 'dark' && styles.themeOptionTextSelected
+                            ]}>
+                                Sombre
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[
+                                styles.themeOption,
+                                { borderColor: currentColors.text === 'white' ? '#555' : '#CACACA' },
+                                themeMode === 'auto' && styles.themeOptionSelected
+                            ]}
+                            onPress={() => setThemeMode('auto')}
+                            accessibilityLabel="Thème Auto"
+                        >
+                            <FontAwesome6 name="circle-half-stroke" size={24} color={currentColors.text} />
+                            <Text style={[
+                                styles.themeOptionText,
+                                { color: currentColors.text },
+                                themeMode === 'auto' && styles.themeOptionTextSelected
+                            ]}>
+                                Auto
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
 
@@ -214,7 +257,38 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
-    switch: {
-        // marginTop: 20,
+    themeContainer: {
+        padding: 16,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#CACACA',
+    },
+    themeOptionsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 10,
+    },
+    themeOption: {
+        flex: 1,
+        paddingVertical: 12,
+        borderRadius: 8,
+        borderWidth: 1.5,
+        borderColor: '#CACACA',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10
+    },
+    themeOptionSelected: {
+        borderColor: '#cc0000',
+        borderWidth: 2,
+        backgroundColor: '#cc000015',
+    },
+    themeOptionText: {
+        fontSize: 14,
+        fontWeight: '500',
+    },
+    themeOptionTextSelected: {
+        fontWeight: 'bold',
+        color: '#cc0000',
     },
 });
