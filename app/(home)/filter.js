@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Button, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import context from "../../context";
 import { useRouter } from "expo-router";
-import { notify } from "../../utils";
+
 
 import CustomImagePickerModale from "../componants/customs/customImagePicker";
 import CustomPickerSymbols from "../componants/customs/CustomPickerSymbols";
@@ -40,7 +40,6 @@ export default function Filter() {
         console.error('Filter component error:', error);
         setHasError(true);
         setErrorMessage(error.message || 'Une erreur inconnue est survenue');
-        notify('Erreur: ' + (error.message || 'Une erreur inconnue est survenue'));
     };
 
     // Reset error state when component mounts
@@ -96,7 +95,6 @@ export default function Filter() {
             })
             .catch(error => {
                 console.error('Error fetching Pokémon data:', error);
-                notify('Erreur lors du chargement des données Pokémon');
             });
     }, []);
 
@@ -117,7 +115,7 @@ export default function Filter() {
             })
             .catch(error => {
                 console.error('Error fetching types data:', error);
-                notify('Erreur lors du chargement des types');
+
             });
     }, []);
 
@@ -143,7 +141,6 @@ export default function Filter() {
             })
             .catch(error => {
                 console.error('Error fetching generations data:', error);
-                notify('Erreur lors du chargement des générations');
             });
     }, []);
 
@@ -221,7 +218,6 @@ export default function Filter() {
             };
             setpokeForm(defaultFilter);
             setFiltredPokemon(pokemons);
-            notify('Filtres réinitialisés');
             // Navigate back to home screen after resetting filters with a small delay
             if (router) {
                 setTimeout(() => {
@@ -246,7 +242,6 @@ export default function Filter() {
             // Ensure we have pokemons data
             if (!pokemons || !Array.isArray(pokemons) || pokemons.length === 0) {
                 console.warn('No Pokémon data available for filtering');
-                notify('Aucune donnée Pokémon disponible pour le filtrage');
                 return;
             }
 
@@ -369,14 +364,11 @@ export default function Filter() {
                 });
             } catch (error) {
                 console.error('Error applying filters:', error);
-                notify('Erreur lors de l\'application des filtres');
                 return;
             }
 
             // Now filtered contains Pokémon filtered by both type1 and type2 conditions
             setFiltredPokemon(filtered);
-            // Show a notification that filter was applied
-            notify(`Filtre appliqué: ${filtered.length} Pokémon trouvés`);
             // Navigate back to home screen after applying filters with a small delay
             if (router) {
                 setTimeout(() => {

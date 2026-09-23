@@ -74,7 +74,7 @@ export default function Settings() {
                             onPress={() => setThemeMode('light')}
                             accessibilityLabel="Thème clair"
                         >
-                            <Ionicons name="sunny" size={24} color={currentColors.text} />
+                            <Ionicons name="sunny-outline" size={24} color={currentColors.text} />
                             <Text style={[
                                 styles.themeOptionText,
                                 { color: currentColors.text },
